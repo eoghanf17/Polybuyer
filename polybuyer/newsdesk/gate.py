@@ -76,12 +76,17 @@ QUESTIONS: tuple[Question, ...] = (
     ),
     Question(
         "novel",
-        "Is this new information as of this post, rather than a recap, a "
-        "follow-up, a thread continuation, or commentary on something already "
-        "public?",
-        hard=False,
-        catches="recaps and 'as we reported earlier' posts, which wire accounts "
-                "produce constantly and which carry no new information",
+        "Is the event being reported happening RIGHT NOW or within the last "
+        "hour or so? Answer false if the post refers back to something that "
+        "happened days, weeks or months ago, however significant it was, and "
+        "false for recaps, anniversaries, follow-ups and statistics about a "
+        "past event.",
+        hard=True,
+        catches="recaps and retrospectives. Promoted to a hard check after a "
+                "live test: 'Reminder: our token launched last month, here "
+                "are the stats' passed the softer wording and fired. A recap "
+                "is the most common post an account makes about the very "
+                "event a market is watching, so this has to be a stop.",
     ),
     Question(
         "material",
