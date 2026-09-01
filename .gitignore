@@ -8,3 +8,8 @@ venv/
 .DS_Store
 run.log
 *.log
+
+# secrets
+.env
+*.pem
+*.key
