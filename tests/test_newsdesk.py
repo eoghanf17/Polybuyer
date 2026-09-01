@@ -9,7 +9,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from polybuyer.newsdesk import gate, guards
+from polybuyer.newsdesk import gate, guards, rules
 from polybuyer.newsdesk.store import Market, Store
 
 YES = '{"relevant":true,"asserted":true,"resolves":true,"novel":true,' \
@@ -29,6 +29,8 @@ class TestStore(unittest.TestCase):
     def _add(self, cid="0xa"):
         self.s.add_market(Market(
             condition_id=cid, question="Will X resign?", rules="YES if X resigns.",
+            required_keyword="resign OR resigns OR resignation",
+            topic_terms='"John X" OR @johnx',
             accounts=[{"handle": "@Reuters", "tier": "wire"},
                       {"handle": "@beatguy", "tier": "beat"}]))
 
@@ -58,6 +60,26 @@ class TestStore(unittest.TestCase):
         self._add("0xb")
         self.assertEqual(sorted(self.s.watched_handles()["reuters"]), ["0xa", "0xb"])
 
+    def test_an_armed_market_needs_a_required_keyword(self):
+        with self.assertRaises(rules.RuleError):
+            self.s.add_market(Market(condition_id="0xz", question="Will X resign?",
+                                     accounts=[{"handle": "@Reuters", "tier": "wire"}]))
+
+    def test_stream_rules_cover_both_tiers(self):
+        self._add()
+        tags = [r["tag"] for r in self.s.stream_rules()]
+        self.assertIn("0xa:keyword", tags)
+        self.assertTrue(any(t.startswith("0xa:principal") for t in tags))
+
+    def test_tier_two_columns_round_trip(self):
+        self._add()
+        self.s.set_params("0xa", aggression_kw=0.01, max_size_usd_kw=2.0,
+                          min_followers=25_000)
+        m = self.s.get_market("0xa")
+        self.assertAlmostEqual(m["aggression_kw"], 0.01)
+        self.assertAlmostEqual(m["max_size_usd_kw"], 2.0)
+        self.assertEqual(m["min_followers"], 25_000)
+
     def test_disarm_removes_it_from_the_watch_set(self):
         self._add()
         self.s.disarm("0xa", "fired")
@@ -81,6 +103,83 @@ class TestStore(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.s.set_params("0xa", nonsense=1)
 
+
+class TestRules(unittest.TestCase):
+    """The required keyword, and how a tier changes what a post buys."""
+
+    M = {
+        "condition_id": "0xa",
+        "required_keyword": "token OR TGE",
+        "topic_terms": "Arcium",
+        "min_followers": 10_000,
+        "aggression": 0.05, "max_size_usd": 10.0,
+        "aggression_kw": 0.02, "max_size_usd_kw": 3.0,
+        "accounts": [{"handle": "arcium", "tier": "principal"},
+                     {"handle": "someosint", "tier": "osint"}],
+    }
+
+    def test_every_rule_ands_the_keyword(self):
+        for r in rules.build_rules(self.M):
+            self.assertIn("(token OR TGE)", r.value)
+
+    def test_the_keyword_is_parenthesised_so_or_binds_correctly(self):
+        # Without the parentheses X reads "from:arcium token OR TGE" as
+        # "(from:arcium token) OR TGE" and matches every post saying TGE.
+        principal = [r for r in rules.build_rules(self.M)
+                     if ":principal" in r.tag][0]
+        self.assertTrue(principal.value.endswith("(token OR TGE)"))
+
+    def test_an_empty_keyword_is_refused(self):
+        m = dict(self.M, required_keyword="")
+        with self.assertRaises(rules.RuleError):
+            rules.build_rules(m)
+
+    def test_osint_accounts_are_not_principals(self):
+        principal = [r for r in rules.build_rules(self.M)
+                     if ":principal" in r.tag][0]
+        self.assertIn("from:arcium", principal.value)
+        self.assertNotIn("someosint", principal.value)
+
+    def test_no_topic_terms_means_no_keyword_tier(self):
+        m = dict(self.M, topic_terms="")
+        self.assertEqual([r.tag for r in rules.build_rules(m)], ["0xa:principal:0"])
+
+    def test_long_account_lists_are_split_under_the_cap(self):
+        m = dict(self.M, accounts=[{"handle": f"reporter{i:03d}", "tier": "beat"}
+                                   for i in range(60)])
+        rs = rules.build_rules(m)
+        self.assertGreater(len([r for r in rs if ":principal" in r.tag]), 1)
+        for r in rs:
+            self.assertLessEqual(len(r.value), rules.MAX_RULE_LEN)
+
+    def test_an_unreadable_tag_gets_the_lower_tier(self):
+        self.assertEqual(rules.parse_tag("garbage")[1], rules.KEYWORD)
+
+    def test_the_follower_floor_applies_to_keyword_only(self):
+        ok, _ = rules.eligible(self.M, rules.PRINCIPAL, 486)
+        self.assertTrue(ok)          # a principal we chose, however small
+        ok, _ = rules.eligible(self.M, rules.KEYWORD, 486)
+        self.assertFalse(ok)         # blind test 2's false alarm, excluded
+        ok, _ = rules.eligible(self.M, rules.KEYWORD, 24_566)
+        self.assertTrue(ok)          # @GoatHouseNFL on OBJ, kept
+
+    def test_a_missing_follower_count_fails_the_keyword_tier(self):
+        self.assertFalse(rules.eligible(self.M, rules.KEYWORD, None)[0])
+
+    def test_keyword_tier_is_sized_down(self):
+        a1, s1 = rules.sizing(self.M, rules.PRINCIPAL)
+        a2, s2 = rules.sizing(self.M, rules.KEYWORD)
+        self.assertLess(a2, a1)
+        self.assertLess(s2, s1)
+
+    def test_only_a_principal_may_wait_for_corroboration(self):
+        self.assertEqual(rules.act(rules.PRINCIPAL, gate.CORROBORATE)[0],
+                         gate.CORROBORATE)
+        self.assertEqual(rules.act(rules.KEYWORD, gate.CORROBORATE)[0], gate.DROP)
+
+    def test_both_tiers_fire_on_a_clean_pass(self):
+        for t in (rules.PRINCIPAL, rules.KEYWORD):
+            self.assertEqual(rules.act(t, gate.FIRE)[0], gate.FIRE)
 
 class TestGate(unittest.TestCase):
     def test_all_yes_fires(self):

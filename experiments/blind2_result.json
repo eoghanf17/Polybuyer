@@ -1,0 +1,274 @@
+[
+ {
+  "market": "Will Andy Burnham visit Ukraine by December 31, 2026?",
+  "matched": 59,
+  "by_threshold": {
+   "0": {
+    "eligible": 59,
+    "hit": true,
+    "handle": "Mario19940",
+    "followers": 757,
+    "text": "RT @SprinterPress: Macron, Merz, and Burnham will arrive in Kyiv on August 24th to meet with Zelensk"
+   },
+   "10000": {
+    "eligible": 5,
+    "hit": true,
+    "handle": "SprinterPress",
+    "followers": 796725,
+    "text": "Macron, Merz, and Burnham will arrive in Kyiv on August 24th to meet with Zelenskyy as part of the \""
+   },
+   "50000": {
+    "eligible": 2,
+    "hit": true,
+    "handle": "SprinterPress",
+    "followers": 796725,
+    "text": "Macron, Merz, and Burnham will arrive in Kyiv on August 24th to meet with Zelenskyy as part of the \""
+   },
+   "250000": {
+    "eligible": 1,
+    "hit": true,
+    "handle": "SprinterPress",
+    "followers": 796725,
+    "text": "Macron, Merz, and Burnham will arrive in Kyiv on August 24th to meet with Zelenskyy as part of the \""
+   }
+  }
+ },
+ {
+  "market": "Will Cap launch a token by December 31, 2026?",
+  "matched": 45,
+  "by_threshold": {
+   "0": {
+    "eligible": 45,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 5,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "50000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "250000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "market": "Will Squid launch a token by December 31, 2026?",
+  "matched": 41,
+  "by_threshold": {
+   "0": {
+    "eligible": 41,
+    "hit": true,
+    "handle": "squidrouterETH",
+    "followers": 486,
+    "text": "@squidrouter (10) The $QUID Season 1 Airdrop Claims go Live June 30 at 1:00pm UTC.\n\nNative Squid Rou"
+   },
+   "10000": {
+    "eligible": 7,
+    "hit": true,
+    "handle": "legiondotcc",
+    "followers": 96286,
+    "text": "The $QUID sale will run simultaneously on Legion and Kraken Launch.\n\nLearn more about Squid here:\nht"
+   },
+   "50000": {
+    "eligible": 6,
+    "hit": true,
+    "handle": "legiondotcc",
+    "followers": 96286,
+    "text": "The $QUID sale will run simultaneously on Legion and Kraken Launch.\n\nLearn more about Squid here:\nht"
+   },
+   "250000": {
+    "eligible": 2,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "market": "Will Citrea launch a token by June 30, 2026?",
+  "matched": 19,
+  "by_threshold": {
+   "0": {
+    "eligible": 19,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "50000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "250000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "market": "SpaceX IPO: Officially added to Nasdaq-100 in 2026?",
+  "matched": 55,
+  "by_threshold": {
+   "0": {
+    "eligible": 55,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 15,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "50000": {
+    "eligible": 6,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "250000": {
+    "eligible": 1,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "market": "Will Arcium launch a token by December 31, 2027?",
+  "matched": 9,
+  "by_threshold": {
+   "0": {
+    "eligible": 9,
+    "hit": true,
+    "handle": "Jeffery_xbt",
+    "followers": 106,
+    "text": "@sammxygoinup @Arcium They picked the best approach tbh. Shipped / let teams build useful everyday a"
+   },
+   "10000": {
+    "eligible": 2,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "50000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "250000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "market": "Will Maia Sandu visit Ukraine by December 31, 2026?",
+  "matched": 0,
+  "by_threshold": {
+   "0": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "50000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "250000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "market": "Pro Football: Will OBJ sign with a team in 2026?",
+  "matched": 60,
+  "by_threshold": {
+   "0": {
+    "eligible": 60,
+    "hit": true,
+    "handle": "GoatHouseNFL",
+    "followers": 24566,
+    "text": "#Giants signed OBJ, per @MikeGarafolo. \n\nHe\u2019s back!"
+   },
+   "10000": {
+    "eligible": 5,
+    "hit": true,
+    "handle": "GoatHouseNFL",
+    "followers": 24566,
+    "text": "#Giants signed OBJ, per @MikeGarafolo. \n\nHe\u2019s back!"
+   },
+   "50000": {
+    "eligible": 1,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   },
+   "250000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "text": null
+   }
+  }
+ }
+]

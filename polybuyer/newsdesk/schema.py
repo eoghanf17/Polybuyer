@@ -13,7 +13,7 @@ guards were set sensibly.
 
 from __future__ import annotations
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 DDL = [
     """
@@ -31,10 +31,28 @@ DDL = [
         token_id_ref      TEXT,
         token_id_other    TEXT,
 
+        -- The one term that must appear in a post for it to be worth
+        -- reading, ANDed into every stream rule for this market including
+        -- the from: rules on principals. An X query fragment, so an
+        -- OR-group is allowed: '(token OR TGE OR "$ARX")'.
+        required_keyword  TEXT NOT NULL DEFAULT '',
+
+        -- Tier-2 subject terms. Empty disables the keyword tier entirely
+        -- and leaves the market watching its principals only.
+        topic_terms       TEXT NOT NULL DEFAULT '',
+
+        -- Follower floor for the keyword tier. Blind test 2 measured this:
+        -- 10k stripped the only false alarm without losing a hit.
+        min_followers     INTEGER NOT NULL DEFAULT 10000,
+
         -- How far through the pre-move mid we are willing to pay, and how
         -- much. Per market so a thin market can be handled differently.
+        -- The unsuffixed pair is tier 1 (a principal we chose); _kw is
+        -- tier 2 (an account the keyword rule turned up).
         aggression        REAL NOT NULL DEFAULT 0.05,
         max_size_usd      REAL NOT NULL DEFAULT 10.0,
+        aggression_kw     REAL NOT NULL DEFAULT 0.02,
+        max_size_usd_kw   REAL NOT NULL DEFAULT 3.0,
 
         -- Armed or not. Set to 0 after a fire, and also after a fire is
         -- blocked by the move guards: if the market already moved without
@@ -85,6 +103,9 @@ DDL = [
         handle        TEXT,
         tweet_text    TEXT,
         direction     INTEGER,
+        -- 'principal' | 'keyword' -- which tier matched this post.
+        tier          TEXT,
+        followers     INTEGER,
         mid_before    REAL,
         limit_price   REAL,
         size_usd      REAL,
@@ -115,9 +136,27 @@ DDL = [
 DEFAULTS = {
     "aggression": 0.05,
     "max_size_usd": 10.0,
+    "aggression_kw": 0.02,
+    "max_size_usd_kw": 3.0,
+    "min_followers": 10_000,
     "on_off": 1,
     "guard_5m": 0.20,
     "guard_1h": 0.20,
     "guard_2h": 0.20,
     "guard_1d": 0.30,
+}
+
+#: Columns added after v1, applied to an existing database on open.
+#: SQLite has no "ADD COLUMN IF NOT EXISTS", so the caller checks
+#: PRAGMA table_info first; these are the statements it runs.
+MIGRATIONS: dict[int, list[str]] = {
+    2: [
+        "ALTER TABLE markets ADD COLUMN required_keyword TEXT NOT NULL DEFAULT ''",
+        "ALTER TABLE markets ADD COLUMN topic_terms TEXT NOT NULL DEFAULT ''",
+        "ALTER TABLE markets ADD COLUMN min_followers INTEGER NOT NULL DEFAULT 10000",
+        "ALTER TABLE markets ADD COLUMN aggression_kw REAL NOT NULL DEFAULT 0.02",
+        "ALTER TABLE markets ADD COLUMN max_size_usd_kw REAL NOT NULL DEFAULT 3.0",
+        "ALTER TABLE fires ADD COLUMN tier TEXT",
+        "ALTER TABLE fires ADD COLUMN followers INTEGER",
+    ],
 }
