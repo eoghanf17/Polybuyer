@@ -163,8 +163,7 @@ def cmd_follow(args) -> int:
     # against 23,268 worth $20.6M in a single year here.
     end = int(time.time())
     start = end - args.days * 24 * 3600
-    cids: list[str] = []
-    seen: set[str] = set()
+    weight: dict[str, float] = {}
     for w in wallets:
         rows = wallet_trade_history(fetch, w, start, end)
         notional = sum(float(r.get("size") or 0) * float(r.get("price") or 0)
@@ -173,10 +172,20 @@ def cmd_follow(args) -> int:
               file=sys.stderr)
         for r in rows:
             c = str(r.get("conditionId") or "")
-            if c and c not in seen:
-                seen.add(c)
-                cids.append(c)
-    print(f"  {len(cids)} distinct markets", file=sys.stderr)
+            if not c:
+                continue
+            weight[c] = weight.get(c, 0.0) + (
+                float(r.get("size") or 0) * float(r.get("price") or 0))
+
+    # Rank by the cluster's own notional, not insertion order. Taking the
+    # first N encountered would sample whichever wallet happened to be
+    # processed first -- here the one with 23k trades -- and under-weight
+    # the rest of the cluster.
+    cids = sorted(weight, key=lambda c: -weight[c])
+    covered = sum(weight[c] for c in cids[: args.markets])
+    total = sum(weight.values()) or 1.0
+    print(f"  {len(cids)} distinct markets; top {min(args.markets, len(cids))} "
+          f"carry {covered / total:.0%} of cluster notional", file=sys.stderr)
     cids = cids[: args.markets]
     print(f"fetching {len(cids)} market tapes...", file=sys.stderr)
 

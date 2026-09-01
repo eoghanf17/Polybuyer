@@ -86,6 +86,44 @@ class TestSharedCounterparties(unittest.TestCase):
         self.assertEqual(len(rep.groups), 2)
 
 
+class TestSiblingDiscovery(unittest.TestCase):
+    """Merging a known set cannot tell you the set is complete."""
+
+    def test_infrastructure_is_never_a_sibling(self):
+        from polybuyer.clusters import INFRASTRUCTURE
+        # Every proxy wallet transacts with these constantly; they dominate
+        # any counterparty ranking.
+        self.assertIn("0x4bfb41d5b3570defd03c39a9a4d8de6bd8b8982e", INFRASTRUCTURE)
+        self.assertIn("0xd91e80cf2e7be2e162c6513ced06f1dd0da35296", INFRASTRUCTURE)
+
+    def test_finds_a_funded_trading_wallet(self):
+        from polybuyer import clusters
+
+        class FakeFetch:
+            def get(self, url):
+                if "tokentx" in url:
+                    return {"result": [xfer(A, "0xsibling", 50_000.0),
+                                       xfer(A, "0xcashout", 90_000.0)]}
+                if "traded?user=0xsibling" in url:
+                    return {"traded": 140}       # trades -> a real sibling
+                return {"traded": 0}             # cash-out address
+
+        found = clusters.find_siblings(FakeFetch(), [A])
+        self.assertEqual([f[0] for f in found], ["0xsibling"],
+                         "a cash-out address must not be reported as a sibling")
+
+    def test_empty_result_is_evidence_of_completeness(self):
+        from polybuyer import clusters
+
+        class FakeFetch:
+            def get(self, url):
+                if "tokentx" in url:
+                    return {"result": [xfer(A, "0xbridge", 500_000.0)]}
+                return {"traded": 0}
+
+        self.assertEqual(clusters.find_siblings(FakeFetch(), [A]), [])
+
+
 class TestFillExclusion(unittest.TestCase):
     def test_siblings_are_excluded_from_each_others_fills(self):
         """You cannot fill against the order you are copying -- nor against

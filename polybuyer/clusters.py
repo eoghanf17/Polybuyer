@@ -34,6 +34,16 @@ USDC = {
     "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
 }
 
+#: Polymarket protocol contracts.  Every proxy wallet transacts with these
+#: constantly, so they dominate any counterparty ranking and must never be
+#: mistaken for a sibling wallet.
+INFRASTRUCTURE = {
+    "0x4bfb41d5b3570defd03c39a9a4d8de6bd8b8982e": "CTF Exchange",
+    "0xc5d563a36ae78145c45a50134d48a1215220f80a": "NegRisk CTF Exchange",
+    "0x4d97dcd97ec945f40cf65f87097ace5ea0476045": "Conditional Tokens",
+    "0xd91e80cf2e7be2e162c6513ced06f1dd0da35296": "NegRiskAdapter",
+}
+
 
 class UnionFind:
     def __init__(self) -> None:
@@ -169,6 +179,58 @@ def build(
         for m in members:
             rep.mapping[m] = cid
     return rep
+
+
+def find_siblings(
+    fetch: Fetcher,
+    known: Sequence[str],
+    min_usd: float = 1_000.0,
+    max_candidates: int = 25,
+) -> list[tuple[str, float, int, int]]:
+    """Look for wallets the known set funds that are not yet in it.
+
+    :func:`build` only merges wallets already under consideration, which
+    cannot tell you the set is *complete*.  This walks outward instead: take
+    every USDC counterparty of the known wallets, drop protocol contracts,
+    and ask which of the rest actually trade on Polymarket.  A cash-out
+    address or a bridge shows zero markets traded; a sibling proxy does not.
+
+    Returns ``(address, usd, n_transfers, markets_traded)`` for counterparties
+    that trade, best candidates first.  An empty result is meaningful: it is
+    the evidence that a cluster is complete rather than an assumption that
+    it is.
+    """
+    from .sources import markets_traded
+
+    ks = {_norm(w) for w in known}
+    totals: dict[str, float] = defaultdict(float)
+    counts: dict[str, int] = defaultdict(int)
+
+    for w in ks:
+        for r in token_transfers(fetch, w):
+            if _norm(r.get("contractAddress")) not in USDC:
+                continue
+            src, dst = _norm(r.get("from")), _norm(r.get("to"))
+            other = dst if src == w else src
+            if not other or other in ks or other in INFRASTRUCTURE:
+                continue
+            try:
+                dec = int(r.get("tokenDecimal", 6) or 6)
+                totals[other] += int(r.get("value", 0)) / (10 ** dec)
+            except (TypeError, ValueError):
+                pass
+            counts[other] += 1
+
+    ranked = sorted(totals, key=lambda a: -totals[a])[:max_candidates]
+    out: list[tuple[str, float, int, int]] = []
+    for a in ranked:
+        if totals[a] < min_usd:
+            continue
+        n = markets_traded(fetch, a)
+        if n > 0:
+            out.append((a, totals[a], counts[a], n))
+    out.sort(key=lambda r: -r[1])
+    return out
 
 
 def fetch_and_build(
