@@ -39,6 +39,13 @@ KNOWN_INSTANT_PAT = re.compile(
     r"scheduled to be held|election day|cpi report|jobs report|"
     r"earnings (call|report)|nonfarm)\b", re.I)
 
+#: Principals who announce somewhere other than X. A market that turns on
+#: one of these is unreachable from an X feed however good the signal is:
+#: Trump posts to Truth Social first and the X repost, when it comes, is
+#: already late. Dropped rather than flagged, since no account list fixes it.
+OFF_PLATFORM_PAT = re.compile(
+    r"\b(trump|truth social|white house|potus)\b", re.I)
+
 SPORTS_PAT = re.compile(
     r"\b(super bowl|nba|nfl|mlb|nhl|premier league|la liga|serie a|"
     r"champions league|world cup|ufc|f1|grand prix|tennis|golf|"
@@ -138,6 +145,9 @@ def screen(rows: list[dict], seen: set[str], min_days: float = 0.25,
             continue
         if SCHEDULED_PAT.search(blob):
             drop("settles on a schedule, not on news")
+            continue
+        if OFF_PLATFORM_PAT.search(q):
+            drop("principal announces off-platform (Truth Social)")
             continue
 
         try:
