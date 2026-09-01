@@ -9,7 +9,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from polybuyer.newsdesk import gate, guards, rules
+from polybuyer.newsdesk import corpus, gate, guards, rules
 from polybuyer.newsdesk.store import Market, Store
 
 YES = '{"relevant":true,"asserted":true,"resolves":true,"novel":true,' \
@@ -282,3 +282,78 @@ class TestGuards(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestCorpus(unittest.TestCase):
+    """The archive of paid-for posts, and what it can be scored on."""
+
+    def _p(self, **kw):
+        d = dict(post_id="1", handle="a", text="t",
+                 created_at="2026-06-01T10:00:00Z",
+                 market_repriced_at="2026-06-01T12:00:00Z")
+        d.update(kw)
+        return corpus.Post(**d)
+
+    def test_lead_is_positive_before_the_repricing(self):
+        self.assertEqual(self._p().lead_s, 7200.0)
+        self.assertTrue(self._p().actionable)
+
+    def test_a_post_after_the_repricing_is_not_actionable(self):
+        p = self._p(created_at="2026-06-01T13:00:00Z")
+        self.assertLess(p.lead_s, 0)
+        self.assertFalse(p.actionable)
+
+    def test_rows_without_an_id_dedupe_on_content(self):
+        a, b = self._p(post_id=""), self._p(post_id="")
+        self.assertEqual(a.key, b.key)
+        self.assertNotEqual(a.key, self._p(post_id="", text="other").key)
+
+    def test_merging_keeps_a_label_the_new_row_lacks(self):
+        path = tempfile.mktemp(suffix=".jsonl")
+        try:
+            corpus.save([self._p(label=corpus.BREAKER, label_note="why")], path)
+            corpus.add([self._p(followers=50)], path)   # re-fetch, no label
+            rows = corpus.load(path)
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0].label, corpus.BREAKER)
+            self.assertEqual(rows[0].followers, 50)
+        finally:
+            if os.path.exists(path):
+                os.unlink(path)
+
+    def test_unlabelled_rows_are_not_scored(self):
+        rows = [self._p(gate={"action": "fire"})]
+        self.assertEqual(corpus.score(rows)["scored"], 0)
+
+    def test_a_post_after_the_repricing_is_not_scored(self):
+        rows = [self._p(created_at="2026-06-01T13:00:00Z",
+                        label=corpus.BREAKER, gate={"action": "fire"})]
+        self.assertEqual(corpus.score(rows)["scored"], 0)
+
+    def test_confusion_matrix(self):
+        rows = [
+            self._p(post_id="1", label=corpus.BREAKER, gate={"action": "fire"}),
+            self._p(post_id="2", label=corpus.CHATTER, gate={"action": "fire"}),
+            self._p(post_id="3", label=corpus.CHATTER, gate={"action": "drop"}),
+            self._p(post_id="4", label=corpus.BREAKER, gate={"action": "drop"}),
+        ]
+        m = corpus.score(rows)
+        self.assertEqual((m["tp"], m["fp"], m["tn"], m["fn"]), (1, 1, 1, 1))
+        self.assertAlmostEqual(m["precision"], 0.5)
+        self.assertAlmostEqual(m["recall"], 0.5)
+
+    def test_corroborate_counts_as_firing(self):
+        rows = [self._p(label=corpus.CHATTER, gate={"action": "corroborate"})]
+        self.assertEqual(corpus.score(rows)["fp"], 1)
+
+    def test_the_follower_floor_filters_scoring(self):
+        rows = [self._p(followers=500, label=corpus.BREAKER,
+                        gate={"action": "fire"})]
+        self.assertEqual(corpus.score(rows, min_followers=10_000)["scored"], 0)
+        self.assertEqual(corpus.score(rows, min_followers=100)["scored"], 1)
+
+    def test_review_queue_is_actionable_unlabelled_rows(self):
+        rows = [self._p(post_id="1"),
+                self._p(post_id="2", label=corpus.CHATTER),
+                self._p(post_id="3", created_at="2026-06-01T13:00:00Z")]
+        self.assertEqual([p.post_id for p in corpus.needs_label(rows)], ["1"])

@@ -61,7 +61,27 @@ were gated and none fired**. Those are 22 clean rejections of ordinary
 topic chatter — the only direct evidence available that the gate does not
 fire on noise.
 
-Two limits on that, both structural:
+**This has since been resolved and the answer is stronger than the number
+above.** The 288 posts were re-fetched into `corpus/posts.jsonl` and read
+by hand. All three markets that missed with everything dropped — Cap,
+Citrea, Nasdaq-100 — turn out to be **rule failures, not gate failures**:
+
+- **Cap** — 45 posts of generic crypto noise ("market cap", "launch cap",
+  unrelated memecoins). Not one about the Cap protocol.
+- **Citrea** — the only principal post is @citrea_xyz announcing *mainnet*
+  going live, a preparatory step and not the token the market asks about;
+  the rest is airdrop speculation. Correctly dropped by `resolves` and
+  `asserted` respectively.
+- **Nasdaq-100** — all 55 posts concern the SpaceX *IPO*; none concerns
+  index inclusion, which is the resolving event. The near-miss class
+  `resolves` was written for.
+
+So the rejection evidence is **119 hand-checked posts across three
+markets with no correct fire missed**, not 22 with an unknown tail. Scored
+against the stored gate answers the corpus gives 80% precision / 80%
+recall at floor 0, and 100%/100% over the 23 rows above the 10k floor.
+
+Two limits remain, both structural:
 
 1. **The harness stopped at the first pass.** On the three markets that
    hit, the remaining eligible posts were never gated, so false alarms are
@@ -73,8 +93,12 @@ Two limits on that, both structural:
    *earlier* one — plausibly a weaker one. Recall transfers (a pass is a
    pass in either order); the specific post and its latency do not.
 
-Fixing either costs more X reads on markets already searched, and buys
-less than running the tier live in $3 size would.
+The first is now partly answered by the corpus; the second is not, and
+buys less than running the tier live in $3 size would.
+
+All 288 posts, their timestamps, follower counts, retweet status and full
+gate answers are in `corpus/posts.jsonl`. Every number in this document is
+reproducible from it with no API calls.
 
 ## Verdict
 

@@ -1,0 +1,60 @@
+{
+  "_note": "Human adjudication of the blind test 2 corpus. Declarative so the labels are reviewable in a diff rather than buried in a script. Applied by experiments/label_corpus.py.",
+
+  "market_level": [
+    {
+      "market_contains": "Will Cap launch a token",
+      "label": "chatter",
+      "note": "All 45 posts read (11 announcement-shaped, all inspected). Not one concerns the Cap protocol -- the rule caught 'market cap', 'launch cap' and unrelated memecoins. No breaker exists in this window, so no post in it can be one. Rule failure, not gate failure."
+    },
+    {
+      "market_contains": "Will Citrea launch a token",
+      "label": "chatter",
+      "note": "All 19 posts read. The only principal post is @citrea_xyz announcing MAINNET going live, which is a preparatory step and not the token this market asks about; the rest is airdrop speculation ('TGE news might drop next week'). Correctly dropped by resolves and asserted respectively. No breaker in window."
+    },
+    {
+      "market_contains": "Nasdaq-100",
+      "label": "chatter",
+      "note": "All 55 posts read (5 announcement-shaped, all inspected). Every one concerns the SpaceX IPO; none concerns Nasdaq-100 index inclusion, which is the resolving event. The near-miss class the resolves question was written for. No breaker in window."
+    }
+  ],
+
+  "posts": [
+    {
+      "market_contains": "Burnham",
+      "handle": "SprinterPress",
+      "label": "breaker",
+      "note": "Broke the Kyiv visit. 797k followers, caught by the keyword tier at every threshold."
+    },
+    {
+      "market_contains": "Burnham",
+      "handle": "Mario19940",
+      "label": "breaker",
+      "note": "Retweet of @SprinterPress carrying the same content. Labelled breaker because the text is the signal; kept as a separate row because it is the reason retweets are not excluded from rules."
+    },
+    {
+      "market_contains": "Squid",
+      "handle": "squidrouterETH",
+      "label": "breaker",
+      "note": "The project's own account announcing the $QUID airdrop claim date. 486 followers -- the case that proves a follower floor must not apply to principals."
+    },
+    {
+      "market_contains": "Squid",
+      "handle": "legiondotcc",
+      "label": "breaker",
+      "note": "96k followers, announced the $QUID sale. The keyword tier's hit at the 10k and 50k floors."
+    },
+    {
+      "market_contains": "OBJ",
+      "handle": "GoatHouseNFL",
+      "label": "breaker",
+      "note": "24.5k-follower aggregator relaying the Giants signing. On nobody's account list; the clearest argument for the keyword tier."
+    },
+    {
+      "market_contains": "Arcium",
+      "handle": "Jeffery_xbt",
+      "label": "chatter",
+      "note": "THE FALSE ALARM. 106 followers, conversational reply ('They picked the best approach tbh'), no announcement. Fired at threshold 0 and was removed by the 10k floor. The single measured false positive of blind test 2."
+    }
+  ]
+}
