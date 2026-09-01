@@ -1,0 +1,123 @@
+"""Database schema for the news-trading desk.
+
+Deliberately plain SQL. SQLite runs it locally with no server, and the same
+DDL ports to Postgres or D1 with only the autoincrement line changing, so
+the choice of where this lives can be deferred without rewriting anything.
+
+One row per market we have decided to watch, plus the accounts that could
+break it, plus an audit row for every fire and every blocked fire. The
+blocked ones matter as much as the fires: they are the record of the
+strategy declining to chase, and the only way to find out later whether the
+guards were set sensibly.
+"""
+
+from __future__ import annotations
+
+SCHEMA_VERSION = 1
+
+DDL = [
+    """
+    CREATE TABLE IF NOT EXISTS markets (
+        condition_id      TEXT PRIMARY KEY,
+        slug              TEXT,
+        question          TEXT NOT NULL,
+        rules             TEXT,
+        end_date          TEXT,
+        category          TEXT,
+
+        -- Which way we intend to trade if the news lands. +1 = long the
+        -- reference outcome (index 0), -1 = long the other side.
+        preferred_direction INTEGER NOT NULL DEFAULT 1,
+        token_id_ref      TEXT,
+        token_id_other    TEXT,
+
+        -- How far through the pre-move mid we are willing to pay, and how
+        -- much. Per market so a thin market can be handled differently.
+        aggression        REAL NOT NULL DEFAULT 0.05,
+        max_size_usd      REAL NOT NULL DEFAULT 10.0,
+
+        -- Armed or not. Set to 0 after a fire, and also after a fire is
+        -- blocked by the move guards: if the market already moved without
+        -- us, the trade is gone and re-arming would only chase it.
+        on_off            INTEGER NOT NULL DEFAULT 1,
+        off_reason        TEXT,
+        off_at            TEXT,
+
+        -- Don't-chase guards. If the price has already moved this far our
+        -- way over the window, the news is in the price.
+        guard_5m          REAL NOT NULL DEFAULT 0.20,
+        guard_1h          REAL NOT NULL DEFAULT 0.20,
+        guard_2h          REAL NOT NULL DEFAULT 0.20,
+        guard_1d          REAL NOT NULL DEFAULT 0.30,
+
+        added_at          TEXT NOT NULL,
+        added_by          TEXT,
+        notes             TEXT
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS market_accounts (
+        condition_id  TEXT NOT NULL,
+        handle        TEXT NOT NULL,
+        -- 'principal' = party to the event (a minister, the company, the
+        -- named person). 'beat' = a reporter who covers this specifically.
+        -- 'wire' = agency. 'osint' = fast aggregator, lowest trust.
+        tier          TEXT NOT NULL DEFAULT 'beat',
+        why           TEXT,
+        PRIMARY KEY (condition_id, handle)
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS seen_markets (
+        condition_id  TEXT PRIMARY KEY,
+        question      TEXT,
+        first_seen    TEXT NOT NULL,
+        decision      TEXT NOT NULL DEFAULT 'pending',
+        reason        TEXT
+    )
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS fires (
+        id            INTEGER PRIMARY KEY AUTOINCREMENT,
+        condition_id  TEXT NOT NULL,
+        at            TEXT NOT NULL,
+        tweet_id      TEXT,
+        handle        TEXT,
+        tweet_text    TEXT,
+        direction     INTEGER,
+        mid_before    REAL,
+        limit_price   REAL,
+        size_usd      REAL,
+        -- 'paper' | 'live' | 'blocked'
+        status        TEXT NOT NULL,
+        block_reason  TEXT,
+        gate_answers  TEXT,
+        move_5m       REAL,
+        move_1h       REAL,
+        move_2h       REAL,
+        move_1d       REAL,
+        latency_ms    INTEGER
+    )
+    """,
+    "CREATE INDEX IF NOT EXISTS idx_markets_on ON markets(on_off)",
+    "CREATE INDEX IF NOT EXISTS idx_accounts_handle ON market_accounts(handle)",
+    "CREATE INDEX IF NOT EXISTS idx_fires_market ON fires(condition_id)",
+    """
+    CREATE TABLE IF NOT EXISTS meta (
+        key TEXT PRIMARY KEY,
+        value TEXT
+    )
+    """,
+]
+
+#: Defaults for a newly accepted market, so the review flow only has to
+#: supply what is genuinely market-specific.
+DEFAULTS = {
+    "aggression": 0.05,
+    "max_size_usd": 10.0,
+    "on_off": 1,
+    "guard_5m": 0.20,
+    "guard_1h": 0.20,
+    "guard_2h": 0.20,
+    "guard_1d": 0.30,
+}
