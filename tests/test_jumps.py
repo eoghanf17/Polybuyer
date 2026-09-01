@@ -83,6 +83,30 @@ class TestDetect(unittest.TestCase):
         self.assertEqual(detect(tape, DEFAULT.jump), [],
                          "reverting spike must not be reported as a jump")
 
+    def test_end_of_tape_spike_needs_resolution_to_be_believed(self):
+        """A move in the last minutes has no forward data to prove it stuck.
+
+        Late moves are where informed trading concentrates, so rejecting
+        them outright would throw away the best signal; instead the terminal
+        outcome stands in for the missing forward tape.
+        """
+        spec = syn.MarketSpec(p_before=0.35, p_after=0.35, n_noise=1200,
+                              n_burst=0, actors=[])
+        rows, _ = syn.build(spec)
+        end = max(r["timestamp"] for r in rows)
+        for k in range(150):
+            rows.append(syn.raw_trade(end - 600 + k * 4, 0.75,
+                                      f"0xspk{k % 6}", 300.0, spec.condition_id))
+        rows.sort(key=lambda r: r["timestamp"])
+        tape = Tape(spec.condition_id, normalise_many(rows))
+
+        self.assertEqual(detect(tape, DEFAULT.jump), [],
+                         "unverifiable late move must not be reported")
+        self.assertEqual(detect(tape, DEFAULT.jump, terminal=0.0), [],
+                         "a late move that resolved against itself reverted")
+        self.assertEqual(len(detect(tape, DEFAULT.jump, terminal=1.0)), 1,
+                         "resolution confirms the move stuck")
+
     def test_direction_down(self):
         spec = syn.MarketSpec(p_before=0.70, p_after=0.25, actors=[])
         rows, truth = syn.build(spec)

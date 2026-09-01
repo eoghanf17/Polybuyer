@@ -113,7 +113,12 @@ def detail(v: Verdict, f: WalletFeatures) -> str:
     return "\n".join(L)
 
 
-def summary(ranked: Sequence[tuple[Verdict, WalletFeatures]], n_screened: int) -> str:
+def summary(
+    ranked: Sequence[tuple[Verdict, WalletFeatures]],
+    n_screened: int,
+    n_markets: int | None = None,
+    min_markets: int | None = None,
+) -> str:
     rec = [(v, f) for v, f in ranked if v.decision == FOLLOW]
     L = [
         BAR,
@@ -121,6 +126,12 @@ def summary(ranked: Sequence[tuple[Verdict, WalletFeatures]], n_screened: int) -
         f"{len(rec)} recommended.",
         BAR,
     ]
+    if (not ranked and n_markets is not None and min_markets is not None
+            and n_markets < min_markets):
+        L.append(f"NOTE: the corpus holds {n_markets} markets but the breadth")
+        L.append(f"screen needs {min_markets}. No wallet can pass. Widen the")
+        L.append("sweep or lower ScreenConfig.min_markets.")
+        return "\n".join(L)
     if not rec:
         L.append("No wallet cleared both the false-discovery gate and the")
         L.append("copyability simulation. That is the expected outcome on most")

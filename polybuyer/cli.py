@@ -11,6 +11,8 @@ from __future__ import annotations
 import argparse
 import sys
 
+import dataclasses
+
 from .config import DEFAULT, Config, StatsConfig
 from .netio import Fetcher
 from .report import detail, summary, table, to_json
@@ -19,22 +21,20 @@ from .report import detail, summary, table, to_json
 def _cfg(args) -> Config:
     cfg = DEFAULT
     if args.cap is not None:
-        cfg = cfg.with_(follow=type(cfg.follow)(**{**cfg.follow.__dict__, "cap": args.cap}))
+        cfg = cfg.with_(follow=dataclasses.replace(cfg.follow, cap=args.cap))
     if args.boot is not None:
-        cfg = cfg.with_(stats=StatsConfig(
-            n_boot=args.boot, ci_lo=cfg.stats.ci_lo, ci_hi=cfg.stats.ci_hi,
-            seed=cfg.stats.seed, fdr_q=cfg.stats.fdr_q,
-            min_clusters=cfg.stats.min_clusters))
+        cfg = cfg.with_(stats=dataclasses.replace(cfg.stats, n_boot=args.boot))
     if args.cache:
         cfg = cfg.with_(cache_dir=args.cache)
     return cfg
 
 
-def _emit(a, args, n_seen: int) -> None:
+def _emit(a, args, n_seen: int, cfg) -> None:
     if args.json:
         print(to_json(a.ranked))
         return
-    print(summary(a.ranked, n_seen))
+    print(summary(a.ranked, n_seen, n_markets=len(a.tapes),
+                  min_markets=cfg.screen.min_markets))
     print()
     print(table(a.ranked, limit=args.limit))
     print()
@@ -56,17 +56,27 @@ def cmd_demo(args) -> int:
 
     cfg = _cfg(args)
     if args.boot is None:
-        cfg = cfg.with_(stats=StatsConfig(
-            n_boot=1500, ci_lo=cfg.stats.ci_lo, ci_hi=cfg.stats.ci_hi,
-            seed=cfg.stats.seed, fdr_q=cfg.stats.fdr_q,
-            min_clusters=cfg.stats.min_clusters))
+        cfg = cfg.with_(stats=dataclasses.replace(cfg.stats, n_boot=1500))
 
-    print(f"building synthetic universe ({args.markets} markets)...")
+    # Breadth screens are calibrated for a live sweep of thousands of
+    # markets.  Left alone on a small demo universe they are unsatisfiable
+    # by construction and the demo silently reports nothing, which looks
+    # like a broken pipeline rather than a misconfigured one.
+    if args.markets < cfg.screen.min_markets:
+        cfg = cfg.with_(screen=dataclasses.replace(
+            cfg.screen,
+            min_markets=max(5, int(args.markets * 0.75)),
+            min_effective_n=max(5.0, args.markets * 0.75),
+        ))
+        print(f"  (small universe: breadth screens scaled to "
+              f"{cfg.screen.min_markets} markets)", file=sys.stderr)
+
+    print(f"building synthetic universe ({args.markets} markets)...", file=sys.stderr)
     rows, payloads, _ = syn.universe(n_markets=args.markets, jump_dur_s=args.jump_dur)
-    print(f"  {len(rows)} prints across {len(payloads)} markets")
+    print(f"  {len(rows)} prints across {len(payloads)} markets", file=sys.stderr)
     a = analyse(rows, payloads, cfg)
-    print(f"  {a.n_jumps} repricings detected\n")
-    _emit(a, args, len(a.features))
+    print(f"  {a.n_jumps} repricings detected\n", file=sys.stderr)
+    _emit(a, args, len(a.features), cfg)
     return 0
 
 
@@ -79,7 +89,7 @@ def cmd_discover(args) -> int:
                  cluster_wallets=not args.no_clusters,
                  progress=lambda m: print(m, file=sys.stderr))
     print(f"cache: {fetch.stats}", file=sys.stderr)
-    _emit(a, args, len(a.features))
+    _emit(a, args, len(a.features), cfg)
     return 0
 
 

@@ -66,7 +66,11 @@ def analyse(
         cid: resolution_from_clob(cid, payload)
         for cid, payload in clob_markets.items()
     }
-    jumps = {cid: detect(tape, cfg.jump) for cid, tape in tapes.items()}
+    jumps = {
+        cid: detect(tape, cfg.jump,
+                    terminal=(resolutions[cid].ref_terminal if cid in resolutions else None))
+        for cid, tape in tapes.items()
+    }
     feats = extract_all(tapes, jumps, resolutions, cfg, clusters)
     ranked = rank(feats, cfg)
 

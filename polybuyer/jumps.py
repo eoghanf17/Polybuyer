@@ -127,7 +127,7 @@ class Stance:
         return self.fast_net * self.jump.signed_move
 
 
-def detect(tape: Tape, cfg: JumpConfig) -> list[Jump]:
+def detect(tape: Tape, cfg: JumpConfig, terminal: float | None = None) -> list[Jump]:
     """Find persistent repricings in a market's price path.
 
     Method: resample to a fixed grid, compare a trailing median level to a
@@ -137,6 +137,13 @@ def detect(tape: Tape, cfg: JumpConfig) -> list[Jump]:
     Medians throughout: a prediction-market tape is full of single prints
     that sweep a thin book and immediately bounce back, and a mean-based
     detector fires on every one of them.
+
+    ``terminal`` is the market's settled value on the reference axis, and is
+    what makes late repricings usable.  A move in the last minutes of a tape
+    has no forward data to show that it stuck, so the persistence test would
+    otherwise pass vacuously -- and late moves are precisely where informed
+    trading concentrates, so silently accepting them would fill the results
+    with end-of-tape spikes.  Where the tape runs out, resolution settles it.
     """
     if len(tape) < cfg.min_market_trades:
         return []
@@ -189,8 +196,18 @@ def detect(tape: Tape, cfg: JumpConfig) -> list[Jump]:
 
         # Persistence: did it stick?  A spike that round-trips is noise, or
         # someone sweeping the book, not information.
-        j = min(n - 1, i + p)
-        held = prices[j] if j > i else prices[-1]
+        forward_s = tape.end - times[i]
+        if forward_s >= cfg.persistence_s:
+            j = min(n - 1, i + p)
+            held = prices[j]
+        elif terminal is not None:
+            # Not enough tape left to watch it hold; resolution is the
+            # stronger evidence anyway.
+            held = terminal
+        else:
+            # Unverifiable: an unresolved market whose tape stops just after
+            # the move.  Declining to call it is the honest option.
+            continue
         if (held - before) * direction < cfg.persistence_frac * abs(move):
             continue
 

@@ -40,8 +40,11 @@ WEEK = 7 * 24 * 3600
 
 
 @dataclass(frozen=True)
-class Tape:
-    """A market's tape plus how far back it actually reaches."""
+class MarketTape:
+    """Raw market tape plus how far back it actually reaches.
+
+    Distinct from :class:`polybuyer.tape.Tape`, which is the analysed form.
+    """
 
     condition_id: str
     trades: list[dict]
@@ -59,7 +62,7 @@ class Tape:
         return not self.truncated or ts >= self.covers_from
 
 
-def market_tape(fetch: Fetcher, condition_id: str, page: int = 2000) -> Tape:
+def market_tape(fetch: Fetcher, condition_id: str, page: int = 2000) -> MarketTape:
     """Full all-participants tape for one market, newest first."""
     rows: list[dict] = []
     for off in range(0, MARKET_TAPE_CAP, page):
@@ -72,7 +75,7 @@ def market_tape(fetch: Fetcher, condition_id: str, page: int = 2000) -> Tape:
             break
 
     stamps = [int(float(r.get("timestamp", 0))) for r in rows if r.get("timestamp")]
-    return Tape(
+    return MarketTape(
         condition_id=condition_id,
         trades=rows,
         covers_from=min(stamps) if stamps else 0,

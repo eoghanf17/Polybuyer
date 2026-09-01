@@ -99,11 +99,10 @@ class Tape:
         buckets.  Size weighting stops a one-share print carrying the same
         weight as a $50k block.
         """
-        if not self.trades:
+        if not self.trades or bucket_s <= 0:
             return [], []
 
         t0 = (self.start // bucket_s) * bucket_s
-        t1 = self.end
         times: list[int] = []
         prices: list[float] = []
 
@@ -130,13 +129,6 @@ class Tape:
             last = num / den
         times.append(edge - bucket_s)
         prices.append(last)
-
-        # Guard against pathological grids on very long-lived markets.
-        while edge <= t1:
-            edge += bucket_s
-            times.append(edge - bucket_s)
-            prices.append(last)
-
         return times, prices
 
     # ------------------------------------------------------------ exposure

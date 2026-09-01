@@ -83,7 +83,6 @@ def shortlist(cands: dict[str, Candidate], cfg: Config) -> list[Candidate]:
 def collect_markets(
     fetch: Fetcher,
     condition_ids: list[str],
-    workers: int = 8,
 ) -> tuple[list[dict], dict[str, bool]]:
     """Fetch full tapes for a set of markets.
 
