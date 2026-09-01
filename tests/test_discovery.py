@@ -167,6 +167,74 @@ class TestCorrelatedOutcomes(unittest.TestCase):
         self.assertIsNotNone(a.by_wallet(INS))
 
 
+class TestInPlayExclusion(unittest.TestCase):
+    """Scheduled matches are a different animal and are dropped by default.
+
+    In a live game the price tracks the game, so being positioned "before the
+    repricing" is satisfied by anyone on a faster stream than the market.
+    That is a latency edge on a public broadcast rather than information, and
+    nothing in the tape distinguishes the two -- so these markets must not be
+    scored as anticipation.
+    """
+
+    def test_game_start_time_marks_a_market_in_play(self):
+        from polybuyer.model import resolution_from_clob
+        match = resolution_from_clob("0xa", {
+            "closed": True, "game_start_time": "2026-09-01T11:35:00Z",
+            "tokens": [{"token_id": "a", "winner": True},
+                       {"token_id": "b", "winner": False}]})
+        news = resolution_from_clob("0xb", {
+            "closed": True, "game_start_time": None,
+            "tokens": [{"token_id": "a", "winner": False},
+                       {"token_id": "b", "winner": True}]})
+        self.assertTrue(match.in_play)
+        self.assertFalse(news.in_play)
+        # Resolution itself must still parse correctly either way.
+        self.assertEqual(match.ref_terminal, 1.0)
+        self.assertEqual(news.ref_terminal, 0.0)
+
+    def test_excluded_markets_leave_the_analysis(self):
+        rows, payloads, _ = syn.universe(n_markets=40)
+        for p in payloads.values():
+            p["game_start_time"] = "2026-09-01T00:00:00Z"
+        a = analyse(rows, payloads, CFG, exclude_in_play=True)
+        self.assertEqual(len(a.tapes), 0)
+        self.assertEqual(a.ranked, [])
+
+    def test_news_markets_are_unaffected(self):
+        rows, payloads, _ = syn.universe(n_markets=40)
+        a = analyse(rows, payloads, CFG, exclude_in_play=True)
+        self.assertEqual(len(a.tapes), 40)
+        self.assertIsNotNone(a.by_wallet(INS))
+
+
+class TestTruncatedTapes(unittest.TestCase):
+    """The busiest markets truncate at the server cap, sometimes to minutes."""
+
+    def test_too_short_a_span_yields_no_jumps(self):
+        from polybuyer.jumps import detect
+        from polybuyer.model import normalise_many
+        from polybuyer.tape import Tape
+
+        spec = syn.MarketSpec(actors=[])
+        rows, _ = syn.build(spec)
+        # Keep only a 20-minute slice: far too little to establish a baseline.
+        lo = spec.t0 + spec.jump_at_s - 600
+        rows = [r for r in rows if lo <= r["timestamp"] <= lo + 1200]
+        tape = Tape(spec.condition_id, normalise_many(rows))
+        self.assertLess(tape.end - tape.start, CFG.jump.min_span_s)
+        self.assertEqual(detect(tape, CFG.jump, terminal=1.0), [],
+                         "a window shorter than the baseline cannot support detection")
+
+    def test_market_tape_reports_its_coverage(self):
+        from polybuyer.sources import MarketTape
+        t = MarketTape("0xa", [{"timestamp": 500}], covers_from=500, truncated=True)
+        self.assertFalse(t.covers(100), "must not claim to cover pre-window trades")
+        self.assertTrue(t.covers(900))
+        full = MarketTape("0xb", [{"timestamp": 500}], covers_from=500, truncated=False)
+        self.assertTrue(full.covers(100), "an untruncated tape covers everything")
+
+
 class TestStatisticalGuards(unittest.TestCase):
     def test_single_cluster_bootstrap_is_never_significant(self):
         """One lucky market must not report certainty."""
