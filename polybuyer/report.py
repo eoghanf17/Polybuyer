@@ -96,6 +96,17 @@ def detail(v: Verdict, f: WalletFeatures) -> str:
              f"(low = market maker)")
     L.append(f"    negative-risk    {f.negrisk_share:.0%} of volume")
 
+    rows = f.top_anticipated if f.archetype_is_insider else f.top_reacted
+    if rows:
+        label = ("Biggest anticipated repricings" if f.archetype_is_insider
+                 else "Biggest first-mover reactions")
+        L.append(f"  {label}")
+        for title, slug, pnl, t, mag in rows[:6]:
+            when = (f"{_fmt_window(abs(t))} before" if f.archetype_is_insider
+                    else f"{t:+.0f}s after")
+            L.append(f"    {pnl:>+10,.0f}  {mag:.0%} move, {when:>12}  "
+                     f"{(title or slug)[:44]}")
+
     L.append("  Why")
     for r in v.reasons:
         L.append(f"    - {r}")

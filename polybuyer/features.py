@@ -133,6 +133,18 @@ class WalletFeatures:
 
     markets: list[MarketPnL] = field(default_factory=list)
     signals: list[FollowSignal] = field(default_factory=list)
+    #: Biggest anticipated repricings: (title, slug, pnl, lead_s, magnitude).
+    #: No score can tell you whether an anticipation edge sits in central
+    #: bank decisions or in novelty markets, and that distinction changes
+    #: how the whole record should be read -- so the evidence is kept.
+    top_anticipated: list[tuple[str, str, float, float, float]] = field(default_factory=list)
+    top_reacted: list[tuple[str, str, float, float, float]] = field(default_factory=list)
+
+    @property
+    def archetype_is_insider(self) -> bool:
+        """Whether the anticipation side is the dominant story for this
+        wallet.  Used only to pick which evidence table to render."""
+        return abs(self.pre_pnl) >= abs(self.fast_pnl)
 
     @property
     def pre_pnl_share(self) -> float:
@@ -234,6 +246,9 @@ def extract_all(
                     f.capital += mp.capital
                     f.pnl += mp.pnl
 
+        title = tape.trades[0].title if tape.trades else ""
+        slug = tape.trades[0].slug if tape.trades else cid
+
         # Stances against every jump in this market.
         for j in jumps.get(cid, []):
             st = stances(tape, j, cfg.window)
@@ -250,6 +265,10 @@ def extract_all(
 
                 if abs(s.pre_net) > 1e-9:
                     f.n_pre += 1
+                    f.top_anticipated.append(
+                        (title, slug, s.anticipatory_pnl,
+                         s.lead_s if s.lead_s is not None else 0.0, j.magnitude)
+                    )
                     wgt = abs(s.pre_net)
                     hit = 1.0 if s.pre_net * j.direction > 0 else 0.0
                     ant_num.setdefault(w, {}).setdefault(cid, 0.0)
@@ -260,6 +279,10 @@ def extract_all(
                         leads.setdefault(w, []).append(s.lead_s)
                 if abs(s.fast_net) > 1e-9:
                     f.n_fast += 1
+                    f.top_reacted.append(
+                        (title, slug, s.reaction_pnl,
+                         s.latency_s if s.latency_s is not None else 0.0, j.magnitude)
+                    )
                     wgt = abs(s.fast_net)
                     hit = 1.0 if s.fast_net * j.direction > 0 else 0.0
                     fast_num.setdefault(w, {}).setdefault(cid, 0.0)
@@ -275,6 +298,10 @@ def extract_all(
     for w, f in feats.items():
         f.n_events = len(set(events.get(w, [])))
         f.eff_n = effective_n(events.get(w, []))
+        f.top_anticipated.sort(key=lambda r: -r[2])
+        del f.top_anticipated[12:]
+        f.top_reacted.sort(key=lambda r: -r[2])
+        del f.top_reacted[12:]
 
         if f.markets:
             f.roi = bootstrap_ratio(
