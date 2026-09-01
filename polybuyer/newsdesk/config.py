@@ -32,7 +32,7 @@ def _load_dotenv(path: str = ".env") -> None:
 class Settings:
     x_bearer: str = ""
     openai_key: str = ""
-    gate_model: str = "gpt-4o-mini"
+    gate_model: str = "gpt-4.1"
     db_path: str = "newsdesk.db"
     paper: bool = True
     max_daily_usd: float = 100.0
@@ -59,7 +59,7 @@ def load(dotenv: str = ".env") -> Settings:
     return Settings(
         x_bearer=os.environ.get("X_BEARER_TOKEN", ""),
         openai_key=os.environ.get("OPENAI_API_KEY", ""),
-        gate_model=os.environ.get("OPENAI_GATE_MODEL", "gpt-4o-mini"),
+        gate_model=os.environ.get("OPENAI_GATE_MODEL", "gpt-4.1"),
         db_path=os.environ.get("NEWSDESK_DB", "newsdesk.db"),
         paper=os.environ.get("NEWSDESK_PAPER", "1") not in ("0", "false", "False"),
         max_daily_usd=float(os.environ.get("NEWSDESK_MAX_DAILY_USD", "100") or 100),

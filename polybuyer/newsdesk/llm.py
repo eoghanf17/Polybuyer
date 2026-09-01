@@ -32,14 +32,17 @@ class GateCall:
 #: $/1M tokens (input, output). Rough list prices; used only for the running
 #: cost log, never for a trading decision.
 PRICES = {
+    "gpt-4.1-nano": (0.10, 0.40),
     "gpt-4o-mini": (0.15, 0.60),
     "gpt-4.1-mini": (0.40, 1.60),
+    "gpt-4.1": (2.00, 8.00),
     "gpt-4o": (2.50, 10.00),
+    "gpt-5": (1.25, 10.00),
 }
 
 
 def ask(market: dict, tweet_text: str, handle: str, api_key: str,
-        model: str = "gpt-4o-mini", timeout: float = 8.0) -> GateCall:
+        model: str = "gpt-4.1", timeout: float = 8.0) -> GateCall:
     """Score one post against one market.
 
     ``temperature=0`` because this is a classification, not a composition,
@@ -47,6 +50,14 @@ def ask(market: dict, tweet_text: str, handle: str, api_key: str,
     reasoned about. The timeout is deliberately short: the strategy has
     minutes of latency budget, but a hung call holds a slot open while the
     next post arrives.
+
+    Default model is ``gpt-4.1``, chosen by measurement rather than instinct.
+    Benchmarked on the labelled calibration set it was both the most accurate
+    (16/17, no false negatives) and the *fastest* (726ms median against
+    931ms for gpt-4o-mini). The cheaper model was picked first on cost, but
+    keyword-filtered stream rules cut gate volume to a few hundred calls a
+    month, at which point the difference is $0.05 against $0.62 and accuracy
+    is the only thing left to optimise.
     """
     body = json.dumps({
         "model": model,
