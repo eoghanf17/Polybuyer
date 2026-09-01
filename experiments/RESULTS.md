@@ -70,7 +70,7 @@ from 100% to 80% costs 13 points, more than the entire latency range does.
 ## What this does not establish
 
 - **No claim rests on an observed tweet.** X returns 401 without credentials
-  and archive search is enterprise-tier. Repricing onset is the proxy for
+  and archive search is Pro-tier (~$5k/month). Repricing onset is the proxy for
   "when the news landed", and the account list is unvalidated.
 - The 80% direction-accuracy figure is an assumption, not a measurement.
   Real accuracy depends on sources and parsing, and the result is highly

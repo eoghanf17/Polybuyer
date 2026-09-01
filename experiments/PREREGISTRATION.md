@@ -15,7 +15,7 @@ here, and the test set is not inspected until they are.
 ## What cannot be tested here, and why
 
 X's API returns 401 without credentials; the full-archive search that
-historical tweet timestamps would require is enterprise-tier in any case.
+historical tweet timestamps would require is Pro-tier (~$5k/month) in any case.
 So **no claim below rests on an observed tweet.** Specifically:
 
 - I cannot verify that a named account actually broke a given story first.
