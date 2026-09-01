@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from polybuyer.newsdesk import gate, guards
 from polybuyer.newsdesk.store import Market, Store
 
-YES = '{"relevant":true,"factual":true,"rules_match":true,"novel":true,' \
+YES = '{"relevant":true,"asserted":true,"resolves":true,"novel":true,' \
       '"material":true,"standing":true,"direction":1}'
 
 

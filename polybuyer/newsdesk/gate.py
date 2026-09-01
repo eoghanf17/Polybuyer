@@ -51,50 +51,67 @@ QUESTIONS: tuple[Question, ...] = (
     Question(
         "relevant", "Is this post about the specific event this market asks about?",
         hard=True,
-        catches="the account's ordinary output -- most tweets from a watched "
+        catches="the account's ordinary output -- most posts from a watched "
                 "account have nothing to do with the market",
     ),
     Question(
-        "factual",
-        "Does the post report this as something that has actually happened or "
-        "been officially announced, rather than as prediction, speculation, "
-        "opinion, analysis, a question, or an unverified rumour?",
+        "asserted",
+        "Is the account asserting this as fact or announcing it as a decision "
+        "it has taken -- rather than speculating, predicting, asking, joking, "
+        "or passing on an unverified rumour?",
         hard=True,
-        catches="reporters speculating and analysts forecasting, which is most "
-                "of what even excellent accounts post",
+        catches="speculation and commentary, which is most of what even "
+                "excellent accounts post. Phrased around *assertion* rather "
+                "than around the event having already occurred, because a "
+                "principal announcing a decision is stating a fact even when "
+                "the decision takes effect later.",
     ),
     Question(
-        "rules_match",
-        "Taking the market's resolution rules exactly as written, including any "
-        "deadline: if this report is accurate, does the event described satisfy "
-        "those rules -- rather than being a similar-sounding event that would "
-        "not count, or one falling outside the market's time window?",
+        "resolves",
+        "If this is accurate, does it make the market resolve YES within its "
+        "deadline -- either immediately or as the direct consequence of what "
+        "is announced? Answer false for a preparatory or partial step that "
+        "does not lead there by itself (a testnet, a filing, an approval, a "
+        "plan), for a similar-sounding event that would not count under the "
+        "rules, and for anything that would happen after the deadline.",
         hard=True,
-        catches="the classic near-miss: the market is on the US striking Iran "
-                "and the news is Israel striking Iran; or the event happens "
-                "after the deadline",
+        catches="near-misses, the most dangerous class because they pass every "
+                "other check: the market is on the US striking Iran and the "
+                "news is Israel striking Iran; or 'testnet is live, token to "
+                "follow' against a token-launch market.\n\n"
+                "Asks about *resolution*, not about the rules being satisfied "
+                "at the instant of posting. An earlier version demanded the "
+                "latter and rejected Zelensky naming a new Commander-in-Chief, "
+                "because the appointment was future-tense -- while the market "
+                "would obviously have repriced on it.",
     ),
     Question(
         "novel",
-        "Is the event being reported happening RIGHT NOW or within the last "
-        "hour or so? Answer false if the post refers back to something that "
-        "happened days, weeks or months ago, however significant it was, and "
-        "false for recaps, anniversaries, follow-ups and statistics about a "
-        "past event.",
-        hard=True,
-        catches="recaps and retrospectives. Promoted to a hard check after a "
-                "live test: 'Reminder: our token launched last month, here "
-                "are the stats' passed the softer wording and fired. A recap "
-                "is the most common post an account makes about the very "
-                "event a market is watching, so this has to be a stop.",
+        "Is this post itself breaking the development, or reporting something "
+        "from the last few hours? Answer false ONLY if it looks back at "
+        "something already public: a recap, an anniversary, statistics about a "
+        "past event, or a follow-up to news reported earlier.",
+        hard=False,
+        catches="looking backwards. A softer version passed 'Reminder: our "
+                "token launched last month, here are the stats'; a stricter "
+                "one, asking whether the event happened within the hour, then "
+                "rejected real announcements. For a principal the post IS the "
+                "event, so the test is breaking-versus-looking-back.\n\n"
+                "SOFT, not hard, because it is the check most often wrong in "
+                "both directions. Principals who announce on a cadence -- "
+                "weekly holdings, monthly numbers -- post the market-resolving "
+                "update in a format that reads as routine rather than "
+                "breaking. Demoting it sends those to corroboration instead of "
+                "the bin, and latency is nearly free while a missed fire is "
+                "the whole trade.",
     ),
     Question(
         "material",
-        "Is this development large enough that a reasonable trader would expect "
-        "the market to reprice substantially on it, rather than marginally?",
+        "Is this development large enough that a reasonable trader would "
+        "expect the market to reprice substantially on it?",
         hard=False,
-        catches="incremental updates that are genuinely news but already priced "
-                "or too small to clear costs",
+        catches="incremental updates that are genuinely news but already "
+                "priced, or too small to clear costs",
     ),
     Question(
         "standing",
@@ -159,7 +176,7 @@ questions above:
 A denial or refutation of the event is -1, not 1.
 
 Reply with JSON only, no other text:
-{{"relevant": bool, "factual": bool, "rules_match": bool, "novel": bool,
+{{"relevant": bool, "asserted": bool, "resolves": bool, "novel": bool,
  "material": bool, "standing": bool, "direction": -1|0|1}}"""
 
 

@@ -1,0 +1,172 @@
+[
+ {
+  "market": {
+   "question": "Will Oleksandr Syrskyi be out as Ukraine's Commander-in-Chief by December 31?",
+   "rules": "Resolves YES if Oleksandr Syrskyi ceases to be Commander-in-Chief before 31 Dec."
+  },
+  "text": "I have decided that Mykhailo Drapatyi will become the new Commander-in-Chief of the Armed Forces of Ukraine.",
+  "expect": "act",
+  "note": "real: Zelensky announcement (verbatim, full-archive)",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will Oleksandr Syrskyi be out as Ukraine's Commander-in-Chief by December 31?",
+   "rules": "Resolves YES if Oleksandr Syrskyi ceases to be Commander-in-Chief before 31 Dec."
+  },
+  "text": "A report from Oleh Apostol. The Airborne Assault Forces are delivering results.",
+  "expect": "drop",
+  "note": "real: routine readout",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will Oleksandr Syrskyi be out as Ukraine's Commander-in-Chief by December 31?",
+   "rules": "Resolves YES if Oleksandr Syrskyi ceases to be Commander-in-Chief before 31 Dec."
+  },
+  "text": "I am grateful for today's conversation with Mykhailo Drapatyi.",
+  "expect": "drop",
+  "note": "real: meeting, no decision",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will Oleksandr Syrskyi be out as Ukraine's Commander-in-Chief by December 31?",
+   "rules": "Resolves YES if Oleksandr Syrskyi ceases to be Commander-in-Chief before 31 Dec."
+  },
+  "text": "Congratulations to Andy Burnham on taking office as PM of the UK.",
+  "expect": "drop",
+  "note": "real: unrelated",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MicroStrategy announce holding 800k+ BTC by December 31, 2026?",
+   "rules": "Resolves YES if Strategy announces total bitcoin holdings of 800,000 BTC or more."
+  },
+  "text": "Strategy has acquired 17,994 BTC. As of 3/8/2026, we hodl 738,731 $BTC.",
+  "expect": "drop",
+  "note": "real: below the 800k threshold",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MicroStrategy announce holding 800k+ BTC by December 31, 2026?",
+   "rules": "Resolves YES if Strategy announces total bitcoin holdings of 800,000 BTC or more."
+  },
+  "text": "Strategy has acquired 22,000 BTC. As of today we hodl 803,412 $BTC.",
+  "expect": "act",
+  "note": "crosses the threshold",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "$MEGA is live. Trading opens on all major venues now.",
+  "expect": "act",
+  "note": "launch",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "$MEGA airdrop claims open now for eligible wallets.",
+  "expect": "act",
+  "note": "launch in other words",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "Token launch confirmed for 15 April 2026.",
+  "expect": "act",
+  "note": "commitment inside deadline",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "Token launch confirmed for 15 May 2026.",
+  "expect": "drop",
+  "note": "commitment outside deadline",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "Testnet is live. Mainnet and token to follow.",
+  "expect": "drop",
+  "note": "preparatory step",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "Reminder: our token launched last month, here are the stats.",
+  "expect": "drop",
+  "note": "recap",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "One year ago today we announced $MEGA.",
+  "expect": "drop",
+  "note": "anniversary",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "We have no plans to launch a token at this time.",
+  "expect": "drop",
+  "note": "denial",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "Our partner chain launched their token today.",
+  "expect": "drop",
+  "note": "someone else's launch",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "We're pushing the token launch back to Q3.",
+  "expect": "drop",
+  "note": "delay, cuts against us",
+  "direction": 1
+ },
+ {
+  "market": {
+   "question": "Will MegaETH launch a token by April 30, 2026?",
+   "rules": "Resolves YES if MegaETH publicly launches a tradeable token before 30 April 2026."
+  },
+  "text": "gm. building.",
+  "expect": "drop",
+  "note": "noise",
+  "direction": 1
+ }
+]
