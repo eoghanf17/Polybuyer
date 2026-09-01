@@ -357,3 +357,62 @@ class TestCorpus(unittest.TestCase):
                 self._p(post_id="2", label=corpus.CHATTER),
                 self._p(post_id="3", created_at="2026-06-01T13:00:00Z")]
         self.assertEqual([p.post_id for p in corpus.needs_label(rows)], ["1"])
+
+
+class TestKeywordToggle(unittest.TestCase):
+    """keyword_gate_principals: the blanket switch."""
+
+    M = {
+        "condition_id": "0xa",
+        "required_keyword": "token OR TGE OR airdrop",
+        "topic_terms": "Arcium",
+        "accounts": [{"handle": "arcium", "tier": "principal"}],
+    }
+
+    def test_on_by_default(self):
+        r = [x for x in rules.build_rules(self.M) if ":principal" in x.tag][0]
+        self.assertIn("(token OR TGE OR airdrop)", r.value)
+
+    def test_off_takes_the_whole_feed(self):
+        m = dict(self.M, keyword_gate_principals=0)
+        r = [x for x in rules.build_rules(m) if ":principal" in x.tag][0]
+        self.assertEqual(r.value, "(from:arcium)")
+
+    def test_the_keyword_tier_keeps_its_filter_either_way(self):
+        # There the keyword is the rule, not an optimisation on top of one.
+        for flag in (0, 1):
+            m = dict(self.M, keyword_gate_principals=flag)
+            r = [x for x in rules.build_rules(m) if x.tag.endswith(":keyword")][0]
+            self.assertIn("(token OR TGE OR airdrop)", r.value)
+
+    def test_a_keyword_is_still_required_when_the_gate_is_off(self):
+        # Off means "do not filter principals", not "no keyword" -- the
+        # keyword tier still needs one.
+        m = dict(self.M, keyword_gate_principals=0, required_keyword="")
+        with self.assertRaises(rules.RuleError):
+            rules.build_rules(m)
+
+    def test_lint_warns_on_a_narrow_keyword_over_principals(self):
+        self.assertTrue(rules.lint(dict(self.M, required_keyword="token")))
+        self.assertFalse(rules.lint(self.M))
+
+    def test_lint_is_quiet_about_a_narrow_keyword_when_the_gate_is_off(self):
+        m = dict(self.M, required_keyword="token", keyword_gate_principals=0)
+        self.assertFalse(rules.lint(m))
+
+    def test_bulk_flip(self):
+        p = tempfile.mktemp(suffix=".db")
+        try:
+            st = Store(p)
+            for cid in ("0xa", "0xb"):
+                st.add_market(Market(condition_id=cid, question="q?",
+                                     required_keyword="token OR TGE",
+                                     topic_terms="Arcium"))
+            self.assertEqual(st.set_all(keyword_gate_principals=0), 2)
+            self.assertEqual(st.get_market("0xa")["keyword_gate_principals"], 0)
+            with self.assertRaises(ValueError):
+                st.set_all(question="nope")
+            st.close()
+        finally:
+            if os.path.exists(p):
+                os.unlink(p)

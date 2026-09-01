@@ -119,8 +119,25 @@ def fetch_universe(fetch: Fetcher, pages: int = 6) -> list[dict]:
 
 
 def screen(rows: list[dict], seen: set[str], min_days: float = 0.25,
-           max_days: float = 120.0) -> tuple[list[Candidate], dict[str, int]]:
-    """Cut the mechanically unsuitable; return the rest for review."""
+           max_days: float = 120.0, min_volume: float = 25_000.0
+           ) -> tuple[list[Candidate], dict[str, int]]:
+    """Cut the mechanically unsuitable; return the rest for review.
+
+    ``min_volume`` is a hard drop, not a flag. Blind test 2 found three
+    markets where the rules caught the breaking post and the direction was
+    right in all three, and the trade was still not there: lifetime volume
+    was $3.5k, $5.6k and $11.3k, and against those tapes the best
+    demonstrable fill was $94 at a 2c cap resting to close, for $10. One
+    market had no fillable liquidity on our side at any cap or window, and
+    one had not printed a single trade when the post landed.
+
+    Signal quality was not the binding constraint there; depth was. A
+    market that cannot absorb the desk's own $3-$10 ticket several times
+    over is not worth an X rule and a gate call, whatever the story.
+
+    The default is a judgement call off three observations, not a fitted
+    threshold -- it is deliberately an argument so a sweep can move it.
+    """
     kept: list[Candidate] = []
     dropped: dict[str, int] = {}
 
@@ -174,6 +191,10 @@ def screen(rows: list[dict], seen: set[str], min_days: float = 0.25,
             continue
         if d > max_days:
             drop("resolves too far out")
+            continue
+
+        if c.volume < min_volume:
+            drop("too thin to trade the news in")
             continue
 
         # Surfaced, not decided: these need a judgement call.

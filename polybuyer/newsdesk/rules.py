@@ -36,7 +36,14 @@ is ``(token OR TGE OR "$ARX")``.
 
 The residual risk is real and is not engineered away here: a principal who
 announces with a bare "It's live." and a link matches nothing and is
-missed. That is the accepted cost of the filter.
+missed. Two things blunt it. The keyword should be a *wide* OR-group --
+``(token OR TGE OR airdrop OR live OR claim OR mint OR "$ARX")`` is still a
+filter and still cheap, and a narrow one-word keyword on a market that has
+principals is what :func:`lint` warns about. And the filter can be switched
+off, per market or across every market at once, through
+``keyword_gate_principals``: with it at 0 a principal's whole feed is
+taken and the gate sorts it out. That costs $0.005 a post and an LLM call
+per post, which is exactly the trade being made.
 """
 
 from __future__ import annotations
@@ -118,6 +125,8 @@ def build_rules(market: dict) -> list[Rule]:
         raise RuleError(f"{cid}: unbalanced parentheses in required_keyword")
 
     rules: list[Rule] = []
+    # The toggle. Off means a principal's whole feed is taken.
+    gate_principals = bool(int(market.get("keyword_gate_principals", 1) or 0))
 
     handles = sorted({
         str(a.get("handle", "")).lstrip("@").lower()
@@ -125,8 +134,9 @@ def build_rules(market: dict) -> list[Rule]:
         if str(a.get("tier", "beat")) in PRINCIPAL_TIERS
         and str(a.get("handle", "")).strip()
     })
-    for i, chunk in enumerate(_chunk_handles(handles, kw)):
-        rules.append(Rule(f"{chunk} {kw}", f"{cid}:{PRINCIPAL}:{i}"))
+    suffix = f" {kw}" if gate_principals else ""
+    for i, chunk in enumerate(_chunk_handles(handles, kw if gate_principals else "")):
+        rules.append(Rule(f"{chunk}{suffix}", f"{cid}:{PRINCIPAL}:{i}"))
 
     topic = _group(str(market.get("topic_terms") or ""))
     if topic:
@@ -147,11 +157,16 @@ def build_rules(market: dict) -> list[Rule]:
 
 
 def _chunk_handles(handles: list[str], kw: str) -> list[str]:
-    """Split a handle list into OR-groups that fit inside the rule cap."""
+    """Split a handle list into OR-groups that fit inside the rule cap.
+
+    ``kw`` is the keyword group that will be appended to each chunk, or ""
+    when principals are not keyword-filtered; either way its length has to
+    come out of the budget before the handles are packed.
+    """
     out: list[str] = []
     cur: list[str] = []
     # +1 for the space before the keyword group.
-    budget = MAX_RULE_LEN - len(kw) - 1
+    budget = MAX_RULE_LEN - len(kw) - (1 if kw else 0)
     for h in handles:
         term = f"from:{h}"
         trial = cur + [term]
@@ -220,3 +235,40 @@ def act(tier: str, gate_action: str) -> tuple[str, str]:
             return CORROBORATE, "principal: soft checks unclear, seeking second source"
         return DROP, "keyword tier does not trade on unconfirmed signals"
     return DROP, f"{tier}: gate dropped"
+
+
+#: Below this many alternatives, a keyword group is narrow enough that a
+#: principal could plausibly announce without using any of them.
+MIN_KEYWORD_ALTERNATIVES = 3
+
+
+def lint(market: dict) -> list[str]:
+    """Non-fatal warnings about a market's configuration.
+
+    Separate from :func:`build_rules`, which raises only on things that
+    cannot produce a valid rule. These are judgement calls: a narrow
+    keyword will build a perfectly valid rule that quietly never matches
+    the announcement it was written for.
+    """
+    out: list[str] = []
+    kw = str(market.get("required_keyword") or "")
+    gate_principals = bool(int(market.get("keyword_gate_principals", 1) or 0))
+    principals = [a for a in market.get("accounts", [])
+                  if str(a.get("tier", "beat")) in PRINCIPAL_TIERS]
+
+    alts = len([t for t in kw.replace("(", " ").replace(")", " ").split(" OR ")
+                if t.strip()])
+    if gate_principals and principals and alts < MIN_KEYWORD_ALTERNATIVES:
+        out.append(
+            f"required_keyword has {alts} alternative(s) and is applied to "
+            f"{len(principals)} principal feed(s). A principal announcing in "
+            f"words outside it is missed silently -- widen the OR-group, or "
+            f"set keyword_gate_principals=0 for this market.")
+    if not gate_principals and len(principals) > 5:
+        out.append(
+            f"keyword_gate_principals is off with {len(principals)} "
+            f"principals: their entire feeds will be delivered and gated, at "
+            f"$0.005 and one LLM call per post.")
+    if not str(market.get("topic_terms") or "") and not principals:
+        out.append("no principals and no topic_terms: nothing will match.")
+    return out

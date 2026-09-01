@@ -13,7 +13,7 @@ guards were set sensibly.
 
 from __future__ import annotations
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 DDL = [
     """
@@ -36,6 +36,14 @@ DDL = [
         -- the from: rules on principals. An X query fragment, so an
         -- OR-group is allowed: '(token OR TGE OR "$ARX")'.
         required_keyword  TEXT NOT NULL DEFAULT '',
+
+        -- Whether the required keyword is ANDed into the principals'
+        -- from: rules too. 1 = filter them (cheaper, and the reason the
+        -- keyword exists); 0 = take a principal's whole feed and let the
+        -- gate sort it out. Per market, but the point of the column is
+        -- that it can be flipped across every row at once if the filter
+        -- turns out to be costing announcements.
+        keyword_gate_principals INTEGER NOT NULL DEFAULT 1,
 
         -- Tier-2 subject terms. Empty disables the keyword tier entirely
         -- and leaves the market watching its principals only.
@@ -139,6 +147,7 @@ DEFAULTS = {
     "aggression_kw": 0.02,
     "max_size_usd_kw": 3.0,
     "min_followers": 10_000,
+    "keyword_gate_principals": 1,
     "on_off": 1,
     "guard_5m": 0.20,
     "guard_1h": 0.20,
@@ -150,6 +159,10 @@ DEFAULTS = {
 #: SQLite has no "ADD COLUMN IF NOT EXISTS", so the caller checks
 #: PRAGMA table_info first; these are the statements it runs.
 MIGRATIONS: dict[int, list[str]] = {
+    3: [
+        "ALTER TABLE markets ADD COLUMN keyword_gate_principals"
+        " INTEGER NOT NULL DEFAULT 1",
+    ],
     2: [
         "ALTER TABLE markets ADD COLUMN required_keyword TEXT NOT NULL DEFAULT ''",
         "ALTER TABLE markets ADD COLUMN topic_terms TEXT NOT NULL DEFAULT ''",

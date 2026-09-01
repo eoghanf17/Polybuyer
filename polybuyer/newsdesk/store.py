@@ -36,6 +36,7 @@ class Market:
     required_keyword: str = ""
     topic_terms: str = ""
     min_followers: int = DEFAULTS["min_followers"]
+    keyword_gate_principals: int = DEFAULTS["keyword_gate_principals"]
     aggression: float = DEFAULTS["aggression"]
     max_size_usd: float = DEFAULTS["max_size_usd"]
     aggression_kw: float = DEFAULTS["aggression_kw"]
@@ -184,6 +185,27 @@ class Store:
         self.db.commit()
         return out
 
+    def set_all(self, **kw: Any) -> int:
+        """Apply a setting to every market at once. Returns rows changed.
+
+        The blanket switch. ``keyword_gate_principals`` in particular is
+        one we may want to turn off everywhere the moment a principal is
+        found to have announced in words no keyword list anticipated --
+        and at that point editing rows one at a time is the wrong shape of
+        operation.
+        """
+        allowed = {"aggression", "max_size_usd", "aggression_kw",
+                   "max_size_usd_kw", "min_followers",
+                   "keyword_gate_principals", "on_off",
+                   "guard_5m", "guard_1h", "guard_2h", "guard_1d"}
+        bad = set(kw) - allowed
+        if bad:
+            raise ValueError(f"not settable in bulk: {sorted(bad)}")
+        sets = ",".join(f"{k}=?" for k in kw)
+        cur = self.db.execute(f"UPDATE markets SET {sets}", tuple(kw.values()))
+        self.db.commit()
+        return int(cur.rowcount or 0)
+
     def disarm(self, cid: str, reason: str) -> None:
         """Turn a market off, recording why.
 
@@ -199,6 +221,7 @@ class Store:
     def set_params(self, cid: str, **kw: Any) -> None:
         allowed = {"aggression", "max_size_usd", "aggression_kw", "max_size_usd_kw",
                    "min_followers", "required_keyword", "topic_terms",
+                   "keyword_gate_principals",
                    "on_off", "guard_5m", "guard_1h", "guard_2h", "guard_1d",
                    "preferred_direction", "rules", "notes"}
         bad = set(kw) - allowed

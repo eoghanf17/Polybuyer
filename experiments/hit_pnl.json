@@ -1,0 +1,78 @@
+[
+ {
+  "market": "Pro Football: Will OBJ sign with a team in 2026?",
+  "handle": "GoatHouseNFL",
+  "followers": 24567,
+  "entry": 0.6,
+  "stale_h": 13.052777777777777,
+  "terminal": 1.0,
+  "prints_10m": 2,
+  "ladder": [],
+  "verdict": "no liquidity"
+ },
+ {
+  "market": "Will Andy Burnham visit Ukraine by December 31, 2026?",
+  "handle": "SprinterPress",
+  "followers": 796728,
+  "entry": 0.89,
+  "stale_h": 38.06194444444444,
+  "terminal": 1.0,
+  "prints_10m": 0,
+  "ladder": [
+   {
+    "window": "24h",
+    "aggression": 0.05,
+    "fillable_usd": 299.9999029853648,
+    "vwap": 0.9301754373000001,
+    "pnl_usd": 22.519797014635166,
+    "roi": 0.07506601432379054
+   },
+   {
+    "window": "24h",
+    "aggression": 0.1,
+    "fillable_usd": 984.9999030204817,
+    "vwap": 0.9426290117318392,
+    "pnl_usd": 59.949796979518126,
+    "roi": 0.06086274404259667
+   },
+   {
+    "window": "to close",
+    "aggression": 0.01,
+    "fillable_usd": 17.8,
+    "vwap": 0.89,
+    "pnl_usd": 2.1999999999999997,
+    "roi": 0.12359550561797751
+   },
+   {
+    "window": "to close",
+    "aggression": 0.02,
+    "fillable_usd": 94.1399,
+    "vwap": 0.9061497737992107,
+    "pnl_usd": 9.750100000000002,
+    "roi": 0.10357032459137945
+   },
+   {
+    "window": "to close",
+    "aggression": 0.05,
+    "fillable_usd": 578.1755979809468,
+    "vwap": 0.9275514596586277,
+    "pnl_usd": 45.159735019053215,
+    "roi": 0.07810730023327862
+   },
+   {
+    "window": "to close",
+    "aggression": 0.1,
+    "fillable_usd": 2456.8021980146636,
+    "vwap": 0.9600238670655231,
+    "pnl_usd": 102.30313498533674,
+    "roi": 0.041640769886972455
+   }
+  ],
+  "verdict": "fillable"
+ },
+ {
+  "market": "Will Squid launch a token by December 31, 2026?",
+  "verdict": "no market yet",
+  "handle": "legiondotcc"
+ }
+]
