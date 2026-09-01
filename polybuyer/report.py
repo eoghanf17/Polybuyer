@@ -118,6 +118,7 @@ def summary(
     n_screened: int,
     n_markets: int | None = None,
     min_markets: int | None = None,
+    n_truncated: int = 0,
 ) -> str:
     rec = [(v, f) for v, f in ranked if v.decision == FOLLOW]
     L = [
@@ -126,6 +127,11 @@ def summary(
         f"{len(rec)} recommended.",
         BAR,
     ]
+    if n_truncated and n_markets:
+        L.append(f"{n_truncated}/{n_markets} tapes hit the server's 12k-print cap, so for")
+        L.append("those markets every figure covers only the visible window, not the")
+        L.append("trader's full record there.")
+        L.append("")
     if (not ranked and n_markets is not None and min_markets is not None
             and n_markets < min_markets):
         L.append(f"NOTE: the corpus holds {n_markets} markets but the breadth")

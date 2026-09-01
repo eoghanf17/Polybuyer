@@ -147,6 +147,8 @@ def detect(tape: Tape, cfg: JumpConfig, terminal: float | None = None) -> list[J
     """
     if len(tape) < cfg.min_market_trades:
         return []
+    if tape.end - tape.start < cfg.min_span_s:
+        return []
 
     times, prices = tape.buckets(cfg.bucket_s, cfg.min_bucket_trades)
     n = len(times)

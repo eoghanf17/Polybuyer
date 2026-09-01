@@ -19,7 +19,7 @@ from .jumps import Jump, detect
 from .model import Resolution, dedupe, normalise_many, resolution_from_clob
 from .netio import Fetcher
 from .scores import Verdict, rank
-from .sources import market_resolutions, market_tape
+from .sources import market_resolutions, market_tape, top_markets
 from .tape import Tape, build_tapes
 
 
@@ -51,6 +51,7 @@ def analyse(
     clob_markets: dict[str, dict],
     cfg: Config,
     clusters: dict[str, str] | None = None,
+    exclude_in_play: bool = False,
 ) -> Analysis:
     """Run the whole discovery analysis over a corpus of trades.
 
@@ -66,6 +67,14 @@ def analyse(
         cid: resolution_from_clob(cid, payload)
         for cid, payload in clob_markets.items()
     }
+
+    if exclude_in_play:
+        # Drop scheduled matches.  In a live game the price tracks the game,
+        # so being "positioned before the repricing" is satisfied by anyone
+        # on a faster stream -- a latency edge on a public broadcast, which
+        # the tape cannot distinguish from information.
+        drop = {c for c, r in resolutions.items() if r.in_play}
+        tapes = {c: t for c, t in tapes.items() if c not in drop}
     jumps = {
         cid: detect(tape, cfg.jump,
                     terminal=(resolutions[cid].ref_terminal if cid in resolutions else None))
@@ -88,6 +97,8 @@ def discover(
     cfg: Config,
     max_markets: int = 150,
     cluster_wallets: bool = True,
+    universe: str = "recent",
+    exclude_in_play: bool = False,
     progress=lambda msg: None,
 ) -> Analysis:
     """Live end-to-end discovery against the Polymarket APIs.
@@ -97,18 +108,40 @@ def discover(
     N wallets that share markets costs far less than N wallet histories --
     and the fill simulation needs the all-participants tape anyway.
     """
-    progress("sweeping recent large trades for candidates...")
-    cands = sweep(fetch, cfg)
-    short = shortlist(cands, cfg)
-    progress(f"  {len(cands)} wallets seen, {len(short)} shortlisted")
+    keep: set[str] = set()
+    if universe == "volume":
+        # Rank the whole market history by volume.  A recent-trades sweep
+        # lands on whatever is churning right now, which in practice means
+        # esports and live sport; the traders worth finding here work
+        # elections, geopolitics and macro, and those only surface when you
+        # rank by size rather than recency.
+        progress("listing highest-volume resolved markets...")
+        rows = top_markets(fetch, pages=max(2, max_markets // 100 + 2))
+        markets = []
+        for m in rows:
+            cid = str(m.get("conditionId") or "")
+            if not cid:
+                continue
+            if exclude_in_play and m.get("gameStartTime"):
+                continue
+            markets.append(cid)
+            if len(markets) >= max_markets:
+                break
+        progress(f"  {len(markets)} markets selected from {len(rows)} listed")
+    else:
+        progress("sweeping recent large trades for candidates...")
+        cands = sweep(fetch, cfg)
+        short = shortlist(cands, cfg)
+        keep = {c.wallet for c in short}
+        progress(f"  {len(cands)} wallets seen, {len(short)} shortlisted")
 
-    # Rank markets by how much shortlisted activity they carry.
-    weight: dict[str, int] = {}
-    keep = {c.wallet for c in short}
-    for c in short:
-        for m in c.markets:
-            weight[m] = weight.get(m, 0) + 1
-    markets = sorted(weight, key=lambda m: -weight[m])[:max_markets]
+        # Rank markets by how much shortlisted activity they carry.
+        weight: dict[str, int] = {}
+        for c in short:
+            for m in c.markets:
+                weight[m] = weight.get(m, 0) + 1
+        markets = sorted(weight, key=lambda m: -weight[m])[:max_markets]
+
     progress(f"  fetching tapes for {len(markets)} markets...")
 
     raw: list[dict] = []
@@ -136,7 +169,10 @@ def discover(
         progress(f"  {merged} multi-wallet operators found")
 
     progress("analysing...")
-    a = analyse(raw, payloads, cfg, cmap)
+    a = analyse(raw, payloads, cfg, cmap, exclude_in_play=exclude_in_play)
+    if exclude_in_play:
+        n_ip = sum(1 for r in a.resolutions.values() if r.in_play)
+        progress(f"  excluded {n_ip} in-play match markets")
     a.truncated = truncated
     a.clusters = clusters
     return a

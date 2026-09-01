@@ -64,6 +64,12 @@ class JumpConfig:
     #: Ignore jumps in markets whose tape is thinner than this.
     min_market_trades: int = 60
 
+    #: Ignore markets whose visible tape spans less than this, seconds.
+    #: The busiest markets truncate at the server's 12k-print cap, which can
+    #: leave only minutes of history -- too short to establish a baseline,
+    #: let alone measure a move against it.
+    min_span_s: int = 2 * 3600
+
 
 @dataclass(frozen=True)
 class WindowConfig:

@@ -140,6 +140,14 @@ class Resolution:
     #: market has not resolved or the winner could not be determined.
     ref_terminal: float | None
     neg_risk: bool = False
+    #: A scheduled match with a kickoff time -- i.e. an in-play market.
+    #:
+    #: These need separating from news markets.  In a live match the price
+    #: moves continuously as the game unfolds, so "positioned before the
+    #: repricing" is satisfied by anyone watching a faster stream than the
+    #: market.  That is a real edge, but it is a *latency* edge on a public
+    #: broadcast, not information, and the tape cannot tell the two apart.
+    in_play: bool = False
 
     @property
     def is_terminal(self) -> bool:
@@ -179,4 +187,5 @@ def resolution_from_clob(condition_id: str, payload: dict) -> Resolution:
         payoffs=payoffs,
         ref_terminal=ref_terminal,
         neg_risk=bool(payload.get("neg_risk", False)),
+        in_play=bool(payload.get("game_start_time")),
     )

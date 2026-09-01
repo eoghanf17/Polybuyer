@@ -34,7 +34,8 @@ def _emit(a, args, n_seen: int, cfg) -> None:
         print(to_json(a.ranked))
         return
     print(summary(a.ranked, n_seen, n_markets=len(a.tapes),
-                  min_markets=cfg.screen.min_markets))
+                  min_markets=cfg.screen.min_markets,
+                  n_truncated=len(a.truncated)))
     print()
     print(table(a.ranked, limit=args.limit))
     print()
@@ -87,6 +88,8 @@ def cmd_discover(args) -> int:
     fetch = Fetcher(cache_dir=cfg.cache_dir, use_cache=not args.no_cache)
     a = discover(fetch, cfg, max_markets=args.markets,
                  cluster_wallets=not args.no_clusters,
+                 universe=args.universe,
+                 exclude_in_play=not args.include_in_play,
                  progress=lambda m: print(m, file=sys.stderr))
     print(f"cache: {fetch.stats}", file=sys.stderr)
     _emit(a, args, len(a.features), cfg)
@@ -175,6 +178,15 @@ def main(argv: list[str] | None = None) -> int:
                        help="live sweep against the Polymarket APIs")
     v.add_argument("--markets", type=int, default=150)
     v.add_argument("--no-clusters", action="store_true")
+    v.add_argument("--universe", choices=["recent", "volume"], default="volume",
+                   help="'volume': highest-volume markets (elections, geopolitics, "
+                        "macro -- where informed news flow trades). 'recent': sweep "
+                        "recent large trades (biases to whatever is churning now, "
+                        "in practice esports and live sport).")
+    v.add_argument("--include-in-play", action="store_true",
+                   help="keep scheduled match markets. Off by default: in a live "
+                        "game, trading 'before the repricing' is satisfied by a "
+                        "faster stream, which is latency not information.")
     v.set_defaults(func=cmd_discover)
 
     w = sub.add_parser("wallets", parents=[common], help="deep-dive specific wallets")

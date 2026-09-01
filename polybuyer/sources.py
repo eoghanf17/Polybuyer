@@ -30,6 +30,7 @@ CLOB = "https://clob.polymarket.com"
 LB_API = "https://lb-api.polymarket.com"
 PNL_API = "https://user-pnl-api.polymarket.com"
 SITE = "https://polymarket.com"
+GAMMA = "https://gamma-api.polymarket.com"
 BLOCKSCOUT = "https://polygon.blockscout.com"
 
 #: Server-side ceiling on ``/trades?market=``.
@@ -168,6 +169,40 @@ def recent_trades(fetch: Fetcher, page: int = 500, pages: int = 20) -> list[dict
         page_size=page,
         max_pages=pages,
     )
+
+
+def top_markets(
+    fetch: Fetcher,
+    pages: int = 8,
+    per_page: int = 100,
+    closed: bool = True,
+) -> list[dict]:
+    """Highest-volume markets, newest-first by volume, via gamma.
+
+    The handoff recorded gamma as unusable, but that applies only to its
+    ``condition_ids`` filter, which returns ``[]`` rather than erroring.  The
+    plain listing works and is the only way to enumerate markets by anything
+    other than "recently traded".
+
+    That distinction matters for what this pipeline is looking for.  Sweeping
+    recent large trades lands on whatever is churning right now -- in
+    practice esports and live sport -- whereas ranking by volume surfaces the
+    elections, geopolitics and macro markets where informed news flow
+    actually trades.  ``tag_slug`` is silently ignored by the API, so any
+    category filtering has to happen client-side.
+    """
+    out: list[dict] = []
+    for page in range(pages):
+        url = (f"{GAMMA}/markets?closed={'true' if closed else 'false'}"
+               f"&limit={per_page}&offset={page * per_page}"
+               f"&order=volumeNum&ascending=false")
+        batch = fetch.get(url)
+        if not batch or not isinstance(batch, list):
+            break
+        out.extend(batch)
+        if len(batch) < per_page:
+            break
+    return out
 
 
 def positions(fetch: Fetcher, wallet: str) -> list[dict]:
