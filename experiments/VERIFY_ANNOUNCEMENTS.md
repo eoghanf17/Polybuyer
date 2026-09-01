@@ -1,71 +1,70 @@
-# Did the principal announce it on X? — verification links
+# Did the principal announce it on X?
 
-Twelve markets that resolved **YES** on an act the principal could have posted
-themselves. Click each search to see whether they did, and at what time.
+Each market below resolved YES. The search window is anchored to the moment
+the market actually repriced to certainty, recovered from its trade tape --
+NOT the expiry date, which sits up to 356 days later and would put every
+search in the wrong year.
 
-The window is the fortnight before the deadline named *in the question*, which
-is not always the record's end date — a 'by April 30, 2026' market can carry a
-listing end of 2027-01-01, and anchoring to that puts the search months late.
-
-If the post is there and timestamped before the market repriced, the strategy
-had a signal. If the market had already moved when it landed, it did not.
+The number that matters is the timestamp on the post versus the repricing
+time given for each market. Earlier means the strategy had a tradeable
+signal. Later or simultaneous means the market moved without it.
 
 ## 1. Will Trump nominate Kevin Warsh as the next Fed chair?
-- volume **$59,907,151** · resolved **YES** · deadline **2026-12-31**
-- principal: @realDonaldTrump, @WhiteHouse
-- [X search, live tab, 2026-12-17 → 2027-01-02](https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28Warsh%20OR%20%22Fed%20chair%22%29%20since%3A2026-12-17%20until%3A2027-01-02)
+volume $59,907,151  |  **repriced 2026-02-23 23:25 UTC**  |  @realDonaldTrump, @WhiteHouse
+
+https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28Warsh%20OR%20%22Fed%20chair%22%20OR%20Federal%20Reserve%29%20since%3A2026-02-20%20until%3A2026-02-25
 
 ## 2. Tesla launches unsupervised full self driving (FSD) by June 30?
-- volume **$12,177,341** · resolved **YES** · deadline **2026-06-30**
-- principal: @elonmusk, @Tesla
-- [X search, live tab, 2026-06-16 → 2026-07-02](https://x.com/search?f=live&q=%28from%3Aelonmusk%20OR%20from%3ATesla%29%20%28FSD%20OR%20%22full%20self%22%29%20since%3A2026-06-16%20until%3A2026-07-02)
+volume $12,177,341  |  **repriced 2025-12-14 19:47 UTC**  |  @elonmusk, @Tesla
 
-## 3. Trump announces end of military operations against Iran by June 30th?
-- volume **$3,743,260** · resolved **YES** · deadline **2026-06-30**
-- principal: @realDonaldTrump, @WhiteHouse
-- [X search, live tab, 2026-06-16 → 2026-07-02](https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28Iran%29%20since%3A2026-06-16%20until%3A2026-07-02)
+https://x.com/search?f=live&q=%28from%3Aelonmusk%20OR%20from%3ATesla%29%20%28FSD%20OR%20%22full%20self%22%20OR%20unsupervised%29%20since%3A2025-12-11%20until%3A2025-12-16
 
-## 4. Will Donald Trump announce that the United States blockade of the Strait of Hormuz has been lifted by June 30, 2026?
-- volume **$4,223,119** · resolved **YES** · deadline **2026-06-30**
-- principal: @realDonaldTrump, @WhiteHouse
-- [X search, live tab, 2026-06-16 → 2026-07-02](https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28blockade%20OR%20Hormuz%29%20since%3A2026-06-16%20until%3A2026-07-02)
+## 3. Will Donald Trump announce that the United States blockade of the Strait of Hormuz has been lifted by June 30, 2026?
+volume $4,223,119  |  **repriced 2026-06-14 21:30 UTC**  |  @realDonaldTrump, @WhiteHouse
 
-## 5. Will MegaETH launch a token by April 30, 2026?
-- volume **$2,824,219** · resolved **YES** · deadline **2026-04-30**
-- principal: @megaeth_labs
-- [X search, live tab, 2026-04-16 → 2026-05-02](https://x.com/search?f=live&q=%28from%3Amegaeth_labs%29%20%28token%20OR%20TGE%29%20since%3A2026-04-16%20until%3A2026-05-02)
+https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28blockade%20OR%20Hormuz%20OR%20Iran%29%20since%3A2026-06-11%20until%3A2026-06-16
 
-## 6. Will MicroStrategy announce holding 800k+ BTC by December 31, 2026?
-- volume **$212,143** · resolved **YES** · deadline **2026-12-31**
-- principal: @saylor, @Strategy
-- [X search, live tab, 2026-12-17 → 2027-01-02](https://x.com/search?f=live&q=%28from%3Asaylor%20OR%20from%3AStrategy%29%20%28bitcoin%20OR%20BTC%29%20since%3A2026-12-17%20until%3A2027-01-02)
+## 4. US announces halt in Iran offensive operations by July 31?
+volume $4,009,713  |  **repriced 2026-07-27 15:40 UTC**  |  @realDonaldTrump, @WhiteHouse
 
-## 7. Will EdgeX launch a token by March 31, 2026?
-- volume **$612,993** · resolved **YES** · deadline **2026-03-31**
-- principal: @edgeX_exchange
-- [X search, live tab, 2026-03-17 → 2026-04-02](https://x.com/search?f=live&q=%28from%3AedgeX_exchange%29%20%28token%20OR%20TGE%29%20since%3A2026-03-17%20until%3A2026-04-02)
+https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28Iran%20OR%20halt%20OR%20ceasefire%29%20since%3A2026-07-24%20until%3A2026-07-29
 
-## 8. Will the US announce a blockade on Iran by July 31?
-- volume **$1,860,331** · resolved **YES** · deadline **2026-07-31**
-- principal: @realDonaldTrump, @WhiteHouse
-- [X search, live tab, 2026-07-17 → 2026-08-02](https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28blockade%20OR%20Iran%29%20since%3A2026-07-17%20until%3A2026-08-02)
+## 5. Trump announces end of military operations against Iran by June 30th?
+volume $3,743,260  |  **repriced 2026-05-01 22:01 UTC**  |  @realDonaldTrump, @WhiteHouse
 
-## 9. US announces halt in Iran offensive operations by July 31?
-- volume **$4,009,713** · resolved **YES** · deadline **2026-07-31**
-- principal: @realDonaldTrump, @WhiteHouse
-- [X search, live tab, 2026-07-17 → 2026-08-02](https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28Iran%20OR%20halt%29%20since%3A2026-07-17%20until%3A2026-08-02)
+https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28Iran%29%20since%3A2026-04-28%20until%3A2026-05-03
 
-## 10. Will Flying Tulip launch a token by March 31, 2026?
-- volume **$301,433** · resolved **YES** · deadline **2026-03-31**
-- principal: @flyingtulip_
-- [X search, live tab, 2026-03-17 → 2026-04-02](https://x.com/search?f=live&q=%28from%3Aflyingtulip_%29%20%28token%20OR%20TGE%29%20since%3A2026-03-17%20until%3A2026-04-02)
+## 6. Will MegaETH launch a token by April 30, 2026?
+volume $2,824,219  |  **repriced 2026-04-09 10:46 UTC**  |  @megaeth_labs
 
-## 11. Will Trove launch a token by March 31, 2026?
-- volume **$270,428** · resolved **YES** · deadline **2026-03-31**
-- principal: @trove_fi
-- [X search, live tab, 2026-03-17 → 2026-04-02](https://x.com/search?f=live&q=%28from%3Atrove_fi%29%20%28token%20OR%20TGE%29%20since%3A2026-03-17%20until%3A2026-04-02)
+https://x.com/search?f=live&q=%28from%3Amegaeth_labs%29%20%28token%20OR%20TGE%20OR%20airdrop%20OR%20launch%29%20since%3A2026-04-06%20until%3A2026-04-11
+
+## 7. Will the US announce a blockade on Iran by July 31?
+volume $1,860,331  |  **repriced 2026-06-23 05:02 UTC**  |  @realDonaldTrump, @WhiteHouse
+
+https://x.com/search?f=live&q=%28from%3ArealDonaldTrump%20OR%20from%3AWhiteHouse%29%20%28blockade%20OR%20Iran%29%20since%3A2026-06-20%20until%3A2026-06-25
+
+## 8. Will EdgeX launch a token by March 31, 2026?
+volume $612,993  |  **repriced 2026-03-07 11:14 UTC**  |  @edgeX_exchange
+
+https://x.com/search?f=live&q=%28from%3AedgeX_exchange%29%20%28token%20OR%20TGE%20OR%20airdrop%29%20since%3A2026-03-04%20until%3A2026-03-09
+
+## 9. Will Flying Tulip launch a token by March 31, 2026?
+volume $301,433  |  **repriced 2026-01-10 08:03 UTC**  |  @flyingtulip_
+
+https://x.com/search?f=live&q=%28from%3Aflyingtulip_%29%20%28token%20OR%20TGE%20OR%20airdrop%29%20since%3A2026-01-07%20until%3A2026-01-12
+
+## 10. Will Trove launch a token by March 31, 2026?
+volume $270,428  |  **repriced 2026-01-05 09:52 UTC**  |  @trove_fi
+
+https://x.com/search?f=live&q=%28from%3Atrove_fi%29%20%28token%20OR%20TGE%20OR%20airdrop%29%20since%3A2026-01-02%20until%3A2026-01-07
+
+## 11. Will MicroStrategy announce holding 800k+ BTC by December 31, 2026?
+volume $212,143  |  **repriced 2026-03-10 20:15 UTC**  |  @saylor, @Strategy
+
+https://x.com/search?f=live&q=%28from%3Asaylor%20OR%20from%3AStrategy%29%20%28bitcoin%20OR%20BTC%29%20since%3A2026-03-07%20until%3A2026-03-12
 
 ## 12. Will Oleksandr Syrskyi be out as Ukraine's Commander-in-Chief by December 31, 2026?
-- volume **$169,453** · resolved **YES** · deadline **2026-12-31**
-- principal: @ZelenskyyUa
-- [X search, live tab, 2026-12-17 → 2027-01-02](https://x.com/search?f=live&q=%28from%3AZelenskyyUa%29%20%28Syrskyi%29%20since%3A2026-12-17%20until%3A2027-01-02)
+volume $169,453  |  **repriced 2026-07-20 13:29 UTC**  |  @ZelenskyyUa
+
+https://x.com/search?f=live&q=%28from%3AZelenskyyUa%29%20%28Syrskyi%20OR%20Commander%29%20since%3A2026-07-17%20until%3A2026-07-22
