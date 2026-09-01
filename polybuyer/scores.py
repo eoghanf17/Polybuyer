@@ -81,6 +81,10 @@ def screen(f: WalletFeatures, cfg: Config) -> str | None:
     if f.position_ratio < s.min_position_ratio:
         return (f"never holds a directional position (peak position is only "
                 f"{f.position_ratio:.0%} of volume traded) -- market maker")
+    if f.eff_n < s.min_effective_n:
+        return (f"{f.n_markets} markets but only {f.eff_n:.1f} effectively "
+                f"independent events (need {s.min_effective_n:.0f}) -- "
+                f"correlated outcomes, not a track record")
     if f.negrisk_share > s.max_negrisk_share:
         return (f"{f.negrisk_share:.0%} negative-risk markets -- positions are "
                 f"structural mints, not opinions")

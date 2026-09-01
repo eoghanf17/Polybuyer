@@ -150,6 +150,23 @@ class TestFollowability(unittest.TestCase):
             self.assertLessEqual(s.got_shares, s.want_shares + 1e-6)
 
 
+class TestCorrelatedOutcomes(unittest.TestCase):
+    """Markets inside one event are one observation wearing many hats."""
+
+    def test_single_event_universe_is_screened_out(self):
+        rows, payloads, _ = syn.universe(n_markets=40, markets_per_event=40)
+        a = analyse(rows, payloads, CFG)
+        self.assertEqual(a.ranked, [],
+                         "a record confined to one event is not a track record")
+        v = classify(a.features[INS], CFG)
+        self.assertIn("effectively independent", v.excluded)
+
+    def test_independent_events_survive(self):
+        rows, payloads, _ = syn.universe(n_markets=40, markets_per_event=1)
+        a = analyse(rows, payloads, CFG)
+        self.assertIsNotNone(a.by_wallet(INS))
+
+
 class TestStatisticalGuards(unittest.TestCase):
     def test_single_cluster_bootstrap_is_never_significant(self):
         """One lucky market must not report certainty."""

@@ -164,6 +164,12 @@ class ScreenConfig:
     #: is an anecdote.
     min_archetype_events: int = 10
 
+    #: Minimum *effectively independent* events.  Forty markets on one World
+    #: Cup share almost all of their information and are nothing like forty
+    #: tests of a strategy; a trader whose record lives inside a single event
+    #: has not been verified, however many markets it spans.
+    min_effective_n: float = 12.0
+
 
 @dataclass(frozen=True)
 class StatsConfig:

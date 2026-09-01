@@ -28,6 +28,7 @@ def raw_trade(
     condition_id: str = "0xtest",
     quote_on: int = 0,
     tx: str | None = None,
+    event_slug: str = "",
 ) -> dict:
     """Emit one wire-format trade with the given *reference* semantics.
 
@@ -55,9 +56,9 @@ def raw_trade(
         "price": round(price, 4),
         "size": round(size, 4),
         "transactionHash": tx or f"0x{ts:08x}{abs(hash(wallet)) % 10**6:06x}",
-        "slug": "synthetic-market",
+        "slug": f"market-{condition_id}",
         "title": "Synthetic Market",
-        "eventSlug": "synthetic-event",
+        "eventSlug": event_slug or f"event-{condition_id}",
     }
 
 
@@ -86,6 +87,9 @@ class MarketSpec:
     n_makers: int = 2
     maker_trades: int = 200
     seed: int = 7
+    #: Event this market belongs to.  Several markets sharing an event are
+    #: not independent observations, which is what effective-N measures.
+    event_slug: str = ""
     #: Planted actors: (wallet, kind, correct?) where kind is one of
     #: "insider" / "newsdesk" / "follower".
     actors: list[tuple[str, str, bool]] = field(default_factory=list)
@@ -121,7 +125,8 @@ def build(spec: MarketSpec) -> tuple[list[dict], dict]:
         w = f"0xnoise{rng.randrange(60):03d}"
         sz = rng.uniform(20, 400)
         sign = 1.0 if rng.random() < 0.5 else -1.0
-        rows.append(raw_trade(ts, px(ts), w, sign * sz, spec.condition_id, rng.randrange(2)))
+        rows.append(raw_trade(ts, px(ts), w, sign * sz, spec.condition_id,
+                              rng.randrange(2), event_slug=spec.event_slug))
 
     # The news burst: attention spikes when the price moves, decaying away
     # over the following hour.
@@ -135,7 +140,8 @@ def build(spec: MarketSpec) -> tuple[list[dict], dict]:
         w = f"0xburst{rng.randrange(80):03d}"
         sz = rng.uniform(30, 600)
         sign = 1.0 if rng.random() < 0.5 else -1.0
-        rows.append(raw_trade(ts, px(ts), w, sign * sz, spec.condition_id, rng.randrange(2)))
+        rows.append(raw_trade(ts, px(ts), w, sign * sz, spec.condition_id,
+                              rng.randrange(2), event_slug=spec.event_slug))
 
     # Market makers: continuous two-sided quoting, flat net exposure.
     for m in range(spec.n_makers):
@@ -144,7 +150,8 @@ def build(spec: MarketSpec) -> tuple[list[dict], dict]:
             ts = rng.randint(spec.t0, end)
             sz = rng.uniform(100, 500)
             sign = 1.0 if i % 2 == 0 else -1.0
-            rows.append(raw_trade(ts, px(ts), w, sign * sz, spec.condition_id, rng.randrange(2)))
+            rows.append(raw_trade(ts, px(ts), w, sign * sz, spec.condition_id,
+                              rng.randrange(2), event_slug=spec.event_slug))
 
     truth: dict = {"jump_ts": jt, "direction": direction, "actors": {}}
 
@@ -159,7 +166,7 @@ def build(spec: MarketSpec) -> tuple[list[dict], dict]:
                 ts = jt - rng.randint(600, 5 * 3600)
                 rows.append(
                     raw_trade(ts, px(ts), wallet, sign * rng.uniform(800, 2000),
-                              spec.condition_id, rng.randrange(2))
+                              spec.condition_id, rng.randrange(2), event_slug=spec.event_slug)
                 )
         elif kind == "newsdesk":
             # Hits within seconds of the move starting.
@@ -167,7 +174,7 @@ def build(spec: MarketSpec) -> tuple[list[dict], dict]:
                 ts = jt + rng.randint(1, 45)
                 rows.append(
                     raw_trade(ts, px(ts), wallet, sign * rng.uniform(600, 1500),
-                              spec.condition_id, rng.randrange(2))
+                              spec.condition_id, rng.randrange(2), event_slug=spec.event_slug)
                 )
         elif kind == "follower":
             # Arrives once the repricing is common knowledge.
@@ -175,7 +182,7 @@ def build(spec: MarketSpec) -> tuple[list[dict], dict]:
                 ts = jt + rng.randint(20 * 60, 3 * 3600)
                 rows.append(
                     raw_trade(ts, px(ts), wallet, sign * rng.uniform(500, 1200),
-                              spec.condition_id, rng.randrange(2))
+                              spec.condition_id, rng.randrange(2), event_slug=spec.event_slug)
                 )
 
     rows.sort(key=lambda r: r["timestamp"])
@@ -209,6 +216,7 @@ def universe(
     follower_hit: float = 0.5,
     seed: int = 11,
     jump_dur_s: int = 300,
+    markets_per_event: int = 1,
 ) -> tuple[list[dict], dict[str, dict], dict]:
     """A whole synthetic universe of markets sharing the same actors.
 
@@ -235,6 +243,7 @@ def universe(
             p_after=p_after,
             jump_dur_s=jump_dur_s,
             seed=seed * 1000 + i,
+            event_slug=f"event-{i // markets_per_event:03d}",
             actors=[
                 (insider, "insider", rng.random() < insider_hit),
                 (newsdesk, "newsdesk", rng.random() < news_hit),
