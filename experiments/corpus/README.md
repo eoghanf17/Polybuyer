@@ -12,13 +12,14 @@ and, worse, a gate change that cannot be evaluated.
 | `posts.jsonl` | 496 | the corpus. One row per post, deduped on X's post id |
 | `labelled_cases.jsonl` | 17 | hand-transcribed gate examples. Kept separate because they have no timestamps and would otherwise read as "not actionable" |
 | `labels.json` | — | human adjudication, declarative so labels are reviewable in a diff |
-| `markets.jsonl` | 36 | the market ledger — depth, resolution, repricings, and what a ticket would have paid |
+| `markets.jsonl` | 71 | the market ledger — depth, resolution, repricings, and what a ticket would have paid |
 | `market_lists.json` | 36 | the blind-test market lists, copied out of the session scratchpad before it was reclaimed |
 
 ## Provenance
 
 | source | rows | post ids | followers | notes |
 |---|---|---|---|---|
+| `blind3/depth_first` | 433 | ✓ | ✓ | markets screened on depth *before* any post was read |
 | `blind2/keyword_rules` | 288 | ✓ | ✓ | re-fetched after `blind2.py` discarded them |
 | `blind1/who_broke_it` | 98 | ✗ | ✓ | harness dropped the ids; these dedupe on a content hash |
 | `gate_calibration` | 110 | ✗ | ✗ | cannot be scored against a follower floor |
@@ -95,13 +96,13 @@ what makes "add as you go" safe — `hit_pnl.py` writes to it on every run.
 It is what the tape can *demonstrate* was available from prints that
 actually executed — a lower bound on liquidity.
 
-## Current state: 36 markets
+## Current state: 71 markets
 
 | verdict | n |
 |---|---|
+| fillable | 36 |
 | untested | 29 |
 | missed (rules caught nothing that passed the gate) | 4 |
-| fillable | 1 |
 | no liquidity at any cap or window | 1 |
 | no market yet when the post landed | 1 |
 
@@ -109,8 +110,13 @@ At the desk's configured sizes, across everything priced so far:
 
 | | tier 2 ($3 @ 2c) | tier 1 ($10 @ 5c) |
 |---|---|---|
-| Burnham | $0.31 | $0.78 |
-| **total** | **$0.31** | **$0.78** |
+| Burnham (blind 2) | $0.31 | $0.78 |
+| US×Iran peace deal (blind 3) | $0.42 | $1.16 |
+| Israel×Hezbollah ceasefire (blind 3) | not fillable | $1.03 |
+| **total** | **$0.73** | **$2.97** |
+
+At realistic tickets the same two blind-3 hits are worth **$802** (2c) and
+**$2,728** (5c). The signal is not the constraint any more; the ticket is.
 
 ## Volume distribution — why the screen now drops on depth
 

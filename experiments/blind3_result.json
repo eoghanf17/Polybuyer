@@ -1,0 +1,716 @@
+[
+ {
+  "cid": "0x3488f31e6449f9803f99a8b5dd232c7ad883637f1c86e6953305a2ef19c77f20",
+  "q": "US strikes Iran by February 28, 2026?",
+  "vol": 89652867.363489,
+  "onset": "2026-02-28T06:17:51+00:00",
+  "onset_ts": 1772259471,
+  "before": 0.5007,
+  "after": 0.9102,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 68036.47,
+  "vwap": 0.5072,
+  "pnl_usd": 66094.05,
+  "rule": "(Iran) (strike OR strikes OR struck OR attack OR bomb)",
+  "by_floor": {
+   "0": {
+    "eligible": 22,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 4,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0xaf51603d78545c838490bafe178ee9ff4c23d0c2161f15e0e530d3735229ad3f",
+  "q": "Will Nicu\u0219or Dan win the Romanian presidential election?",
+  "vol": 50991003.196931,
+  "onset": "2025-05-18T17:49:48+00:00",
+  "onset_ts": 1747590588,
+  "before": 0.644,
+  "after": 0.8728,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 37081.14,
+  "vwap": 0.6727,
+  "pnl_usd": 18038.24,
+  "rule": "(Romania OR Romanian) (election OR exit poll OR wins OR won OR president)",
+  "by_floor": {
+   "0": {
+    "eligible": 25,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 3,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x5fc28bfcb6f16080415695b53f1f60820f403a94ce16696eea2f0085d823bc92",
+  "q": "Will George Simion win the Romanian presidential election?",
+  "vol": 31796892.976285,
+  "onset": "2025-05-18T17:53:36+00:00",
+  "onset_ts": 1747590816,
+  "before": 0.3446,
+  "after": 0.0763,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 27037.77,
+  "vwap": 0.6877,
+  "pnl_usd": 12278.35,
+  "rule": "(Romania OR Romanian) (election OR exit poll OR wins OR won OR president)",
+  "by_floor": {
+   "0": {
+    "eligible": 25,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 3,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x8a38e9511fe17e13fa7c3fc65923983c22d4d494b69091fad0107637a7cd1e32",
+  "q": "US strikes Iran by February 23, 2026?",
+  "vol": 14022418.787406,
+  "onset": "2026-02-18T20:55:18+00:00",
+  "onset_ts": 1771448118,
+  "before": 0.2491,
+  "after": 0.15,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 40152.4,
+  "vwap": 0.7701,
+  "pnl_usd": 11986.94,
+  "rule": "(Iran) (strike OR strikes OR struck OR attack OR bomb)",
+  "by_floor": {
+   "0": {
+    "eligible": 23,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0xbee2cd40473495f713c69b9dfbce9fc2837fa4011568222c83c83bb773e35053",
+  "q": "Starmer out by June 30, 2026?",
+  "vol": 7912817.765875065,
+  "onset": "2026-06-19T02:21:29+00:00",
+  "onset_ts": 1781835689,
+  "before": 0.3498,
+  "after": 0.43,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 6691.52,
+  "vwap": 0.3949,
+  "pnl_usd": 10253.82,
+  "rule": "(Starmer) (resign OR resigns OR resignation OR quit OR ousted)",
+  "by_floor": {
+   "0": {
+    "eligible": 22,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 6,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x9d1e122ce82f7acd66088e2e6216ca732b38fee26cee312156e854f975c28776",
+  "q": "Will lighter perform an airdrop by December 31? ",
+  "vol": 26021665.1755,
+  "onset": "2025-12-30T04:48:51+00:00",
+  "onset_ts": 1767070131,
+  "before": 0.8619,
+  "after": 0.9796,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 56164.19,
+  "vwap": 0.9023,
+  "pnl_usd": 6082.11,
+  "rule": "(lighter OR $LIGHTER) (airdrop OR claim OR live OR TGE OR token)",
+  "by_floor": {
+   "0": {
+    "eligible": 24,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 5,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x4b78de44ea49d0eb8d5fee85352294b6f679a47c56944c6ad5c945e9a2ba7211",
+  "q": "Government shutdown on Saturday?",
+  "vol": 13550398.086217,
+  "onset": "2026-02-13T09:44:39+00:00",
+  "onset_ts": 1770975879,
+  "before": 0.3566,
+  "after": 0.2595,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 11109.16,
+  "vwap": 0.6739,
+  "pnl_usd": 5375.98,
+  "rule": "(shutdown) (government OR Senate OR House OR funding OR bill OR vote)",
+  "by_floor": {
+   "0": {
+    "eligible": 12,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 2,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x464eac41fe4ee9e4317fa68b01d922d7b1e48edd3584c3ec30a87308cd6c684b",
+  "q": "Lighter Airdrop on December 29?",
+  "vol": 9727413.453505,
+  "onset": "2025-12-29T04:02:43+00:00",
+  "onset_ts": 1766980963,
+  "before": 0.4725,
+  "after": 0.3864,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 6911.85,
+  "vwap": 0.563,
+  "pnl_usd": 5365.92,
+  "rule": "(lighter OR $LIGHTER) (airdrop OR claim OR live OR TGE OR token)",
+  "by_floor": {
+   "0": {
+    "eligible": 22,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 3,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0xf21fa02ef79ac3e83a32c5ecafeca8ce5629609ba1773d9cc69e39b04f66bfa8",
+  "q": "Over $1.2B committed to the MegaETH public sale?",
+  "vol": 7303312.840744,
+  "onset": "2025-10-29T21:37:27+00:00",
+  "onset_ts": 1761773847,
+  "before": 0.709,
+  "after": 0.8193,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 12078.09,
+  "vwap": 0.7451,
+  "pnl_usd": 4131.96,
+  "rule": "(MegaETH OR $MEGA) (sale OR raise OR committed OR allocation)",
+  "by_floor": {
+   "0": {
+    "eligible": 23,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 2,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0xd1047755d35a03b7ceea9923daae56ecf67784446daa63e87eebc471b4b9dbd9",
+  "q": "US strikes Iran by January 16, 2026?",
+  "vol": 8491722.888278,
+  "onset": "2026-01-14T20:02:28+00:00",
+  "onset_ts": 1768420948,
+  "before": 0.6252,
+  "after": 0.3858,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 2898.95,
+  "vwap": 0.4167,
+  "pnl_usd": 4058.14,
+  "rule": "(Iran) (strike OR strikes OR struck OR attack OR bomb)",
+  "by_floor": {
+   "0": {
+    "eligible": 17,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 1,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x5e5482b1e2afa7bed0b9a0c3c8ad33a83dd6cc6d649666cdf1977be64c42c82a",
+  "q": "Epstein suicide note released by May 8?",
+  "vol": 14180619.718706006,
+  "onset": "2026-05-11T19:41:06+00:00",
+  "onset_ts": 1778528466,
+  "before": 0.102,
+  "after": 0.003,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 48789.73,
+  "vwap": 0.9251,
+  "pnl_usd": 3952.1,
+  "rule": "(Epstein) (note OR document OR release OR released OR files)",
+  "by_floor": {
+   "0": {
+    "eligible": 22,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 0,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0xfc6260666d020a912a87d9000eff5116d2adfb8c30aba543427a4c1f1411f1a0",
+  "q": "MegaETH market cap (FDV) >$2B one day after launch?",
+  "vol": 9056989.371149095,
+  "onset": "2026-05-01T02:06:14+00:00",
+  "onset_ts": 1777601174,
+  "before": 0.22,
+  "after": 0.14,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 16483.95,
+  "vwap": 0.8216,
+  "pnl_usd": 3578.58,
+  "rule": "(MegaETH OR $MEGA) (FDV OR market cap OR launch OR listed OR live)",
+  "by_floor": {
+   "0": {
+    "eligible": 21,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 4,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0xa70fc3695a65833b91b45df6db6015096f3e1471b70352ca411b4209010e7633",
+  "q": "US-Iran nuclear deal by June 30?",
+  "vol": 11324069.03899108,
+  "onset": "2026-06-11T17:24:51+00:00",
+  "onset_ts": 1781198691,
+  "before": 0.1852,
+  "after": 0.34,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 1063.92,
+  "vwap": 0.23,
+  "pnl_usd": 3561.83,
+  "rule": "(Iran) (deal OR agreement OR nuclear OR talks OR signed)",
+  "by_floor": {
+   "0": {
+    "eligible": 22,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 3,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0xc6ddb19f848ac363330d0a690cfe6818d4c51e837161a41d42675eda27767ed0",
+  "q": "Will Finland win Eurovision 2026?",
+  "vol": 6594936.095275031,
+  "onset": "2026-05-16T22:11:03+00:00",
+  "onset_ts": 1778969463,
+  "before": 0.4937,
+  "after": 0.0022,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 4183.26,
+  "vwap": 0.5461,
+  "pnl_usd": 3476.57,
+  "rule": "(Eurovision) (Finland OR wins OR won OR winner OR points)",
+  "by_floor": {
+   "0": {
+    "eligible": 24,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 1,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x7d4d6916fa50ad0be01c1c065a6b3ad95f5d444c18fc6b766a99d31173469303",
+  "q": "Will the Party for Freedom win the most seats in the 2025 Netherlands parliamentary election?",
+  "vol": 10147546.752816,
+  "onset": "2025-10-28T15:03:19+00:00",
+  "onset_ts": 1761663799,
+  "before": 0.73,
+  "after": 0.5525,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 1362.61,
+  "vwap": 0.3195,
+  "pnl_usd": 2901.79,
+  "rule": "(Netherlands OR Dutch OR PVV OR Wilders) (election OR exit poll OR seats OR wins)",
+  "by_floor": {
+   "0": {
+    "eligible": 15,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 5,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x9769f78cbc95a5ed11895e6064bac471d8fd8f930b260cf581b68d3f58630d27",
+  "q": "US x Iran permanent peace deal by December 31, 2026?",
+  "vol": 14411915.111413987,
+  "onset": "2026-06-14T21:15:55+00:00",
+  "onset_ts": 1781471755,
+  "before": 0.8501,
+  "after": 0.9373,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 19314.55,
+  "vwap": 0.8908,
+  "pnl_usd": 2367.51,
+  "rule": "(Iran) (deal OR agreement OR nuclear OR talks OR signed)",
+  "by_floor": {
+   "0": {
+    "eligible": 24,
+    "hit": true,
+    "handle": "CMShehbaz",
+    "followers": 6745585,
+    "at": "2026-06-14T21:15:34.000Z",
+    "text": "Following intensive talks, we are pleased to announce that the Peace Deal between the United States of America and Islamic Republic of Iran has been REACHED. Both sides have declared the immediate and permanent termination of military operations on all fronts, including in"
+   },
+   "10000": {
+    "eligible": 5,
+    "hit": true,
+    "handle": "CMShehbaz",
+    "followers": 6745585,
+    "at": "2026-06-14T21:15:34.000Z",
+    "text": "Following intensive talks, we are pleased to announce that the Peace Deal between the United States of America and Islamic Republic of Iran has been REACHED. Both sides have declared the immediate and permanent termination of military operations on all fronts, including in"
+   }
+  }
+ },
+ {
+  "cid": "0x9823d715687a0a82d2a03731792e83bf58a0409f10def1379e00e4d67a95ba69",
+  "q": "Israel x Hezbollah ceasefire by April 18, 2026?",
+  "vol": 98599882.2899258,
+  "onset": "2026-04-16T17:53:18+00:00",
+  "onset_ts": 1776361998,
+  "before": 0.8755,
+  "after": 0.99,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 17543.07,
+  "vwap": 0.9186,
+  "pnl_usd": 1554.2,
+  "rule": "(Hezbollah OR Lebanon) (ceasefire OR truce OR agreement OR deal)",
+  "by_floor": {
+   "0": {
+    "eligible": 23,
+    "hit": true,
+    "handle": "rupeesmedia",
+    "followers": 237,
+    "at": "2026-04-16T17:52:13.000Z",
+    "text": "U.S. President Donald Trump on Thursday (April 16, 2026) announced a 10-day ceasefire between Israel and Lebanon effective from midnight, writes\n\n#Rupees #Trump #Lebanon #Israel https://t.co/eBg2HdNx6I"
+   },
+   "10000": {
+    "eligible": 8,
+    "hit": true,
+    "handle": "TimesNow",
+    "followers": 9820969,
+    "at": "2026-04-16T17:52:49.000Z",
+    "text": "US President Donald Trump has announced a 10-day ceasefire between Lebanon and Israel.\n\nTrump also claimed he has ended nine wars worldwide, and if this ceasefire holds, it will be his tenth.\n\n@Srinjoyc1 &amp; @shubhangi_2719 share more details. https://t.co/BxmM89WPxs"
+   }
+  }
+ },
+ {
+  "cid": "0xdc6f95f94d2db24a1904537cb8cf83e0b25fa47bac926112891eef0df8fd06f2",
+  "q": "US x Iran meeting by April 10, 2026?",
+  "vol": 7115644.975113006,
+  "onset": "2026-04-09T14:17:11+00:00",
+  "onset_ts": 1775744231,
+  "before": 0.4936,
+  "after": 0.2559,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 1435.14,
+  "vwap": 0.5233,
+  "pnl_usd": 1307.53,
+  "rule": "(Iran) (meeting OR meet OR talks OR negotiations OR summit)",
+  "by_floor": {
+   "0": {
+    "eligible": 24,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 4,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x391e2cca67a2d49030baf239fdebb1d428b732a00d0af46a0c98866a0a8eee8a",
+  "q": "Will US or Israel strike Iran by January 31, 2026?",
+  "vol": 6455319.003647,
+  "onset": "2026-01-15T12:25:48+00:00",
+  "onset_ts": 1768479948,
+  "before": 0.52,
+  "after": 0.4204,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 1014.16,
+  "vwap": 0.512,
+  "pnl_usd": 966.55,
+  "rule": "(Iran) (strike OR strikes OR struck OR attack OR bomb)",
+  "by_floor": {
+   "0": {
+    "eligible": 22,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 2,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x136f5a0c27a62cf9a2e40a4f48425e43d61b9571a53a2529372c0065f3218a73",
+  "q": "Iran x Israel/US conflict ends by June 30?",
+  "vol": 5872191.781835967,
+  "onset": "2026-04-07T22:22:27+00:00",
+  "onset_ts": 1775600547,
+  "before": 0.7179,
+  "after": 0.8568,
+  "direction": 1,
+  "terminal": 1.0,
+  "kind": "resolving",
+  "fillable_usd": 2768.23,
+  "vwap": 0.7601,
+  "pnl_usd": 873.9,
+  "rule": "(Iran) (ceasefire OR truce OR ends OR ended OR peace)",
+  "by_floor": {
+   "0": {
+    "eligible": 23,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 5,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ },
+ {
+  "cid": "0x894a26116ec1e467d89955a029545e090bbc38713351e21971da5c1572056c25",
+  "q": "Israel x Hezbollah ceasefire by April 15, 2026?",
+  "vol": 7833257.504384964,
+  "onset": "2026-04-15T21:26:04+00:00",
+  "onset_ts": 1776288364,
+  "before": 0.2179,
+  "after": 0.0407,
+  "direction": -1,
+  "terminal": 0.0,
+  "kind": "resolving",
+  "fillable_usd": 3840.25,
+  "vwap": 0.8292,
+  "pnl_usd": 790.83,
+  "rule": "(Hezbollah OR Lebanon) (ceasefire OR truce OR agreement OR deal)",
+  "by_floor": {
+   "0": {
+    "eligible": 23,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   },
+   "10000": {
+    "eligible": 4,
+    "hit": false,
+    "handle": null,
+    "followers": null,
+    "at": null,
+    "text": null
+   }
+  }
+ }
+]
