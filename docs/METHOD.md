@@ -147,6 +147,66 @@ directional signal:
   diversified than it looks. Direct USDC transfers between proxy wallets
   merge them.
 
+## Choosing which markets to look at
+
+This turned out to matter as much as the detector, and only became visible
+against live data.
+
+**Sweeping recent large trades finds the wrong markets.** The first live run
+took the 120 markets carrying the most recent large-trade activity and got a
+sample that was **57% esports, 24% live sport, 1% macro, 0% politics** -- The
+International and weekend football. Informed news flow does not trade there.
+
+**gamma-api is usable, contrary to the handoff.** The prior phase recorded
+`gamma-api.polymarket.com/markets` as returning `[]`, but that applies only
+to its `condition_ids` filter. The plain listing works, honours
+`order=volumeNum` and `end_date_min`, and paginates by offset -- which is the
+only way to enumerate markets by anything other than "recently traded". It
+surfaces the right population immediately: the 2024 election, *US forces
+enter Iran by April 30*, *MicroStrategy sells any Bitcoin*. Note `tag_slug`
+is silently ignored, so category filtering must be done client-side.
+
+**A date window is required, not optional.** All-time volume ranking spans
+2024-2026 across unrelated topics, and almost no wallet appears in enough of
+those markets to clear the breadth screens. Restricting to a recent window
+gives a cohort that actually shares traders.
+
+### The in-play confound
+
+Scheduled match markets have to be separated from news markets, and the
+reason is not squeamishness about sport.
+
+In a live game the price tracks the game. Being "positioned before the
+repricing" is therefore satisfied by anyone watching a faster stream than the
+market -- and streams run on delays that differ by tens of seconds between
+providers. That is a real, monetisable edge, but it is a **latency edge on a
+public broadcast**, not information, and nothing in the tape distinguishes
+the two. An anticipation score computed over match markets is measuring
+something quite different from the same score over an election market.
+
+The CLOB's `game_start_time` marks these markets precisely -- populated for
+scheduled matches, null for everything else -- so they are excluded by
+default rather than guessed at from the title.
+
+### Tape truncation is the binding constraint on big markets
+
+`/trades?market=` returns at most ~12,000 prints, newest first, and **every**
+market in the top volume ranking hits that cap. Observed spans:
+
+| market | visible tape |
+|---|---|
+| Will Donald Trump win the 2024 US Presidential Election? | final **8.9 hours** |
+| Will Kamala Harris win... | final 14 hours |
+| US forces enter Iran by April 30? | final 44 hours |
+| Will Nicolae Ciucă win the 2024 Romanian Presidential... | final 49 days |
+
+So on those markets every figure -- PnL, capital, ROI -- describes the
+visible window, not a trader's full record there. A position built before the
+window is invisible, and mark-to-terminal on the remainder is internally
+consistent but partial. Runs report how many tapes truncated; markets whose
+visible span is too short to establish a baseline are skipped entirely rather
+than analysed against a baseline that does not exist.
+
 ## What this cannot tell you
 
 - **Why** a wallet's timing is good. It identifies accounts that are

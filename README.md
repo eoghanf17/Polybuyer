@@ -42,6 +42,28 @@ Every response is cached to disk (`.polycache/`), so re-running an analysis
 while tuning thresholds costs nothing and stays reproducible as the live
 tape moves.
 
+## Choosing the market universe
+
+`--universe volume` (the default) ranks markets by volume within a date
+window, which surfaces elections, geopolitics and macro. `--universe recent`
+sweeps recent large trades instead, which in practice returns esports and
+live sport -- the first live run came back 81% match markets.
+
+Scheduled matches are excluded by default via the CLOB's `game_start_time`.
+In a live game the price tracks the game, so "positioned before the
+repricing" is satisfied by anyone on a faster stream: a latency edge on a
+public broadcast rather than information, and the tape cannot tell them
+apart. `--include-in-play` keeps them.
+
+`--days N` sets the window (default 180). It is not cosmetic: all-time volume
+ranking spans years and unrelated topics, and almost no wallet appears in
+enough of those markets to be measurable.
+
+**Correction to the prior research notes:** `gamma-api` is recorded there as
+unusable. That applies only to its `condition_ids` filter; the plain listing
+works and honours `order=volumeNum` and `end_date_min`. `tag_slug` really is
+ignored, so category filtering is client-side.
+
 ## Network access
 
 **The Polymarket APIs are blocked from the environment this was written in.**
@@ -114,7 +136,9 @@ tests/
 
 - Fill figures are **lower bounds**: no historical order books exist, so
   only prints that actually executed count as liquidity.
-- Market tapes stop at ~12,000 prints (newest first); coverage is returned
-  with the data and must be checked before trusting a simulation.
+- Market tapes stop at ~12,000 prints (newest first), and **every** market in
+  the top volume ranking hits that cap -- the 2024 Trump election tape covers
+  only its final 8.9 hours. On those markets the figures describe the visible
+  window, not a trader's full record. Runs report how many tapes truncated.
 - Every number is in-sample on a pool selected for being interesting. The
   output is a shortlist to paper-trade forward, not a backtest to size from.
