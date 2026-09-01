@@ -18,74 +18,55 @@ markets, is **~57,600 gate calls/month** — 28.8M input tokens, 3.5M output.
 The cheap fast model the strategy calls for costs about **$6/month**. Even a
 frontier model would not decide anything. Ignore this line item.
 
-## X API: corrected — my tier figures were stale
+## X API: $0.005 per post read
 
-I costed this from remembered $200/$5,000 subscription tiers. Checking the
-live docs (`docs.x.com/llms.txt` serves markdown, unlike the JS-rendered
-portal), that framing looks wrong:
+Confirmed from the docs. Pay-per-usage, **no subscription** — my earlier
+$200/$5,000 tier figures were simply wrong. Credits are bought upfront and
+deducted per resource returned; pay-per-usage is capped at 3M post reads a
+month, far above anything needed here.
 
-- The rate-limit reference has **no tier breakdown at all** — just
-  per-endpoint limits, consistent with usage-based pricing.
-- **Filtered stream is not shown as gated**: `/2/tweets/search/stream`
-  allows **1,000 rules**, one connection, 250 posts/sec. A thousand rules
-  covers 200 accounts many times over.
-- **Full-archive search is likewise ungated** in the limits table (1/sec,
-  300/15min) — which also means the backtest I earlier called Pro-only may
-  be reachable.
-- The docs explicitly say *"For real-time data, use filtered stream instead
-  of polling"*, confirming the architecture.
-- There is **no pricing page in the docs index**; cost lives in
-  `console.x.com`, behind a login. So the rate still needs checking there.
+The bill is therefore set by **how chatty the watched accounts are**, not by
+how many markets are watched. Musk at ~50 posts/day costs $7.50/month on his
+own; a crypto project posting three times a day costs $0.45.
 
-The right way to hold this is therefore not a fixed bill but a budget: what
-can the strategy afford to pay?
+| watch list | posts/mo | X $/mo | +LLM | total |
+|---|---:|---:|---:|---:|
+| 200 accounts, everything | 48,000 | $240 | $7 | **$247** |
+| 50 accounts, everything | 12,000 | $60 | $2 | $62 |
+| 20 accounts, everything | 6,000 | $30 | $1 | $31 |
+| 50 accounts, keyword-filtered rules | 960 | $5 | $0 | **$5** |
+| 20 accounts, keyword-filtered rules | 480 | $2 | $0 | **$2** |
 
-## What the strategy can afford
+## The optimisation that matters: filter in the stream rule
 
-Gross profit at ~25 fires/month and 70% fill:
+Filtered-stream rules take 1,024 characters and you get 1,000 of them, so the
+relevance test belongs in the rule rather than only in the LLM:
 
-| size/fire | deployed/mo | @13.6% ROI | @49.8% ROI |
-|---:|---:|---:|---:|
-| $10 | $176 | $24 | $88 |
-| $50 | $882 | $120 | $439 |
-| $100 | $1,764 | $240 | $878 |
-| $250 | $4,410 | $600 | $2,196 |
+    from:megaeth_labs (token OR TGE OR mainnet OR launch)
 
-And the volume to be served, which is what usage pricing bills against:
+You are then billed only for posts that match. Musk posts ~50 times a day but
+mentions FSD perhaps weekly, so the saving is roughly an order of magnitude —
+and it cuts LLM calls by the same factor, since only matching posts get
+scored. Two birds.
 
-| accounts watched | posts/month |
-|---:|---:|
-| 200 | 48,000 |
-| 50 | 12,000 |
-| 20 | 6,000 |
+The keyword filter must stay deliberately loose. A rule that is too tight
+misses the announcement outright, and a miss costs the whole trade whereas a
+false match costs half a cent and one cheap LLM call. Asymmetric, so err wide.
 
-At 50 accounts (12,000 posts/month), the affordable rate per 1,000 posts:
+## What this does to the economics
 
-| | @13.6% | @49.8% |
-|---|---:|---:|
-| $10/fire | $2.00 | $7.32 |
-| $50/fire | $10.00 | $36.60 |
-| $100/fire | $19.99 | $73.21 |
+| size/fire | gross @13.6% | gross @49.8% | vs $5/mo running cost |
+|---:|---:|---:|---|
+| $10 | $24 | $88 | profitable at both |
+| $25 | $60 | $220 | profitable at both |
+| $50 | $120 | $439 | profitable at both |
+| $100 | $240 | $878 | profitable at both |
 
-## The question that decides it
+At 20 keyword-filtered accounts the whole thing runs for about **$5 a
+month**, so it clears its costs even at $10 a fire and the honest ROI. The
+earlier conclusion — that the strategy could not pay for its own data — was
+an artefact of my wrong pricing model and is withdrawn.
 
-Not "which tier" but **what does X charge per post delivered**, checkable in
-`console.x.com`. Read it off and compare against the table above.
-
-If the rate is single-digit dollars per thousand posts, a 50-account watch
-list is affordable even at $10 a fire. If it is tens of dollars per
-thousand, the fix is fewer accounts rather than more capital, since volume
-is the thing being billed and it is concentrated in a handful of prolific
-accounts that mostly post noise.
-
-## The way to make it fit
-
-Volume drives the API bill, and it is concentrated: a handful of accounts
-generate most of the traffic while a handful of markets carry most of the
-value. Watching the **20 best accounts instead of 200** cuts reads roughly
-tenfold — bringing ~4,800 posts/month, which plausibly fits a cheap tier —
-while keeping the largest markets. Fewer fires, each sized larger, is the
-shape that survives the arithmetic.
-
-At $10 a fire the answer is simply no: the data costs an order of magnitude
-more than the strategy makes.
+Costs are no longer the constraint. The constraints are the ones already
+measured: ~25 fires a month, thin fills, and an edge that has never been
+demonstrated at p<0.05.
