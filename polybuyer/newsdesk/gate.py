@@ -68,22 +68,26 @@ QUESTIONS: tuple[Question, ...] = (
     ),
     Question(
         "resolves",
-        "If this is accurate, does it make the market resolve YES within its "
-        "deadline -- either immediately or as the direct consequence of what "
-        "is announced? Answer false for a preparatory or partial step that "
-        "does not lead there by itself (a testnet, a filing, an approval, a "
-        "plan), for a similar-sounding event that would not count under the "
-        "rules, and for anything that would happen after the deadline.",
+        "If this report is accurate, does it make the market resolve YES "
+        "within its deadline -- immediately, or as the direct consequence of "
+        "what is reported? A credible report that a decision has been taken "
+        "counts, even if the formal step follows later. Answer false for a "
+        "genuinely preparatory or partial step that does not lead there by "
+        "itself (a testnet, a filing, an approval, a plan under "
+        "consideration), for a similar-sounding event that would not count "
+        "under the rules, and for anything landing after the deadline.",
         hard=True,
         catches="near-misses, the most dangerous class because they pass every "
                 "other check: the market is on the US striking Iran and the "
                 "news is Israel striking Iran; or 'testnet is live, token to "
                 "follow' against a token-launch market.\n\n"
-                "Asks about *resolution*, not about the rules being satisfied "
-                "at the instant of posting. An earlier version demanded the "
-                "latter and rejected Zelensky naming a new Commander-in-Chief, "
-                "because the appointment was future-tense -- while the market "
-                "would obviously have repriced on it.",
+                "The 'decision taken counts' clause was added after the blind "
+                "test. An earlier wording demanded the rules be satisfied at "
+                "the instant of posting and rejected every hedged report from "
+                "a beat specialist -- including Fabrizio Romano's 'Guardiola "
+                "expected to leave Man City THIS summer', which is exactly the "
+                "kind of post these markets reprice on. Markets trade "
+                "probability; demanding certainty means never trading.",
     ),
     Question(
         "novel",
