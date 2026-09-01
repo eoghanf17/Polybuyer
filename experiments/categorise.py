@@ -11,9 +11,21 @@ from __future__ import annotations
 
 import re
 
+# Checked first: these resolve by play, not by news. A Super Bowl winner
+# market moves because games happen on a schedule, and no tweet front-runs
+# it. Leaving them in "other" put 170 train markets of tournament futures
+# alongside genuine breaking news.
+SPORTS = (
+    "super bowl", "champion", "championship", "playoff", "world series",
+    "stanley cup", "nba finals", "premier league", "world cup", "the ashes",
+    "boxing match", "poker", "heisman", " mvp", "drivers champion",
+    "win the 20", "relegated", "golden boot", "ballon d",
+)
+
 RULES: list[tuple[str, tuple[str, ...]]] = [
     ("geopolitics", (
         "war", "ceasefire", "strike", "invade", "invasion", "troops", "military",
+        "maduro", "cartel", "xi jinping", "china", "hezbollah", "houthi",
         "nuclear", "missile", "iran", "russia", "ukraine", "israel", "gaza",
         "hamas", "nato", "sanction", "peace deal", "hostage", "taiwan",
         "north korea", "venezuela", "coup", "khamenei", "putin", "zelensky",
@@ -23,6 +35,7 @@ RULES: list[tuple[str, tuple[str, ...]]] = [
         "nomination", "resign", "impeach", "cabinet", "secretary", "senate",
         "congress", "parliament", "vote", "poll", "candidate", "primary",
         "trump", "biden", "harris", "mamdani", "starmer", "macron",
+        "shutdown", "supreme court", "indict", "pardon",
     )),
     ("corporate", (
         "ceo", "ipo", "acquire", "acquisition", "merger", "earnings", "bankrupt",
@@ -49,6 +62,9 @@ RULES: list[tuple[str, tuple[str, ...]]] = [
 
 def categorise(question: str, slug: str = "") -> str:
     t = f" {question.lower()} {slug.lower().replace('-', ' ')} "
+    for k in SPORTS:
+        if k in t:
+            return "sports"
     for name, keys in RULES:
         for k in keys:
             if k in t:
