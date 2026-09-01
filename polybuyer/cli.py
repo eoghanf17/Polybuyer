@@ -148,7 +148,7 @@ def cmd_follow(args) -> int:
     target's price plus a tick. What happens when you can only fill from
     prints that actually executed?
     """
-    from .follow import STRATEGIES, evaluate, render
+    from .follow import STRATEGIES, Ladder, evaluate, first_big, render
     from .harvest import collect_markets
     from .model import dedupe, normalise_many, resolution_from_clob
     from .sources import market_resolutions, wallet_trade_history
@@ -203,7 +203,23 @@ def cmd_follow(args) -> int:
             ticks[c] = 0.01
     truncated = {c for c, t in trunc.items() if t}
 
-    names = args.strategies.split(",") if args.strategies else list(STRATEGIES)
+    ladder = None
+    if args.size == "ladder":
+        ladder = Ladder(lo_notional=args.ladder_lo_notional,
+                        hi_notional=args.ladder_hi_notional,
+                        lo_usd=args.ladder_lo_usd, hi_usd=args.ladder_hi_usd)
+        print(f"sizing: ${ladder.lo_usd:,.0f} at ${ladder.lo_notional:,.0f} "
+              f"-> ${ladder.hi_usd:,.0f} at ${ladder.hi_notional:,.0f}",
+              file=sys.stderr)
+
+    if args.min_notional:
+        # His size is the strongest single predictor of his edge, so the
+        # threshold is worth sweeping rather than fixing.
+        STRATEGIES[f"first-{int(args.min_notional)}"] = first_big(args.min_notional)
+        default_names = [f"first-{int(args.min_notional)}"]
+    else:
+        default_names = list(STRATEGIES)
+    names = args.strategies.split(",") if args.strategies else default_names
     outs = []
     for name in names:
         if name not in STRATEGIES:
@@ -211,7 +227,7 @@ def cmd_follow(args) -> int:
             continue
         outs.append(evaluate(name, wallets, tapes, resolutions, cfg,
                              truncated=truncated, ticks=ticks,
-                             slippage_ticks=args.ticks))
+                             slippage_ticks=args.ticks, ladder=ladder))
     print(render(outs, cfg.follow.cap, args.ticks))
     return 0
 
@@ -290,6 +306,15 @@ def main(argv: list[str] | None = None) -> int:
                     help="mechanical slippage in ticks, for the comparison column")
     fo.add_argument("--strategies", default="",
                     help="comma-separated subset (default: all)")
+    fo.add_argument("--size", choices=["mirror", "ladder"], default="mirror",
+                    help="'mirror' copies the target's share count; 'ladder' "
+                         "sizes a small fixed-dollar order from their notional")
+    fo.add_argument("--ladder-lo-notional", type=float, default=10_000.0)
+    fo.add_argument("--ladder-hi-notional", type=float, default=350_000.0)
+    fo.add_argument("--min-notional", type=float, default=0.0,
+                    help="only follow opening trades above this notional")
+    fo.add_argument("--ladder-lo-usd", type=float, default=50.0)
+    fo.add_argument("--ladder-hi-usd", type=float, default=1_000.0)
     fo.set_defaults(func=cmd_follow)
 
     s = sub.add_parser("selftest", parents=[common], help="run the test suite")

@@ -31,6 +31,31 @@ from .tape import Tape
 DEFAULT_TICK = 0.01
 
 
+@dataclass(frozen=True)
+class Ladder:
+    """Follower sizing that scales with the target's conviction.
+
+    Mirroring the target's size is what breaks a copy strategy on this
+    cluster: their edge sits in large positions, and large is exactly what
+    the tape cannot supply to a follower. Deliberately small orders sidestep
+    that -- a few hundred dollars fills out of prints that could never
+    absorb a six-figure one -- and buy participation in the signals that
+    mirroring misses.
+    """
+
+    lo_notional: float = 10_000.0
+    hi_notional: float = 350_000.0
+    lo_usd: float = 50.0
+    hi_usd: float = 1_000.0
+
+    def usd(self, notional: float) -> float:
+        if self.hi_notional <= self.lo_notional:
+            return self.lo_usd
+        frac = (notional - self.lo_notional) / (self.hi_notional - self.lo_notional)
+        return max(self.lo_usd, min(self.hi_usd, self.lo_usd + frac *
+                                    (self.hi_usd - self.lo_usd)))
+
+
 @dataclass(frozen=True, slots=True)
 class Signal:
     """One of the target's trades, as something a follower could copy."""
@@ -195,6 +220,7 @@ def evaluate(
     truncated: set[str] | None = None,
     ticks: dict[str, float] | None = None,
     slippage_ticks: int = 1,
+    ladder: Ladder | None = None,
 ) -> Outcome:
     """Run one strategy over a cluster's trades, real fills and mechanical.
 
@@ -202,6 +228,10 @@ def evaluate(
     the liquidity a follower consumes, since you cannot fill against the
     order you are copying, nor against the same operator's other wallet
     firing the same idea.
+
+    With ``ladder``, the follower's order is sized from the target's notional
+    rather than matching their share count. Both the mechanical and recorded
+    columns then use that size, so the comparison stays like-for-like.
     """
     build = STRATEGIES[strategy]
     cluster = frozenset(w.lower() for w in wallets)
@@ -234,20 +264,22 @@ def evaluate(
             if unit <= 0:
                 continue
             payoff = terminal if d > 0 else 1.0 - terminal
+            want = sig.shares if ladder is None else ladder.usd(sig.notional) / unit
 
             # Mechanical: full size, k ticks worse. The optimistic bound.
             mech_cost = min(max(unit + slippage_ticks * tick, 1e-6), 1.0)
-            m_pnl = sig.shares * (payoff - mech_cost)
-            m_cap = sig.shares * mech_cost
+            m_pnl = want * (payoff - mech_cost)
+            m_cap = want * mech_cost
             out.mech_pnl += m_pnl
             out.mech_capital += m_cap
             _add(out.by_market_mech, cid, m_pnl, m_cap)
 
             # Real: fill out of prints that actually executed afterwards.
-            fill = tape.simulate_fill(sig.ts, sig.entry_ref, d, sig.shares,
+            fill = tape.simulate_fill(sig.ts, sig.entry_ref, d, want,
                                       cfg.follow.cap, cfg.follow.window_s, cluster)
             out.fill_fracs.append(fill.fill_frac)
-            # The target's own result on this signal, at their own size.
+            # The target's own result on this signal, at their own size --
+            # unchanged by our sizing, since it describes their book.
             out.fill_vs_edge.append(
                 (fill.fill_frac, sig.shares * (payoff - unit), sig.shares * unit))
             out.windows.append(

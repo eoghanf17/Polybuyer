@@ -57,6 +57,47 @@ class TestSignalExtraction(unittest.TestCase):
         self.assertEqual(s.direction, -1)
 
 
+class TestLadder(unittest.TestCase):
+    def test_endpoints_and_clamping(self):
+        from polybuyer.follow import Ladder
+        l = Ladder()
+        self.assertAlmostEqual(l.usd(10_000), 50.0, places=6)
+        self.assertAlmostEqual(l.usd(350_000), 1000.0, places=6)
+        self.assertAlmostEqual(l.usd(5_000), 50.0, places=6, msg="clamp below")
+        self.assertAlmostEqual(l.usd(5_000_000), 1000.0, places=6, msg="clamp above")
+
+    def test_linear_midpoint(self):
+        from polybuyer.follow import Ladder
+        l = Ladder()
+        self.assertAlmostEqual(l.usd(180_000), 525.0, delta=1.0)
+
+    def test_ladder_orders_are_far_smaller_than_mirroring(self):
+        """The whole point: a small order fills where a mirrored one cannot."""
+        from polybuyer.follow import Ladder, evaluate
+        rows = [syn.raw_trade(1000, 0.50, W, +200_000)]     # his $100k print
+        rows += [syn.raw_trade(1000 + i, 0.505, f"0xo{i}", +400) for i in range(1, 25)]
+        tape = Tape("0xtest", normalise_many(rows))
+        tapes, res = {"0xtest": tape}, {"0xtest": _res()}
+
+        mirrored = evaluate("first", [W], tapes, res, CFG)
+        laddered = evaluate("first", [W], tapes, res, CFG, ladder=Ladder())
+        self.assertLess(mirrored.mean_fill, 0.5, "his size cannot be filled")
+        self.assertGreater(laddered.mean_fill, 0.99, "a small order can")
+        self.assertLess(laddered.real_capital, mirrored.real_capital)
+
+    def test_mechanical_column_uses_the_same_size(self):
+        """Otherwise the comparison is not like-for-like."""
+        from polybuyer.follow import Ladder, evaluate
+        rows = [syn.raw_trade(1000, 0.50, W, +200_000)]
+        rows += [syn.raw_trade(1000 + i, 0.505, f"0xo{i}", +400) for i in range(1, 25)]
+        tape = Tape("0xtest", normalise_many(rows))
+        o = evaluate("first", [W], {"0xtest": tape}, {"0xtest": _res()}, CFG,
+                     ladder=Ladder())
+        # $100k notional -> ~$301 order, so mechanical capital is ~$301 too.
+        self.assertLess(o.mech_capital, 400.0)
+        self.assertGreater(o.mech_capital, 200.0)
+
+
 class TestEvaluate(unittest.TestCase):
     """The core claim: recorded-liquidity fills can never exceed mechanical."""
 
