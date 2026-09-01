@@ -138,6 +138,62 @@ def cmd_wallets(args) -> int:
     return 0
 
 
+def cmd_follow(args) -> int:
+    """Evaluate copy strategies against recorded liquidity.
+
+    The question this answers: the headline copy-strategy PnLs were computed
+    with mechanical slippage, which assumes you fill your whole size at the
+    target's price plus a tick. What happens when you can only fill from
+    prints that actually executed?
+    """
+    from .follow import STRATEGIES, evaluate, render
+    from .harvest import collect_markets
+    from .model import dedupe, normalise_many, resolution_from_clob
+    from .sources import market_resolutions, wallet_trades
+    from .tape import build_tapes
+
+    cfg = _cfg(args)
+    fetch = Fetcher(cache_dir=cfg.cache_dir, use_cache=not args.no_cache)
+    wallets = [w.strip().lower() for w in args.wallets]
+
+    cids: list[str] = []
+    for w in wallets:
+        rows = wallet_trades(fetch, w, max_pages=args.pages)
+        print(f"{w}: {len(rows)} trades", file=sys.stderr)
+        for r in rows:
+            c = str(r.get("conditionId") or "")
+            if c and c not in cids:
+                cids.append(c)
+    cids = cids[: args.markets]
+    print(f"fetching {len(cids)} market tapes...", file=sys.stderr)
+
+    raw, trunc = collect_markets(fetch, cids)
+    payloads = market_resolutions(fetch, cids, workers=cfg.workers)
+    print(f"  {len(raw)} prints, {len(payloads)} resolutions", file=sys.stderr)
+
+    tapes = build_tapes(dedupe(normalise_many(raw)))
+    resolutions = {c: resolution_from_clob(c, p) for c, p in payloads.items()}
+    ticks = {}
+    for c, p in payloads.items():
+        try:
+            ticks[c] = float(p.get("minimum_tick_size") or 0.01)
+        except (TypeError, ValueError):
+            ticks[c] = 0.01
+    truncated = {c for c, t in trunc.items() if t}
+
+    names = args.strategies.split(",") if args.strategies else list(STRATEGIES)
+    outs = []
+    for name in names:
+        if name not in STRATEGIES:
+            print(f"unknown strategy {name!r}", file=sys.stderr)
+            continue
+        outs.append(evaluate(name, wallets, tapes, resolutions, cfg,
+                             truncated=truncated, ticks=ticks,
+                             slippage_ticks=args.ticks))
+    print(render(outs, cfg.follow.cap, args.ticks))
+    return 0
+
+
 def cmd_selftest(args) -> int:
     import unittest
     loader = unittest.TestLoader()
@@ -199,6 +255,19 @@ def main(argv: list[str] | None = None) -> int:
     w.add_argument("wallets", nargs="+")
     w.add_argument("--markets", type=int, default=120)
     w.set_defaults(func=cmd_wallets)
+
+    fo = sub.add_parser("follow", parents=[common],
+                        help="evaluate copy strategies against recorded liquidity")
+    fo.add_argument("wallets", nargs="+",
+                    help="the operator's wallets; all are excluded from the "
+                         "liquidity a follower consumes")
+    fo.add_argument("--markets", type=int, default=300)
+    fo.add_argument("--pages", type=int, default=40)
+    fo.add_argument("--ticks", type=int, default=1,
+                    help="mechanical slippage in ticks, for the comparison column")
+    fo.add_argument("--strategies", default="",
+                    help="comma-separated subset (default: all)")
+    fo.set_defaults(func=cmd_follow)
 
     s = sub.add_parser("selftest", parents=[common], help="run the test suite")
     s.set_defaults(func=cmd_selftest)

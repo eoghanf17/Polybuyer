@@ -196,7 +196,13 @@ class StatsConfig:
 
     #: Minimum independent clusters (markets) before a bootstrap interval is
     #: reported as anything but underpowered.
-    min_clusters: int = 8
+    #:
+    #: Raised from 8 after a live false positive: a wallet scored +40.0%
+    #: anticipation with CI [+14.1%, +55.3%] and q=0.047 off 11 markets, and
+    #: on its full 65-event history came back +8.9% [-12.2%, +27.3%], p=0.21.
+    #: A bootstrap resamples only the markets it was given, so a lucky run of
+    #: a dozen produces a tight interval around the luck.
+    min_clusters: int = 20
 
 
 @dataclass(frozen=True)
