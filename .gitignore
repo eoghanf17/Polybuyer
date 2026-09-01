@@ -6,3 +6,5 @@ out/
 .venv/
 venv/
 .DS_Store
+run.log
+*.log
