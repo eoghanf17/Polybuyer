@@ -118,9 +118,9 @@ class Outcome:
 
     fill_fracs: list[float] = field(default_factory=list)
     windows: list[float] = field(default_factory=list)
-    #: (fill fraction, the target's own ROI on that signal), for the
-    #: adverse-selection decomposition.
-    fill_vs_edge: list[tuple[float, float]] = field(default_factory=list)
+    #: (fill fraction, the target's PnL, the target's capital) per signal,
+    #: for the adverse-selection decomposition.
+    fill_vs_edge: list[tuple[float, float, float]] = field(default_factory=list)
     #: per-market totals, for the cluster bootstrap
     by_market_real: dict[str, tuple[float, float]] = field(default_factory=dict)
     by_market_mech: dict[str, tuple[float, float]] = field(default_factory=dict)
@@ -162,13 +162,22 @@ class Outcome:
         *falls* as your fill rises, it is selection: the price gaps away
         from you exactly when they are right, and sits there waiting when
         they are wrong, so your capital lands in their worst ideas.
+
+        Weighted by the target's capital, not averaged per signal. The
+        unweighted version inverts the answer and is worth avoiding: their
+        profitable trades are large and few, so a per-signal mean makes the
+        well-filled bucket look like their best work when it holds their
+        worst. Measured on the subject cluster, the per-signal mean says
+        +7.8% in the >75% bucket while capital weighting says -12.1%.
         """
-        buckets = [("missed", 0.0, 1e-9), ("low 0-25%", 1e-9, 0.25),
+        buckets = [("missed", 0.0, 1e-9), ("low <25%", 1e-9, 0.25),
                    ("mid 25-75%", 0.25, 0.75), ("high >75%", 0.75, 1.01)]
         out = []
         for name, lo, hi in buckets:
-            rows = [e for f, e in self.fill_vs_edge if lo <= f < hi]
-            out.append((name, len(rows), sum(rows) / len(rows) if rows else 0.0))
+            rows = [(p, c) for f, p, c in self.fill_vs_edge if lo <= f < hi]
+            cap = sum(c for _, c in rows)
+            pnl = sum(p for p, _ in rows)
+            out.append((name, len(rows), cap, pnl / cap if cap > 0 else 0.0))
         return out
 
 
@@ -238,8 +247,9 @@ def evaluate(
             fill = tape.simulate_fill(sig.ts, sig.entry_ref, d, sig.shares,
                                       cfg.follow.cap, cfg.follow.window_s, cluster)
             out.fill_fracs.append(fill.fill_frac)
-            # The target's own return on this signal, at their own price.
-            out.fill_vs_edge.append((fill.fill_frac, (payoff - unit) / unit))
+            # The target's own result on this signal, at their own size.
+            out.fill_vs_edge.append(
+                (fill.fill_frac, sig.shares * (payoff - unit), sig.shares * unit))
             out.windows.append(
                 tape.follow_window(sig.ts, sig.entry_ref, d, cfg.follow.cap)
             )
@@ -307,7 +317,9 @@ def render(outcomes: Sequence[Outcome], cap: float, slippage_ticks: int) -> str:
             L.append(f"    {o.n_uncovered}/{o.n_signals} signals unusable: tape "
                      f"does not reach back that far")
         rows = o.adverse_selection()
-        if any(n for _, n, _ in rows):
-            cells = "  ".join(f"{name} n={n} {roi:+.1%}" for name, n, roi in rows if n)
-            L.append(f"    their ROI by your fill:  {cells}")
+        if any(n for _, n, _, _ in rows):
+            L.append("    their capital and ROI, by how much of it you could fill:")
+            for name, n, cap, roi in rows:
+                if n:
+                    L.append(f"      {name:<12} n={n:<4d} ${cap:>12,.0f}  {roi:>+7.1%}")
     return "\n".join(L)

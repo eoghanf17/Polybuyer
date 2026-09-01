@@ -114,6 +114,26 @@ class TestEvaluate(unittest.TestCase):
         o = evaluate("first", [W], self.tapes, {"0xtest": _res(ref_wins=False)}, CFG)
         self.assertLess(o.mech_pnl, 0)
 
+    def test_adverse_selection_is_capital_weighted(self):
+        """A per-signal mean inverts the answer when the good trades are
+        large and few, which is exactly the case that matters."""
+        from polybuyer.follow import Outcome
+        o = Outcome(strategy="x")
+        # One big well-filled loser, three small well-filled winners.
+        o.fill_vs_edge = [(1.0, -900.0, 3000.0),
+                          (1.0, +30.0, 100.0),
+                          (1.0, +30.0, 100.0),
+                          (1.0, +30.0, 100.0)]
+        rows = {r[0]: r for r in o.adverse_selection()}
+        name, n, cap, roi = rows["high >75%"]
+        self.assertEqual(n, 4)
+        self.assertAlmostEqual(cap, 3300.0, places=6)
+        self.assertLess(roi, 0.0,
+                        "capital weighting must follow the money, not the count")
+        unweighted = sum(p / c for _, p, c in o.fill_vs_edge) / 4
+        self.assertGreater(unweighted, 0.0,
+                           "per-signal mean would have said the opposite")
+
     def test_mechanical_slippage_reduces_pnl(self):
         a = evaluate("first", [W], self.tapes, self.res, CFG, slippage_ticks=0)
         b = evaluate("first", [W], self.tapes, self.res, CFG, slippage_ticks=4)
