@@ -135,16 +135,42 @@ def wallet_activity(
 
 def wallet_trades(fetch: Fetcher, wallet: str, page: int = 500,
                   max_pages: int = 40) -> list[dict]:
-    """Recent trades for one wallet.
+    """A *sample* of a wallet's recent trades.  Not its history.
 
-    The offset ceiling here is unverified, so this is for recent activity
-    only.  For full history use :func:`wallet_activity`.
+    Measured against one of the subject cluster's wallets: this endpoint
+    returns 323 trades worth $2.5M spanning two years, where the same wallet
+    shows 23,268 trades worth $20.6M in a single year through
+    :func:`wallet_trade_history`.  It stops returning rows past ~1,000 and
+    the rows it does return are sparse rather than the most recent N.
+
+    Fine for discovering *which markets* a wallet touches.  Never use it to
+    reconstruct a record -- PnL computed from it is a 1-2% sample of the
+    truth.
     """
     return fetch.paginate(
         lambda off: f"{DATA_API}/trades?user={wallet}&limit={page}&offset={off}",
         page_size=page,
         max_pages=max_pages,
     )
+
+
+def wallet_trade_history(
+    fetch: Fetcher,
+    wallet: str,
+    start: int,
+    end: int,
+    window: int = WEEK,
+) -> list[dict]:
+    """Every trade a wallet made in a period.  The real history path.
+
+    ``/activity`` rows carry the same fields a trade payload does -- side,
+    price, size, outcomeIndex, conditionId, asset, timestamp -- plus a
+    ``type``, so the TRADE rows normalise exactly like tape prints.  Paging
+    it by time window sidesteps the offset ceiling that truncates both this
+    endpoint and ``/trades?user=``.
+    """
+    rows = wallet_activity(fetch, wallet, start, end, window=window)
+    return [r for r in rows if str(r.get("type", "")).upper() == "TRADE"]
 
 
 def big_trades(fetch: Fetcher, min_usd: float = 10_000.0, page: int = 500,

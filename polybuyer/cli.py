@@ -13,6 +13,8 @@ import sys
 
 import dataclasses
 
+import time
+
 from .config import DEFAULT, Config, StatsConfig
 from .netio import Fetcher
 from .report import detail, summary, table, to_json
@@ -149,21 +151,32 @@ def cmd_follow(args) -> int:
     from .follow import STRATEGIES, evaluate, render
     from .harvest import collect_markets
     from .model import dedupe, normalise_many, resolution_from_clob
-    from .sources import market_resolutions, wallet_trades
+    from .sources import market_resolutions, wallet_trade_history
     from .tape import build_tapes
 
     cfg = _cfg(args)
     fetch = Fetcher(cache_dir=cfg.cache_dir, use_cache=not args.no_cache)
     wallets = [w.strip().lower() for w in args.wallets]
 
+    # Real history, not /trades?user=. That endpoint returns a sparse sample
+    # -- for one of these wallets, 323 trades worth $2.5M across two years
+    # against 23,268 worth $20.6M in a single year here.
+    end = int(time.time())
+    start = end - args.days * 24 * 3600
     cids: list[str] = []
+    seen: set[str] = set()
     for w in wallets:
-        rows = wallet_trades(fetch, w, max_pages=args.pages)
-        print(f"{w}: {len(rows)} trades", file=sys.stderr)
+        rows = wallet_trade_history(fetch, w, start, end)
+        notional = sum(float(r.get("size") or 0) * float(r.get("price") or 0)
+                       for r in rows)
+        print(f"{w}: {len(rows)} trades, ${notional:,.0f} over {args.days}d",
+              file=sys.stderr)
         for r in rows:
             c = str(r.get("conditionId") or "")
-            if c and c not in cids:
+            if c and c not in seen:
+                seen.add(c)
                 cids.append(c)
+    print(f"  {len(cids)} distinct markets", file=sys.stderr)
     cids = cids[: args.markets]
     print(f"fetching {len(cids)} market tapes...", file=sys.stderr)
 
@@ -262,7 +275,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="the operator's wallets; all are excluded from the "
                          "liquidity a follower consumes")
     fo.add_argument("--markets", type=int, default=300)
-    fo.add_argument("--pages", type=int, default=40)
+    fo.add_argument("--days", type=int, default=365,
+                    help="how far back to pull the operator's trade history")
     fo.add_argument("--ticks", type=int, default=1,
                     help="mechanical slippage in ticks, for the comparison column")
     fo.add_argument("--strategies", default="",
