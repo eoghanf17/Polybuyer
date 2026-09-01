@@ -144,9 +144,13 @@ class ScreenConfig:
     #: Minimum gross buy notional, USD.
     min_notional: float = 25_000.0
 
-    #: Above this share of two-sided quoting within a market, treat as a
-    #: market maker rather than a directional trader.
-    max_two_sided_share: float = 0.45
+    #: A directional trader must at some point actually *hold* a position.
+    #: Measured as peak |position| / gross volume traded in the market: a
+    #: market maker alternating both ways never accumulates one and scores
+    #: near zero, while someone who builds a position and later takes profit
+    #: still scores ~0.5.  Using net-vs-gross instead would screen out the
+    #: profit-taker too, which is wrong -- closing a winner is not quoting.
+    min_position_ratio: float = 0.15
 
     #: Above this share of negative-risk markets, the "positions" are
     #: structural mints rather than opinions (see NegRiskAdapter).
@@ -154,6 +158,11 @@ class ScreenConfig:
 
     #: Drop traders whose edge does not survive removing their best markets.
     concentration_drop_n: int = 5
+
+    #: Minimum repricings a trader must have participated in *in the relevant
+    #: window* before that archetype can be scored at all.  Being early once
+    #: is an anecdote.
+    min_archetype_events: int = 10
 
 
 @dataclass(frozen=True)
@@ -166,6 +175,16 @@ class StatsConfig:
     ci_lo: float = 2.5
     ci_hi: float = 97.5
     seed: int = 20260901
+
+    #: Benjamini-Hochberg false-discovery rate for the candidate sweep.  A
+    #: raw p-value means nothing when several hundred wallets are tested at
+    #: once; this is the gate a trader must clear to be recommended rather
+    #: than merely watched.
+    fdr_q: float = 0.10
+
+    #: Minimum independent clusters (markets) before a bootstrap interval is
+    #: reported as anything but underpowered.
+    min_clusters: int = 8
 
 
 @dataclass(frozen=True)
