@@ -127,7 +127,8 @@ class Stance:
         return self.fast_net * self.jump.signed_move
 
 
-def detect(tape: Tape, cfg: JumpConfig, terminal: float | None = None) -> list[Jump]:
+def detect(tape: Tape, cfg: JumpConfig, terminal: float | None = None,
+           require_persistence: bool = True) -> list[Jump]:
     """Find persistent repricings in a market's price path.
 
     Method: resample to a fixed grid, compare a trailing median level to a
@@ -137,6 +138,12 @@ def detect(tape: Tape, cfg: JumpConfig, terminal: float | None = None) -> list[J
     Medians throughout: a prediction-market tape is full of single prints
     that sweep a thin book and immediately bounce back, and a mean-based
     detector fires on every one of them.
+
+    ``require_persistence=False`` keeps moves that reverted. Those are not
+    news by this module's definition, but they are exactly what an automated
+    feed fires on and then loses money to -- a strike reported and denied, a
+    rumour that unwinds -- so a strategy test needs them to avoid assuming
+    away its own false alarms.
 
     ``terminal`` is the market's settled value on the reference axis, and is
     what makes late repricings usable.  A move in the last minutes of a tape
@@ -199,7 +206,9 @@ def detect(tape: Tape, cfg: JumpConfig, terminal: float | None = None) -> list[J
         # Persistence: did it stick?  A spike that round-trips is noise, or
         # someone sweeping the book, not information.
         forward_s = tape.end - times[i]
-        if forward_s >= cfg.persistence_s:
+        if not require_persistence:
+            held = before + move          # accept as-is; no persistence test
+        elif forward_s >= cfg.persistence_s:
             j = min(n - 1, i + p)
             held = prices[j]
         elif terminal is not None:
