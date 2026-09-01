@@ -34,9 +34,37 @@ direction accuracy from headline text.
 
 ### Wikipedia revisions — verified from this session
 
-MediaWiki API, second-precision timestamps, free, complete history. For
-events notable enough to have an article, editors update within minutes of a
-break. Good for the big geopolitical moves; useless for corporate minutiae.
+**Not a Twitter archive.** No source here holds tweets. What Wikipedia gives
+is *article revision timestamps*: when an editor changed a page. Free,
+complete, second-precision — `2025 United States–Houthi ceasefire` was
+created at 22:48:02Z with ten edits in the following forty minutes.
+
+But those timestamps **lag the break**: somebody had to read the news and
+then write the article. The gap is unmeasurable without ground truth and
+plausibly runs to tens of minutes, so as a "when did this break" proxy it is
+worse than what the tape already provides. Market repricing onset is driven
+by the fastest traders reacting to the actual event; a Wikipedia edit is
+driven by someone catching up.
+
+`Portal:Current_events/YYYY_Month_D` is the more useful endpoint: a curated,
+structured daily news log with topic hierarchy, at day granularity.
+
+### The thing external news sources are actually for
+
+Not "when did it break" — the tape answers that better. **"Here is a news
+event; did the market move at all?"**
+
+The tape only contains moves. It structurally cannot show news that happened
+and moved nothing, and that is exactly the false-alarm population that cost
+36 points of ROI. The all-alarms set approximates it with *reverting* moves,
+which is a proxy, not a measurement: a live feed also fires on stories that
+produce no move whatsoever, and those signals are invisible in a
+tape-derived test because there is no jump to detect.
+
+Closing that gap needs an external event list — GDELT slices or the Current
+events portal — matched against market prices to count the news that went
+nowhere. That is the one measurement this experiment could not make, and it
+would push the honest ROI **below** the +13.6% reported, not above it.
 
 ### Common Crawl News
 
