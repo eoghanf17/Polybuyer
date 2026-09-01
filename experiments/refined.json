@@ -1,0 +1,1194 @@
+{
+ "trades": [
+  {
+   "cid": "0x9823d715687a0a82d2a03731792e83bf58a0409f10def1379e00e4d67a95ba69",
+   "q": "Israel x Hezbollah ceasefire by April 18, 2026?",
+   "vol": 98599882.2899258,
+   "onset": "2026-04-16T17:53:18+00:00",
+   "onset_ts": 1776361998,
+   "before": 0.8755,
+   "after": 0.99,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 17543.07,
+   "vwap": 0.9186,
+   "pnl_usd": 1554.2,
+   "moves": {
+    "5m": -0.0045,
+    "1h": -0.0145,
+    "2h": -0.0645
+   }
+  },
+  {
+   "cid": "0x3488f31e6449f9803f99a8b5dd232c7ad883637f1c86e6953305a2ef19c77f20",
+   "q": "US strikes Iran by February 28, 2026?",
+   "vol": 89652867.363489,
+   "onset": "2026-02-28T06:17:51+00:00",
+   "onset_ts": 1772259471,
+   "before": 0.5007,
+   "after": 0.9102,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 68036.47,
+   "vwap": 0.5072,
+   "pnl_usd": 66094.05,
+   "moves": {}
+  },
+  {
+   "cid": "0x32707ae194389a70f25314ec934851daba12d893da616c492ffe8b655b7759a9",
+   "q": "Will Eleven die in \"Stranger Things: Season 5\"?",
+   "vol": 80824835.00196,
+   "onset": "2026-01-01T01:01:21+00:00",
+   "onset_ts": 1767229281,
+   "before": 0.3,
+   "after": 0.0121,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 407.35,
+   "vwap": 0.7,
+   "pnl_usd": 174.58,
+   "moves": {
+    "5m": -0.01,
+    "1h": -0.0262,
+    "2h": -0.0153
+   }
+  },
+  {
+   "cid": "0xaf51603d78545c838490bafe178ee9ff4c23d0c2161f15e0e530d3735229ad3f",
+   "q": "Will Nicu\u0219or Dan win the Romanian presidential election?",
+   "vol": 50991003.196931,
+   "onset": "2025-05-18T17:49:48+00:00",
+   "onset_ts": 1747590588,
+   "before": 0.644,
+   "after": 0.8728,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 37081.14,
+   "vwap": 0.6727,
+   "pnl_usd": 18038.24,
+   "moves": {
+    "5m": 0.004,
+    "1h": 0.014,
+    "2h": -0.006,
+    "1d": 0.154
+   }
+  },
+  {
+   "cid": "0x5fc28bfcb6f16080415695b53f1f60820f403a94ce16696eea2f0085d823bc92",
+   "q": "Will George Simion win the Romanian presidential election?",
+   "vol": 31796892.976285,
+   "onset": "2025-05-18T17:53:36+00:00",
+   "onset_ts": 1747590816,
+   "before": 0.3446,
+   "after": 0.0763,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 27037.77,
+   "vwap": 0.6877,
+   "pnl_usd": 12278.35,
+   "moves": {
+    "5m": -0.0046,
+    "1h": 0.0254,
+    "2h": 0.0054,
+    "1d": 0.1754
+   }
+  },
+  {
+   "cid": "0x9d1e122ce82f7acd66088e2e6216ca732b38fee26cee312156e854f975c28776",
+   "q": "Will lighter perform an airdrop by December 31? ",
+   "vol": 26021665.1755,
+   "onset": "2025-12-30T04:48:51+00:00",
+   "onset_ts": 1767070131,
+   "before": 0.8619,
+   "after": 0.9796,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 56164.19,
+   "vwap": 0.9023,
+   "pnl_usd": 6082.11,
+   "moves": {
+    "5m": -0.0081,
+    "1h": -0.0081,
+    "2h": -0.0081,
+    "1d": 0.0019
+   }
+  },
+  {
+   "cid": "0x42d812af0840d50685b0aaa0cc0a4b3c07a680cd12a85d88a377558f3621c78c",
+   "q": "Over $1.4B committed to the MegaETH public sale?",
+   "vol": 16882337.715217,
+   "onset": "2025-10-30T05:09:49+00:00",
+   "onset_ts": 1761800989,
+   "before": 0.2805,
+   "after": 0.37,
+   "direction": 1,
+   "terminal": 0.0,
+   "kind": "head fake",
+   "fillable_usd": 1430.12,
+   "vwap": 0.33,
+   "pnl_usd": -1430.12,
+   "moves": {
+    "5m": -0.0095
+   }
+  },
+  {
+   "cid": "0x9769f78cbc95a5ed11895e6064bac471d8fd8f930b260cf581b68d3f58630d27",
+   "q": "US x Iran permanent peace deal by December 31, 2026?",
+   "vol": 14411915.111413987,
+   "onset": "2026-06-14T21:15:55+00:00",
+   "onset_ts": 1781471755,
+   "before": 0.8501,
+   "after": 0.9373,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 19314.55,
+   "vwap": 0.8908,
+   "pnl_usd": 2367.51,
+   "moves": {
+    "5m": -0.0199,
+    "1h": 0.0151,
+    "2h": 0.0301,
+    "1d": 0.0201
+   }
+  },
+  {
+   "cid": "0x5e5482b1e2afa7bed0b9a0c3c8ad33a83dd6cc6d649666cdf1977be64c42c82a",
+   "q": "Epstein suicide note released by May 8?",
+   "vol": 14180619.718706006,
+   "onset": "2026-05-07T20:07:53+00:00",
+   "onset_ts": 1778184473,
+   "before": 0.201,
+   "after": 0.102,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 369.53,
+   "vwap": 0.8312,
+   "pnl_usd": 75.03,
+   "moves": {
+    "5m": 0.0067,
+    "1h": 0.076,
+    "2h": -0.004
+   }
+  },
+  {
+   "cid": "0x5e5482b1e2afa7bed0b9a0c3c8ad33a83dd6cc6d649666cdf1977be64c42c82a",
+   "q": "Epstein suicide note released by May 8?",
+   "vol": 14180619.718706006,
+   "onset": "2026-05-08T15:54:10+00:00",
+   "onset_ts": 1778255650,
+   "before": 0.1758,
+   "after": 0.005,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1189.14,
+   "vwap": 0.8275,
+   "pnl_usd": 247.88,
+   "moves": {
+    "5m": -0.0513,
+    "1h": -0.0438,
+    "2h": -0.0448,
+    "1d": -0.1018
+   }
+  },
+  {
+   "cid": "0x5e5482b1e2afa7bed0b9a0c3c8ad33a83dd6cc6d649666cdf1977be64c42c82a",
+   "q": "Epstein suicide note released by May 8?",
+   "vol": 14180619.718706006,
+   "onset": "2026-05-11T19:41:06+00:00",
+   "onset_ts": 1778528466,
+   "before": 0.102,
+   "after": 0.003,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 48789.73,
+   "vwap": 0.9251,
+   "pnl_usd": 3952.1,
+   "moves": {
+    "5m": -0.004,
+    "1h": -0.04,
+    "2h": -0.084,
+    "1d": -0.0855
+   }
+  },
+  {
+   "cid": "0x8a38e9511fe17e13fa7c3fc65923983c22d4d494b69091fad0107637a7cd1e32",
+   "q": "US strikes Iran by February 23, 2026?",
+   "vol": 14022418.787406,
+   "onset": "2026-02-18T20:55:18+00:00",
+   "onset_ts": 1771448118,
+   "before": 0.2491,
+   "after": 0.15,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 40152.4,
+   "vwap": 0.7701,
+   "pnl_usd": 11986.94,
+   "moves": {
+    "5m": 0.0009,
+    "1h": 0.0109,
+    "2h": 0.0009
+   }
+  },
+  {
+   "cid": "0xd73f60114a0e7169a55082daef1228cb27fa50c939eea22cb0589f6bac6ce5d3",
+   "q": "Iran x Israel/US conflict ends by May 15?",
+   "vol": 13670502.108909987,
+   "onset": "2026-04-12T12:12:59+00:00",
+   "onset_ts": 1775995979,
+   "before": 0.66,
+   "after": 0.56,
+   "direction": -1,
+   "terminal": 1.0,
+   "kind": "head fake",
+   "fillable_usd": 271.8,
+   "vwap": 0.375,
+   "pnl_usd": -271.8,
+   "moves": {
+    "5m": -0.0,
+    "1h": 0.01,
+    "2h": 0.015
+   }
+  },
+  {
+   "cid": "0x4b78de44ea49d0eb8d5fee85352294b6f679a47c56944c6ad5c945e9a2ba7211",
+   "q": "Government shutdown on Saturday?",
+   "vol": 13550398.086217,
+   "onset": "2026-02-13T09:44:39+00:00",
+   "onset_ts": 1770975879,
+   "before": 0.3566,
+   "after": 0.2595,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 11109.16,
+   "vwap": 0.6739,
+   "pnl_usd": 5375.98,
+   "moves": {
+    "5m": 0.0029
+   }
+  },
+  {
+   "cid": "0x4b78de44ea49d0eb8d5fee85352294b6f679a47c56944c6ad5c945e9a2ba7211",
+   "q": "Government shutdown on Saturday?",
+   "vol": 13550398.086217,
+   "onset": "2026-02-14T04:31:51+00:00",
+   "onset_ts": 1771043511,
+   "before": 0.1477,
+   "after": 0.0408,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 24315.24,
+   "vwap": 0.8987,
+   "pnl_usd": 2741.79,
+   "moves": {
+    "5m": -0.0077,
+    "1h": -0.0007,
+    "2h": -0.0027
+   }
+  },
+  {
+   "cid": "0xa70fc3695a65833b91b45df6db6015096f3e1471b70352ca411b4209010e7633",
+   "q": "US-Iran nuclear deal by June 30?",
+   "vol": 11324069.03899108,
+   "onset": "2026-06-11T17:24:51+00:00",
+   "onset_ts": 1781198691,
+   "before": 0.1852,
+   "after": 0.34,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 1063.92,
+   "vwap": 0.23,
+   "pnl_usd": 3561.83,
+   "moves": {
+    "5m": -0.0348,
+    "1h": -0.0098,
+    "2h": 0.0102,
+    "1d": 0.0152
+   }
+  },
+  {
+   "cid": "0xa70fc3695a65833b91b45df6db6015096f3e1471b70352ca411b4209010e7633",
+   "q": "US-Iran nuclear deal by June 30?",
+   "vol": 11324069.03899108,
+   "onset": "2026-06-14T20:36:12+00:00",
+   "onset_ts": 1781469372,
+   "before": 0.6091,
+   "after": 0.7806,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 3393.13,
+   "vwap": 0.648,
+   "pnl_usd": 1843.33,
+   "moves": {
+    "5m": -0.0009,
+    "1h": 0.0391,
+    "2h": 0.0491,
+    "1d": -0.0209
+   }
+  },
+  {
+   "cid": "0xa70fc3695a65833b91b45df6db6015096f3e1471b70352ca411b4209010e7633",
+   "q": "US-Iran nuclear deal by June 30?",
+   "vol": 11324069.03899108,
+   "onset": "2026-06-15T02:45:51+00:00",
+   "onset_ts": 1781491551,
+   "before": 0.8547,
+   "after": 0.996,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 1081.86,
+   "vwap": 0.8965,
+   "pnl_usd": 124.87,
+   "moves": {
+    "5m": 0.0247,
+    "1h": 0.0047,
+    "2h": 0.0447,
+    "1d": 0.2147
+   }
+  },
+  {
+   "cid": "0x7d4d6916fa50ad0be01c1c065a6b3ad95f5d444c18fc6b766a99d31173469303",
+   "q": "Will the Party for Freedom win the most seats in the 2025 Netherlands parliamentary election?",
+   "vol": 10147546.752816,
+   "onset": "2025-10-28T15:03:19+00:00",
+   "onset_ts": 1761663799,
+   "before": 0.73,
+   "after": 0.5525,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1362.61,
+   "vwap": 0.3195,
+   "pnl_usd": 2901.79,
+   "moves": {
+    "5m": -0.0,
+    "1h": 0.005
+   }
+  },
+  {
+   "cid": "0x7d4d6916fa50ad0be01c1c065a6b3ad95f5d444c18fc6b766a99d31173469303",
+   "q": "Will the Party for Freedom win the most seats in the 2025 Netherlands parliamentary election?",
+   "vol": 10147546.752816,
+   "onset": "2025-10-29T19:41:53+00:00",
+   "onset_ts": 1761766913,
+   "before": 0.44,
+   "after": 0.1382,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 612.13,
+   "vwap": 0.6081,
+   "pnl_usd": 394.44,
+   "moves": {
+    "5m": 0.0,
+    "1h": 0.02,
+    "2h": -0.02,
+    "1d": -0.03
+   }
+  },
+  {
+   "cid": "0x464eac41fe4ee9e4317fa68b01d922d7b1e48edd3584c3ec30a87308cd6c684b",
+   "q": "Lighter Airdrop on December 29?",
+   "vol": 9727413.453505,
+   "onset": "2025-12-29T04:02:43+00:00",
+   "onset_ts": 1766980963,
+   "before": 0.4725,
+   "after": 0.3864,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 6911.85,
+   "vwap": 0.563,
+   "pnl_usd": 5365.92,
+   "moves": {
+    "5m": -0.0025,
+    "1h": -0.0025,
+    "2h": 0.0375
+   }
+  },
+  {
+   "cid": "0x464eac41fe4ee9e4317fa68b01d922d7b1e48edd3584c3ec30a87308cd6c684b",
+   "q": "Lighter Airdrop on December 29?",
+   "vol": 9727413.453505,
+   "onset": "2025-12-29T13:56:33+00:00",
+   "onset_ts": 1767016593,
+   "before": 0.2239,
+   "after": 0.1307,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 6372.18,
+   "vwap": 0.816,
+   "pnl_usd": 1437.09,
+   "moves": {
+    "5m": 0.0061,
+    "1h": 0.0061,
+    "2h": 0.0061
+   }
+  },
+  {
+   "cid": "0x4edfcf9fd9889864290d34f1902ef51420989e5922b8208bf46bc0689ce6adbe",
+   "q": "Will OpenAI release a new frontier model on December 11?",
+   "vol": 9190060.842127,
+   "onset": "2025-12-10T22:08:38+00:00",
+   "onset_ts": 1765404518,
+   "before": 0.7302,
+   "after": 0.8372,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 290.18,
+   "vwap": 0.7596,
+   "pnl_usd": 91.82,
+   "moves": {
+    "5m": 0.0002,
+    "1h": -0.0598,
+    "2h": -0.0898,
+    "1d": -0.0498
+   }
+  },
+  {
+   "cid": "0xfc6260666d020a912a87d9000eff5116d2adfb8c30aba543427a4c1f1411f1a0",
+   "q": "MegaETH market cap (FDV) >$2B one day after launch?",
+   "vol": 9056989.371149095,
+   "onset": "2026-04-23T14:27:12+00:00",
+   "onset_ts": 1776954432,
+   "before": 0.41,
+   "after": 0.3066,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 276.78,
+   "vwap": 0.639,
+   "pnl_usd": 156.34,
+   "moves": {
+    "5m": -0.01,
+    "1h": 0.0,
+    "2h": 0.0,
+    "1d": -0.12
+   }
+  },
+  {
+   "cid": "0xfc6260666d020a912a87d9000eff5116d2adfb8c30aba543427a4c1f1411f1a0",
+   "q": "MegaETH market cap (FDV) >$2B one day after launch?",
+   "vol": 9056989.371149095,
+   "onset": "2026-05-01T02:06:14+00:00",
+   "onset_ts": 1777601174,
+   "before": 0.22,
+   "after": 0.14,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 16483.95,
+   "vwap": 0.8216,
+   "pnl_usd": 3578.58,
+   "moves": {
+    "5m": -0.005,
+    "1h": 0.03,
+    "2h": 0.01,
+    "1d": 0.1
+   }
+  },
+  {
+   "cid": "0x5a9395dae6c7643ea06e7a555580a5526e81073aea9c9306363529c5b76a8f8b",
+   "q": "US x Iran Effective Ceasefire by July 31?",
+   "vol": 8917606.208237005,
+   "onset": "2026-08-03T22:56:24+00:00",
+   "onset_ts": 1785797784,
+   "before": 0.6,
+   "after": 0.51,
+   "direction": -1,
+   "terminal": 1.0,
+   "kind": "head fake",
+   "fillable_usd": 2019.28,
+   "vwap": 0.432,
+   "pnl_usd": -2019.28,
+   "moves": {
+    "5m": -0.01,
+    "1h": -0.01,
+    "2h": -0.01,
+    "1d": -0.07
+   }
+  },
+  {
+   "cid": "0x68fbeb8d823552abf9d35f3ebdb8619a1a1d51b650da9101be62f09308fd18d2",
+   "q": "US announces new Iran agreement/ceasefire extension by June 13?",
+   "vol": 8715169.978520965,
+   "onset": "2026-06-12T18:56:19+00:00",
+   "onset_ts": 1781290579,
+   "before": 0.29,
+   "after": 0.2,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1784.48,
+   "vwap": 0.7266,
+   "pnl_usd": 671.59,
+   "moves": {
+    "5m": 0.01,
+    "1h": -0.07,
+    "2h": -0.09
+   }
+  },
+  {
+   "cid": "0x68fbeb8d823552abf9d35f3ebdb8619a1a1d51b650da9101be62f09308fd18d2",
+   "q": "US announces new Iran agreement/ceasefire extension by June 13?",
+   "vol": 8715169.978520965,
+   "onset": "2026-06-13T11:51:00+00:00",
+   "onset_ts": 1781351460,
+   "before": 0.2217,
+   "after": 0.0872,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1516.71,
+   "vwap": 0.8069,
+   "pnl_usd": 362.91,
+   "moves": {
+    "5m": -0.0517,
+    "1h": -0.1217,
+    "2h": -0.1317
+   }
+  },
+  {
+   "cid": "0xd1047755d35a03b7ceea9923daae56ecf67784446daa63e87eebc471b4b9dbd9",
+   "q": "US strikes Iran by January 16, 2026?",
+   "vol": 8491722.888278,
+   "onset": "2026-01-14T09:51:56+00:00",
+   "onset_ts": 1768384316,
+   "before": 0.2311,
+   "after": 0.33,
+   "direction": 1,
+   "terminal": 0.0,
+   "kind": "head fake",
+   "fillable_usd": 2746.68,
+   "vwap": 0.2769,
+   "pnl_usd": -2746.68,
+   "moves": {
+    "5m": 0.0011,
+    "1h": -0.0189,
+    "2h": -0.044
+   }
+  },
+  {
+   "cid": "0xd1047755d35a03b7ceea9923daae56ecf67784446daa63e87eebc471b4b9dbd9",
+   "q": "US strikes Iran by January 16, 2026?",
+   "vol": 8491722.888278,
+   "onset": "2026-01-14T16:34:34+00:00",
+   "onset_ts": 1768408474,
+   "before": 0.3408,
+   "after": 0.4743,
+   "direction": 1,
+   "terminal": 0.0,
+   "kind": "head fake",
+   "fillable_usd": 3402.34,
+   "vwap": 0.3802,
+   "pnl_usd": -3402.34,
+   "moves": {
+    "5m": -0.0192,
+    "1h": -0.0038,
+    "2h": -0.0192
+   }
+  },
+  {
+   "cid": "0xd1047755d35a03b7ceea9923daae56ecf67784446daa63e87eebc471b4b9dbd9",
+   "q": "US strikes Iran by January 16, 2026?",
+   "vol": 8491722.888278,
+   "onset": "2026-01-14T20:02:28+00:00",
+   "onset_ts": 1768420948,
+   "before": 0.6252,
+   "after": 0.3858,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 2898.95,
+   "vwap": 0.4167,
+   "pnl_usd": 4058.14,
+   "moves": {
+    "5m": -0.0052,
+    "1h": -0.0252,
+    "2h": -0.1252
+   }
+  },
+  {
+   "cid": "0x7f3c6b9029a1a4a932509c147a2cc0762e1116b7a4568cde472908b29dd4889d",
+   "q": "Will the U.S. invade Venezuela by January 31, 2026?",
+   "vol": 8368550.515088,
+   "onset": "2026-01-03T16:44:39+00:00",
+   "onset_ts": 1767458679,
+   "before": 0.0837,
+   "after": 0.2403,
+   "direction": 1,
+   "terminal": 0.0,
+   "kind": "head fake",
+   "fillable_usd": 402.75,
+   "vwap": 0.1312,
+   "pnl_usd": -402.75,
+   "moves": {
+    "5m": 0.0097,
+    "1h": 0.0077,
+    "2h": -0.0163
+   }
+  },
+  {
+   "cid": "0x814657a16a3c5b39834864251372e30f68ddcd0f040c5c6a83a52cddb2c35226",
+   "q": "Will Crude Oil (CL) hit (HIGH) $110 by end of March?",
+   "vol": 8009442.956812905,
+   "onset": "2026-03-31T00:45:41+00:00",
+   "onset_ts": 1774917941,
+   "before": 0.1534,
+   "after": 0.0727,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 32906.85,
+   "vwap": 0.8847,
+   "pnl_usd": 4287.49,
+   "moves": {
+    "5m": -0.0014,
+    "1h": -0.0,
+    "2h": -0.0336,
+    "1d": 0.0366
+   }
+  },
+  {
+   "cid": "0xbee2cd40473495f713c69b9dfbce9fc2837fa4011568222c83c83bb773e35053",
+   "q": "Starmer out by June 30, 2026?",
+   "vol": 7912817.765875065,
+   "onset": "2026-05-18T06:46:56+00:00",
+   "onset_ts": 1779086816,
+   "before": 0.6761,
+   "after": 0.4981,
+   "direction": -1,
+   "terminal": 1.0,
+   "kind": "head fake",
+   "fillable_usd": 2098.81,
+   "vwap": 0.37,
+   "pnl_usd": -2098.81,
+   "moves": {
+    "5m": 0.0039
+   }
+  },
+  {
+   "cid": "0xbee2cd40473495f713c69b9dfbce9fc2837fa4011568222c83c83bb773e35053",
+   "q": "Starmer out by June 30, 2026?",
+   "vol": 7912817.765875065,
+   "onset": "2026-05-18T13:54:43+00:00",
+   "onset_ts": 1779112483,
+   "before": 0.47,
+   "after": 0.3717,
+   "direction": -1,
+   "terminal": 1.0,
+   "kind": "head fake",
+   "fillable_usd": 418.3,
+   "vwap": 0.5646,
+   "pnl_usd": -418.3,
+   "moves": {
+    "5m": -0.005,
+    "1h": -0.0,
+    "2h": 0.0,
+    "1d": 0.19
+   }
+  },
+  {
+   "cid": "0xbee2cd40473495f713c69b9dfbce9fc2837fa4011568222c83c83bb773e35053",
+   "q": "Starmer out by June 30, 2026?",
+   "vol": 7912817.765875065,
+   "onset": "2026-06-19T02:21:29+00:00",
+   "onset_ts": 1781835689,
+   "before": 0.3498,
+   "after": 0.43,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 6691.52,
+   "vwap": 0.3949,
+   "pnl_usd": 10253.82,
+   "moves": {
+    "5m": -0.0102,
+    "1h": 0.0498,
+    "2h": 0.0398,
+    "1d": 0.1298
+   }
+  },
+  {
+   "cid": "0xbee2cd40473495f713c69b9dfbce9fc2837fa4011568222c83c83bb773e35053",
+   "q": "Starmer out by June 30, 2026?",
+   "vol": 7912817.765875065,
+   "onset": "2026-06-19T13:45:32+00:00",
+   "onset_ts": 1781876732,
+   "before": 0.31,
+   "after": 0.42,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 262.86,
+   "vwap": 0.3515,
+   "pnl_usd": 484.94,
+   "moves": {
+    "5m": -0.01,
+    "1h": 0.0,
+    "2h": 0.0,
+    "1d": 0.05
+   }
+  },
+  {
+   "cid": "0xbee2cd40473495f713c69b9dfbce9fc2837fa4011568222c83c83bb773e35053",
+   "q": "Starmer out by June 30, 2026?",
+   "vol": 7912817.765875065,
+   "onset": "2026-06-22T08:08:41+00:00",
+   "onset_ts": 1782115721,
+   "before": 0.91,
+   "after": 0.999,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 10122.56,
+   "vwap": 0.9504,
+   "pnl_usd": 528.08,
+   "moves": {
+    "5m": 0.0,
+    "1h": -0.01,
+    "2h": 0.02,
+    "1d": 0.06
+   }
+  },
+  {
+   "cid": "0x894a26116ec1e467d89955a029545e090bbc38713351e21971da5c1572056c25",
+   "q": "Israel x Hezbollah ceasefire by April 15, 2026?",
+   "vol": 7833257.504384964,
+   "onset": "2026-04-15T21:26:04+00:00",
+   "onset_ts": 1776288364,
+   "before": 0.2179,
+   "after": 0.0407,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 3840.25,
+   "vwap": 0.8292,
+   "pnl_usd": 790.83,
+   "moves": {
+    "5m": -0.0159,
+    "1h": -0.0354,
+    "2h": -0.0419
+   }
+  },
+  {
+   "cid": "0xb7f9d3f61910ecf7a5e6e46f487a039e91a92b68585f05ec9b22cb34d3804bbd",
+   "q": "Will Ethereum hit $7,000 by December 31?",
+   "vol": 7570762.533718,
+   "onset": "2025-08-22T14:04:54+00:00",
+   "onset_ts": 1755871494,
+   "before": 0.26,
+   "after": 0.35,
+   "direction": 1,
+   "terminal": 0.0,
+   "kind": "head fake",
+   "fillable_usd": 1336.25,
+   "vwap": 0.3,
+   "pnl_usd": -1336.25,
+   "moves": {}
+  },
+  {
+   "cid": "0x2135ffcb43ba9103bb6acf7116d2d5aa98bef6d9eb3dc9c85ea00cb79513f3ec",
+   "q": "Iran closes its airspace by May 8?",
+   "vol": 7426874.501728975,
+   "onset": "2026-05-04T15:01:40+00:00",
+   "onset_ts": 1777906900,
+   "before": 0.2201,
+   "after": 0.3176,
+   "direction": 1,
+   "terminal": 0.0,
+   "kind": "head fake",
+   "fillable_usd": 4570.66,
+   "vwap": 0.2599,
+   "pnl_usd": -4570.66,
+   "moves": {
+    "5m": -0.0099,
+    "1h": 0.0001
+   }
+  },
+  {
+   "cid": "0xf759fba6c4fd415128bc840a1bf99708244720d7e613ef4ca02f0e15157b2f14",
+   "q": "Will Crin Antonescu win the Romanian presidential election?",
+   "vol": 7373293.389946,
+   "onset": "2025-05-04T17:18:16+00:00",
+   "onset_ts": 1746379096,
+   "before": 0.31,
+   "after": 0.2219,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1414.9,
+   "vwap": 0.7385,
+   "pnl_usd": 501.14,
+   "moves": {
+    "5m": -0.0,
+    "1h": 0.0,
+    "2h": 0.02,
+    "1d": 0.06
+   }
+  },
+  {
+   "cid": "0xf21fa02ef79ac3e83a32c5ecafeca8ce5629609ba1773d9cc69e39b04f66bfa8",
+   "q": "Over $1.2B committed to the MegaETH public sale?",
+   "vol": 7303312.840744,
+   "onset": "2025-10-29T11:53:41+00:00",
+   "onset_ts": 1761738821,
+   "before": 0.5507,
+   "after": 0.6519,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 5323.26,
+   "vwap": 0.59,
+   "pnl_usd": 3699.65,
+   "moves": {
+    "5m": -0.0193,
+    "1h": -0.0293,
+    "2h": -0.0293
+   }
+  },
+  {
+   "cid": "0xf21fa02ef79ac3e83a32c5ecafeca8ce5629609ba1773d9cc69e39b04f66bfa8",
+   "q": "Over $1.2B committed to the MegaETH public sale?",
+   "vol": 7303312.840744,
+   "onset": "2025-10-29T21:37:27+00:00",
+   "onset_ts": 1761773847,
+   "before": 0.709,
+   "after": 0.8193,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 12078.09,
+   "vwap": 0.7451,
+   "pnl_usd": 4131.96,
+   "moves": {
+    "5m": -0.001,
+    "1h": 0.039,
+    "2h": 0.0292
+   }
+  },
+  {
+   "cid": "0xe00d6ce6106b54b8f13fbe935e529ea7aab9e3ace9ae3fcc4f7c65372eb0b8ef",
+   "q": "Will Bitcoin dip to $60,000 in February?",
+   "vol": 7282065.829222,
+   "onset": "2026-02-25T00:55:58+00:00",
+   "onset_ts": 1771980958,
+   "before": 0.25,
+   "after": 0.12,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 4777.3,
+   "vwap": 0.7976,
+   "pnl_usd": 1212.52,
+   "moves": {
+    "5m": -0.0277,
+    "1h": -0.0,
+    "2h": 0.01
+   }
+  },
+  {
+   "cid": "0xdc6f95f94d2db24a1904537cb8cf83e0b25fa47bac926112891eef0df8fd06f2",
+   "q": "US x Iran meeting by April 10, 2026?",
+   "vol": 7115644.975113006,
+   "onset": "2026-04-08T21:40:07+00:00",
+   "onset_ts": 1775684407,
+   "before": 0.4414,
+   "after": 0.2904,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 337.11,
+   "vwap": 0.5986,
+   "pnl_usd": 226.01,
+   "moves": {
+    "5m": 0.0036,
+    "1h": -0.0305,
+    "2h": -0.2324
+   }
+  },
+  {
+   "cid": "0xdc6f95f94d2db24a1904537cb8cf83e0b25fa47bac926112891eef0df8fd06f2",
+   "q": "US x Iran meeting by April 10, 2026?",
+   "vol": 7115644.975113006,
+   "onset": "2026-04-09T14:17:11+00:00",
+   "onset_ts": 1775744231,
+   "before": 0.4936,
+   "after": 0.2559,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1435.14,
+   "vwap": 0.5233,
+   "pnl_usd": 1307.53,
+   "moves": {
+    "5m": -0.0246,
+    "1h": -0.1746,
+    "2h": -0.1166,
+    "1d": 0.3464
+   }
+  },
+  {
+   "cid": "0xdc6f95f94d2db24a1904537cb8cf83e0b25fa47bac926112891eef0df8fd06f2",
+   "q": "US x Iran meeting by April 10, 2026?",
+   "vol": 7115644.975113006,
+   "onset": "2026-04-12T15:21:01+00:00",
+   "onset_ts": 1776007261,
+   "before": 0.006,
+   "after": 0.1279,
+   "direction": 1,
+   "terminal": 0.0,
+   "kind": "head fake",
+   "fillable_usd": 471.96,
+   "vwap": 0.0444,
+   "pnl_usd": -471.96,
+   "moves": {
+    "5m": 0.0,
+    "1h": 0.001,
+    "2h": 0.001,
+    "1d": -0.002
+   }
+  },
+  {
+   "cid": "0xdc6f95f94d2db24a1904537cb8cf83e0b25fa47bac926112891eef0df8fd06f2",
+   "q": "US x Iran meeting by April 10, 2026?",
+   "vol": 7115644.975113006,
+   "onset": "2026-04-13T10:12:29+00:00",
+   "onset_ts": 1776075149,
+   "before": 0.1702,
+   "after": 0.034,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 6502.52,
+   "vwap": 0.867,
+   "pnl_usd": 997.48,
+   "moves": {
+    "5m": -0.0072,
+    "1h": 0.0266,
+    "2h": -0.0322,
+    "1d": -0.1662
+   }
+  },
+  {
+   "cid": "0xbeab83146920be8f52b52fdbcb3464b24dc553f7b47eb4249243385b0faad271",
+   "q": "US-Iran nuclear deal by May 31?",
+   "vol": 6905766.889778924,
+   "onset": "2026-05-29T18:48:08+00:00",
+   "onset_ts": 1780080488,
+   "before": 0.1863,
+   "after": 0.086,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 565.75,
+   "vwap": 0.8598,
+   "pnl_usd": 92.25,
+   "moves": {
+    "5m": -0.0103,
+    "1h": -0.0013,
+    "2h": 0.0237,
+    "1d": -0.0113
+   }
+  },
+  {
+   "cid": "0xf6890c707d1e327b006b9511bdba8c98ec4e4978646c6ffcf3ec8750c26a666a",
+   "q": "Will Crude Oil (CL) hit (HIGH) $105 by end of March?",
+   "vol": 6711631.643086998,
+   "onset": "2026-03-30T01:56:16+00:00",
+   "onset_ts": 1774835776,
+   "before": 0.4385,
+   "after": 0.3405,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 556.31,
+   "vwap": 0.579,
+   "pnl_usd": 404.43,
+   "moves": {
+    "5m": 0.0146,
+    "1h": 0.0909,
+    "2h": 0.1231,
+    "1d": 0.0315
+   }
+  },
+  {
+   "cid": "0xf6890c707d1e327b006b9511bdba8c98ec4e4978646c6ffcf3ec8750c26a666a",
+   "q": "Will Crude Oil (CL) hit (HIGH) $105 by end of March?",
+   "vol": 6711631.643086998,
+   "onset": "2026-03-31T07:46:47+00:00",
+   "onset_ts": 1774943207,
+   "before": 0.3098,
+   "after": 0.2164,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 5201.58,
+   "vwap": 0.7381,
+   "pnl_usd": 1846.02,
+   "moves": {
+    "5m": 0.0233,
+    "1h": 0.0005,
+    "2h": 0.0645,
+    "1d": 0.0152
+   }
+  },
+  {
+   "cid": "0xf6890c707d1e327b006b9511bdba8c98ec4e4978646c6ffcf3ec8750c26a666a",
+   "q": "Will Crude Oil (CL) hit (HIGH) $105 by end of March?",
+   "vol": 6711631.643086998,
+   "onset": "2026-03-31T16:39:37+00:00",
+   "onset_ts": 1774975177,
+   "before": 0.3667,
+   "after": 0.0359,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1654.37,
+   "vwap": 0.682,
+   "pnl_usd": 771.39,
+   "moves": {
+    "5m": 0.0463,
+    "1h": -0.0057,
+    "2h": -0.2471,
+    "1d": 0.003
+   }
+  },
+  {
+   "cid": "0xc6ddb19f848ac363330d0a690cfe6818d4c51e837161a41d42675eda27767ed0",
+   "q": "Will Finland win Eurovision 2026?",
+   "vol": 6594936.095275031,
+   "onset": "2026-05-16T22:11:03+00:00",
+   "onset_ts": 1778969463,
+   "before": 0.4937,
+   "after": 0.0022,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 4183.26,
+   "vwap": 0.5461,
+   "pnl_usd": 3476.57,
+   "moves": {
+    "5m": -0.0001,
+    "1h": -0.0027,
+    "2h": -0.0497,
+    "1d": 0.0163
+   }
+  },
+  {
+   "cid": "0x391e2cca67a2d49030baf239fdebb1d428b732a00d0af46a0c98866a0a8eee8a",
+   "q": "Will US or Israel strike Iran by January 31, 2026?",
+   "vol": 6455319.003647,
+   "onset": "2026-01-15T12:25:48+00:00",
+   "onset_ts": 1768479948,
+   "before": 0.52,
+   "after": 0.4204,
+   "direction": -1,
+   "terminal": 0.0,
+   "kind": "resolving",
+   "fillable_usd": 1014.16,
+   "vwap": 0.512,
+   "pnl_usd": 966.55,
+   "moves": {
+    "5m": -0.01,
+    "1h": 0.0,
+    "2h": 0.04
+   }
+  },
+  {
+   "cid": "0x136f5a0c27a62cf9a2e40a4f48425e43d61b9571a53a2529372c0065f3218a73",
+   "q": "Iran x Israel/US conflict ends by June 30?",
+   "vol": 5872191.781835967,
+   "onset": "2026-04-07T22:22:27+00:00",
+   "onset_ts": 1775600547,
+   "before": 0.7179,
+   "after": 0.8568,
+   "direction": 1,
+   "terminal": 1.0,
+   "kind": "resolving",
+   "fillable_usd": 2768.23,
+   "vwap": 0.7601,
+   "pnl_usd": 873.9,
+   "moves": {
+    "5m": -0.0281,
+    "1h": -0.0075,
+    "2h": 0.0179
+   }
+  }
+ ],
+ "guard_sweep": [
+  {
+   "setting": "shipped (.20/.20/.20/.30)",
+   "thresholds": [
+    0.2,
+    0.2,
+    0.2,
+    0.3
+   ],
+   "resolving_kept": 44,
+   "resolving_pnl": 191062.44,
+   "fake_kept": 11,
+   "fake_pnl": -19168.95,
+   "net_pnl": 171893.49
+  },
+  {
+   "setting": "tight   (.10/.10/.15/.20)",
+   "thresholds": [
+    0.1,
+    0.1,
+    0.15,
+    0.2
+   ],
+   "resolving_kept": 43,
+   "resolving_pnl": 190937.57,
+   "fake_kept": 11,
+   "fake_pnl": -19168.95,
+   "net_pnl": 171768.62
+  },
+  {
+   "setting": "tighter (.05/.08/.10/.15)",
+   "thresholds": [
+    0.05,
+    0.08,
+    0.1,
+    0.15
+   ],
+   "resolving_kept": 40,
+   "resolving_pnl": 160216.55,
+   "fake_kept": 10,
+   "fake_pnl": -18750.65,
+   "net_pnl": 141465.9
+  },
+  {
+   "setting": "off",
+   "thresholds": [
+    9.9,
+    9.9,
+    9.9,
+    9.9
+   ],
+   "resolving_kept": 45,
+   "resolving_pnl": 192369.97,
+   "fake_kept": 11,
+   "fake_pnl": -19168.95,
+   "net_pnl": 173201.02
+  }
+ ]
+}
