@@ -99,6 +99,7 @@ def discover(
     cluster_wallets: bool = True,
     universe: str = "recent",
     exclude_in_play: bool = False,
+    since_days: int | None = 180,
     progress=lambda msg: None,
 ) -> Analysis:
     """Live end-to-end discovery against the Polymarket APIs.
@@ -115,8 +116,10 @@ def discover(
         # esports and live sport; the traders worth finding here work
         # elections, geopolitics and macro, and those only surface when you
         # rank by size rather than recency.
-        progress("listing highest-volume resolved markets...")
-        rows = top_markets(fetch, pages=max(2, max_markets // 100 + 2))
+        progress(f"listing highest-volume markets resolved in the last "
+                 f"{since_days} days...")
+        rows = top_markets(fetch, pages=max(3, max_markets // 100 + 3),
+                           since_days=since_days)
         markets = []
         for m in rows:
             cid = str(m.get("conditionId") or "")

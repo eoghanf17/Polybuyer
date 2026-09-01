@@ -90,6 +90,7 @@ def cmd_discover(args) -> int:
                  cluster_wallets=not args.no_clusters,
                  universe=args.universe,
                  exclude_in_play=not args.include_in_play,
+                 since_days=args.days,
                  progress=lambda m: print(m, file=sys.stderr))
     print(f"cache: {fetch.stats}", file=sys.stderr)
     _emit(a, args, len(a.features), cfg)
@@ -183,6 +184,11 @@ def main(argv: list[str] | None = None) -> int:
                         "macro -- where informed news flow trades). 'recent': sweep "
                         "recent large trades (biases to whatever is churning now, "
                         "in practice esports and live sport).")
+    v.add_argument("--days", type=int, default=180,
+                   help="volume universe only: restrict to markets resolved in "
+                        "the last N days. The all-time ranking spans years and "
+                        "unrelated topics, so few wallets appear in enough of "
+                        "those markets to be measurable.")
     v.add_argument("--include-in-play", action="store_true",
                    help="keep scheduled match markets. Off by default: in a live "
                         "game, trading 'before the repricing' is satisfied by a "

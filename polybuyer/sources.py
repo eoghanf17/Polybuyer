@@ -20,6 +20,7 @@ No endpoint below needs an API key.
 
 from __future__ import annotations
 
+import datetime as _dt
 from dataclasses import dataclass
 from typing import Iterable
 
@@ -176,6 +177,7 @@ def top_markets(
     pages: int = 8,
     per_page: int = 100,
     closed: bool = True,
+    since_days: int | None = None,
 ) -> list[dict]:
     """Highest-volume markets, newest-first by volume, via gamma.
 
@@ -189,13 +191,22 @@ def top_markets(
     practice esports and live sport -- whereas ranking by volume surfaces the
     elections, geopolitics and macro markets where informed news flow
     actually trades.  ``tag_slug`` is silently ignored by the API, so any
-    category filtering has to happen client-side.
+    category filtering has to happen client-side, but ``end_date_min`` does
+    work and is important: the all-time volume ranking spans years and
+    unrelated topics, so almost no wallet appears in enough of those markets
+    to be measurable.  Restricting to a recent window gives a cohort that
+    actually shares traders.
     """
+    window = ""
+    if since_days:
+        cutoff = _dt.datetime.now(_dt.timezone.utc) - _dt.timedelta(days=since_days)
+        window = f"&end_date_min={cutoff.strftime('%Y-%m-%dT%H:%M:%SZ')}"
+
     out: list[dict] = []
     for page in range(pages):
         url = (f"{GAMMA}/markets?closed={'true' if closed else 'false'}"
                f"&limit={per_page}&offset={page * per_page}"
-               f"&order=volumeNum&ascending=false")
+               f"&order=volumeNum&ascending=false{window}")
         batch = fetch.get(url)
         if not batch or not isinstance(batch, list):
             break
