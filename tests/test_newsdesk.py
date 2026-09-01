@@ -9,7 +9,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from polybuyer.newsdesk import corpus, gate, guards, rules
+from polybuyer.newsdesk import corpus, gate, guards, ledger, rules
 from polybuyer.newsdesk.store import Market, Store
 
 YES = '{"relevant":true,"asserted":true,"resolves":true,"novel":true,' \
@@ -416,3 +416,74 @@ class TestKeywordToggle(unittest.TestCase):
         finally:
             if os.path.exists(p):
                 os.unlink(p)
+
+
+class TestLedger(unittest.TestCase):
+    """The market ledger: depth, outcome and what a ticket would have paid."""
+
+    def _r(self, **kw):
+        d = dict(condition_id="0xa", question="Will X?",
+                 ladder=[{"window": "to close", "aggression": 0.02,
+                          "fillable_usd": 94.0, "vwap": 0.906,
+                          "pnl_usd": 10.0, "roi": 0.10},
+                         {"window": "to close", "aggression": 0.05,
+                          "fillable_usd": 578.0, "vwap": 0.928,
+                          "pnl_usd": 45.0, "roi": 0.08}])
+        d.update(kw)
+        return ledger.MarketRecord(**d)
+
+    def test_best_is_the_largest_demonstrable_pnl(self):
+        self.assertEqual(self._r().best()["pnl_usd"], 45.0)
+
+    def test_a_ticket_is_capped_by_what_the_tape_can_show(self):
+        # $10 at 5c: the tape showed $578 fillable, so the ticket fits.
+        r = self._r()
+        self.assertAlmostEqual(r.pnl_at(0.05, 10.0), (10 / 0.928) * (1 - 0.928),
+                               places=4)
+        # $10,000 at 5c: capped at the $578 the tape can demonstrate, not
+        # pro-rated into a number nobody could have filled.
+        self.assertAlmostEqual(r.pnl_at(0.05, 10_000.0),
+                               (578 / 0.928) * (1 - 0.928), places=4)
+
+    def test_an_unpriced_aggression_returns_none(self):
+        self.assertIsNone(self._r().pnl_at(0.10, 10.0))
+
+    def test_merging_fills_gaps_without_erasing(self):
+        path = tempfile.mktemp(suffix=".jsonl")
+        try:
+            ledger.save([self._r(volume_usd=5634.0)], path)
+            # A cheap later run that only knows the question must not wipe
+            # the ladder an expensive one computed.
+            ledger.add([ledger.MarketRecord(condition_id="0xa",
+                                            question="Will X?",
+                                            sources=["later"])], path)
+            rows = ledger.load(path)
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(len(rows[0].ladder), 2)
+            self.assertEqual(rows[0].volume_usd, 5634.0)
+            self.assertIn("later", rows[0].sources)
+        finally:
+            if os.path.exists(path):
+                os.unlink(path)
+
+    def test_untested_verdict_never_overwrites_a_real_one(self):
+        path = tempfile.mktemp(suffix=".jsonl")
+        try:
+            ledger.save([self._r(verdict=ledger.FILLABLE)], path)
+            ledger.add([self._r(verdict=ledger.UNTESTED)], path)
+            self.assertEqual(ledger.load(path)[0].verdict, ledger.FILLABLE)
+        finally:
+            if os.path.exists(path):
+                os.unlink(path)
+
+    def test_unresolved_markets_stay_none_rather_than_defaulting(self):
+        r = ledger.MarketRecord(condition_id="0xb", question="q")
+        self.assertIsNone(r.resolved)
+        self.assertIsNone(r.terminal)
+        self.assertIsNone(r.volume_usd)
+
+    def test_summary_totals_the_best_rows(self):
+        s = ledger.summary([self._r(), self._r(condition_id="0xb")])
+        self.assertEqual(s["markets"], 2)
+        self.assertEqual(s["priced"], 2)
+        self.assertAlmostEqual(s["best_pnl_total_usd"], 90.0)

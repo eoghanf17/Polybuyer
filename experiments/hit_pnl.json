@@ -1,6 +1,8 @@
 [
  {
   "market": "Pro Football: Will OBJ sign with a team in 2026?",
+  "condition_id": "0xf2c4d5abcc25ca31ea6244000d0403692461917d2624ea959257caa0d22fcc3f",
+  "direction": 1,
   "handle": "GoatHouseNFL",
   "followers": 24567,
   "entry": 0.6,
@@ -12,6 +14,8 @@
  },
  {
   "market": "Will Andy Burnham visit Ukraine by December 31, 2026?",
+  "condition_id": "0xc35a02e464f9612572bd1f8857431462eaef454df1ff6c60bfed6744b9b79936",
+  "direction": 1,
   "handle": "SprinterPress",
   "followers": 796728,
   "entry": 0.89,
@@ -73,6 +77,7 @@
  {
   "market": "Will Squid launch a token by December 31, 2026?",
   "verdict": "no market yet",
+  "condition_id": "0x3b929c8f6a12756c0c29ab17f2c06c41ca11872c5402be7aec2e090bf4d90035",
   "handle": "legiondotcc"
  }
 ]

@@ -1,0 +1,258 @@
+{
+ "blind1": [
+  {
+   "cid": "0xe6b7d4d8b4d2ff7dc8c9e5d6dd70b6eece210b8cf9e34fb45f9b9516cc4c76ff",
+   "q": "Khamenei out as Supreme Leader of Iran in 2026?",
+   "vol": 4606547.937479,
+   "end": "2026-12-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xba34d786cd7bfbd719aa77c705f27969aba84d6649dca9adb365aad8c255db7a",
+   "q": "US announces halt in Iran offensive operations by July 31?",
+   "vol": 4009713.171668,
+   "end": "2026-08-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x136f4e242faeb42f66fa6baf4c192fbfa0b5788ed47a2bf1a3d3a2051b87715a",
+   "q": "Will the US announce a blockade on Iran by July 31?",
+   "vol": 1860330.9093940007,
+   "end": "2026-07-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xe2bcb47770659e29544e3873d3b344c72add83898377a15e93e578113e1b34b7",
+   "q": "Will Graham Platner drop out before the Midterms?",
+   "vol": 807627.1297040026,
+   "end": "2026-11-02",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xd6487ff71f26b698891f9b5aa361a4f8037d324b2b98327faa5675cca91f4eb7",
+   "q": "SHEIN IPO before 2027?",
+   "vol": 120693.08651100003,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xafacd019af8894c0a0dd2581bd6b4b2572ece03bb8a98fdde905e68825b4d07f",
+   "q": "Will SpaceX or OpenAI IPO first?",
+   "vol": 91754.84067400006,
+   "end": "2027-12-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x844a138c1392d955d19d3c90068e9ec04f142f4b9ebaaa4c25c180e16274174f",
+   "q": "Will Binance launch stock tokens in 2026?",
+   "vol": 83581.28323,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x3a72386f277b9fd632bc35e451fcdae2b3704e4ecb58868517d73ff0253bf9ad",
+   "q": "Will Infrared launch a token by December 31 2025?",
+   "vol": 77732.697708,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x6695d4275bc981644db15f57032fc81b9b7aba6f7eb7f392264381ff099b800a",
+   "q": "Pep Guardiola out as Manchester City manager by the end of 2026?",
+   "vol": 66708.539888,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xfa9547464c0354a824900195ac798165f917d7e22b0da7109a6c5bdc5f9b9f60",
+   "q": "Will Tria launch a token by March 31, 2026?",
+   "vol": 63851.585894,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xf210e50287d59f66df7395b3e41ffaf84dccf5f4f903b20fff27117e0aa3aa5c",
+   "q": "Will GRVT launch a token by September 30, 2026?",
+   "vol": 60592.94894900001,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x84c1bcd1226c6ab7098f8a79acc442f26c79f66cbe2706bd272996c3a186c9bd",
+   "q": "Will Ant\u00f3nio Costa visit Ukraine by December 31, 2026?",
+   "vol": 38581.93387500001,
+   "end": "2026-12-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xec37b4aa424a2dafd3708afad60b817b7a3c05d20133af5ae6d9e89708ac4d57",
+   "q": "Will o1 launch a token by September 30, 2026?",
+   "vol": 28651.865639000003,
+   "end": "2028-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x4ee953b41245fa1a16964b6a26ed728a4ad2ac17edab581fd24f3a19c61407ac",
+   "q": "Will Keith Kellogg visit Ukraine by December 31, 2026?",
+   "vol": 27361.689018999998,
+   "end": "2026-12-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x5265d1421a3e7e947005c608c7e3705ac8628547feff093985e263d8f79b1baa",
+   "q": "Will Tria launch a token by December 31, 2026?",
+   "vol": 22071.041972,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x5bd438968a2386b6e05847b0a0b40af63000a460cf95770dc4c9b3021c283e81",
+   "q": "Will Bitmine announce that it holds more than 5M ETH before 2027?",
+   "vol": 21246.61343200001,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x56d53d66ecd7f027fe59c8958bf308d24f74bcdc5c85a2faefbe3ed40f2684a9",
+   "q": "Will Infrared launch a token by June 30 2026?",
+   "vol": 19566.450833,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xbbaaea7dd6962aa7baf0ffd2fbce081206e0a4f125513b7bb26317f9aac6c995",
+   "q": "Will Infrared launch a token by September 30 2026?",
+   "vol": 18421.926587,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x1d6886a554874ec350682f3ef968d8776942ad5bf37b5f0d53c12498a68c6926",
+   "q": "Will Infrared launch a token by December 31 2026?",
+   "vol": 18370.151606,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xee347e03225dd3de8c20435db8a7f1de946dc1001e01ca2433c40405e9b5b8e7",
+   "q": "Will Infrared launch a token by March 31 2026?",
+   "vol": 17842.931969,
+   "end": "2027-01-01",
+   "yes": 1.0
+  }
+ ],
+ "blind2": [
+  {
+   "cid": "0xc35a02e464f9612572bd1f8857431462eaef454df1ff6c60bfed6744b9b79936",
+   "q": "Will Andy Burnham visit Ukraine by December 31, 2026?",
+   "vol": 17296.727461000002,
+   "end": "2026-12-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x7a48d1778a338e3ef37a4a6ed908e1e81731997eb2cf754c9e50d8d1145bcd02",
+   "q": "Will Cap launch a token by December 31, 2026?",
+   "vol": 16969.071047999998,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x3b929c8f6a12756c0c29ab17f2c06c41ca11872c5402be7aec2e090bf4d90035",
+   "q": "Will Squid launch a token by December 31, 2026?",
+   "vol": 15533.608647,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xc12edbe10421595bd4e200e85f9dd16a0e20a2ab9af38afecbfd311fa9174bd2",
+   "q": "Will Citrea launch a token by June 30, 2026?",
+   "vol": 14949.221060999998,
+   "end": "2028-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x4f03e0cae05296094263c79bca46cd457246a9fccd327d6c297db2a741fe7281",
+   "q": "SpaceX IPO: Officially added to Nasdaq-100 in 2026?",
+   "vol": 12535.726149000004,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xb93cbe8b6272bb25db17eb2e0982adf17fc9aac384c6b97ea17f94a6494053ba",
+   "q": "Will Cap launch a token by June 30, 2027?",
+   "vol": 12141.774028,
+   "end": "2027-07-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x167b740c7a0348b56b62d26b9199e216b6b137d19bb95d51d48017b27c0251df",
+   "q": "Will Arcium launch a token by December 31, 2027?",
+   "vol": 12091.260000000002,
+   "end": "2028-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xe7092235327ee5dcf40eef80c9da3c0170287ceb2b58a05292218ecd6d0dff6b",
+   "q": "Will Squid launch a token by March 31, 2027?",
+   "vol": 8919.195203,
+   "end": "2027-04-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x9198830408ba84e4fd866946081aba5e51a28819b181cc380e9b7b59af9273ee",
+   "q": "Will Maia Sandu visit Ukraine by December 31, 2026?",
+   "vol": 7709.912071000001,
+   "end": "2026-12-31",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xf2c4d5abcc25ca31ea6244000d0403692461917d2624ea959257caa0d22fcc3f",
+   "q": "Pro Football: Will OBJ sign with a team in 2026?",
+   "vol": 5562.40115,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xedf5fd2db149d05993b1998fea7676f4d776941df4a8112a7bc04e3255f6c2e5",
+   "q": "Will Citrea launch a token by September 30, 2027?",
+   "vol": 3518.0584710000007,
+   "end": "2028-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x89ce5907577089f0e410323052f114304af188acd790fc5576221cdc26d952c0",
+   "q": "Will Arcium launch a token by September 30, 2027?",
+   "vol": 3315.32082,
+   "end": "2027-10-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x50360dba56644fab3e104fbcc513e4d8c58491e7f45a3153b78b47ac7e6354c5",
+   "q": "Will Arcium launch a token by December 31, 2026?",
+   "vol": 3293.293449,
+   "end": "2027-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0xa8885b67447d25942cb9d298be6acc0be634c077a4c52b342c839115742ac617",
+   "q": "Will Citrea launch a token by December 31, 2027?",
+   "vol": 1979.9281519999995,
+   "end": "2028-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x710244fceb754a51b7565aeccf5e48a4247692c693601f3c0a6f611fc905bbf1",
+   "q": "Will Citrea launch a token by September 30, 2026?",
+   "vol": 1903.9701259999997,
+   "end": "2028-01-01",
+   "yes": 1.0
+  },
+  {
+   "cid": "0x93f1de25c1868ed73f5127d63dbb6a4d250a7bbc73cc169e5cbc0bfe6d6b48f1",
+   "q": "Will Citrea launch a token by March 31, 2027?",
+   "vol": 1733.053148,
+   "end": "2028-01-01",
+   "yes": 1.0
+  }
+ ]
+}

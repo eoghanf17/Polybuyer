@@ -12,6 +12,8 @@ and, worse, a gate change that cannot be evaluated.
 | `posts.jsonl` | 496 | the corpus. One row per post, deduped on X's post id |
 | `labelled_cases.jsonl` | 17 | hand-transcribed gate examples. Kept separate because they have no timestamps and would otherwise read as "not actionable" |
 | `labels.json` | — | human adjudication, declarative so labels are reviewable in a diff |
+| `markets.jsonl` | 36 | the market ledger — depth, resolution, repricings, and what a ticket would have paid |
+| `market_lists.json` | 36 | the blind-test market lists, copied out of the session scratchpad before it was reclaimed |
 
 ## Provenance
 
@@ -75,3 +77,62 @@ survives the upgrade.
 Full gate answers are stored, not just fire/drop — so changing one question
 means re-reading the other five from disk and re-calling only the rows
 whose verdict turns on the change.
+
+
+# The market ledger (`markets.jsonl`)
+
+The corpus answers *did we see the news*. The ledger answers *was there a
+trade in it*, which turned out to be the harder question.
+
+One row per market: gamma volume, tape prints and notional, detected
+repricings, the post that fired, and the PnL ladder from
+`Tape.simulate_fill`. Rows merge field-wise on `condition_id`, so a cheap
+run that only knows a market's volume cannot wipe a ladder an expensive one
+computed, and `verdict: untested` never overwrites a real verdict. That is
+what makes "add as you go" safe — `hit_pnl.py` writes to it on every run.
+
+`pnl_usd` is never a claim about money made. Nothing here has been traded.
+It is what the tape can *demonstrate* was available from prints that
+actually executed — a lower bound on liquidity.
+
+## Current state: 36 markets
+
+| verdict | n |
+|---|---|
+| untested | 29 |
+| missed (rules caught nothing that passed the gate) | 4 |
+| fillable | 1 |
+| no liquidity at any cap or window | 1 |
+| no market yet when the post landed | 1 |
+
+At the desk's configured sizes, across everything priced so far:
+
+| | tier 2 ($3 @ 2c) | tier 1 ($10 @ 5c) |
+|---|---|---|
+| Burnham | $0.31 | $0.78 |
+| **total** | **$0.31** | **$0.78** |
+
+## Volume distribution — why the screen now drops on depth
+
+| percentile | gamma volume |
+|---|---|
+| p10 | $3,293 |
+| p25 | $8,919 |
+| **p50** | **$18,370** |
+| p75 | $63,852 |
+| p90 | $120,693 |
+
+| floor | markets kept |
+|---|---|
+| $5,000 | 30/36 (83%) |
+| $10,000 | 27/36 (75%) |
+| **$25,000** | **14/36 (39%)** |
+| $50,000 | 11/36 (31%) |
+
+The $25,000 floor now in `discover.screen()` keeps the top ~40% of what the
+blind tests were run against. Whether that leaves enough markets to run a
+desk for is the open question.
+
+Median tape notional is **0.64×** gamma's reported volume, which confirms
+the tape is close to complete rather than a sample — gamma over-counts by
+roughly 1.5×, so the depth numbers above are real.

@@ -49,6 +49,7 @@ from polybuyer.jumps import detect
 from polybuyer.model import normalise_many
 from polybuyer.netio import Fetcher
 from polybuyer.newsdesk import corpus as C
+from polybuyer.newsdesk import ledger as L
 from polybuyer.sources import market_tape
 from polybuyer.tape import Tape
 
@@ -99,7 +100,8 @@ def main() -> None:
         if ts < tape.start:
             print(f"  UNTRADEABLE: post lands "
                   f"{(tape.start - ts)/3600:.1f}h before the market's first print.")
-            out.append({"market": market, "verdict": "no market yet",
+            out.append({"market": market, "verdict": L.NO_MARKET,
+                        "condition_id": p.condition_id,
                         "handle": p.handle}); continue
 
         jumps = detect(tape, CFG, terminal=term)
@@ -112,7 +114,8 @@ def main() -> None:
         entry, stale = entry_price(tape, ts)
         if entry is None:
             print("  UNTRADEABLE: no price before the post.")
-            out.append({"market": market, "verdict": "no price"}); continue
+            out.append({"market": market, "verdict": "no price",
+                        "condition_id": p.condition_id}); continue
         direction = 1 if term > entry else -1
         print(f"  price at post {entry:.3f}"
               + (f"  (STALE: last print {stale:.1f}h earlier)" if stale > 1 else "")
@@ -142,14 +145,26 @@ def main() -> None:
                       f" ${pnl:>8,.0f} {pnl/cost if cost else 0:>6.0%}")
         if not any_fill:
             print("   -- no fillable liquidity on our side at any cap or window --")
-        out.append({"market": market, "handle": p.handle,
+        out.append({"market": market, "condition_id": p.condition_id,
+                    "direction": direction, "handle": p.handle,
                     "followers": p.followers, "entry": entry,
                     "stale_h": stale, "terminal": term,
                     "prints_10m": n_after, "ladder": rows,
                     "verdict": "fillable" if any_fill else "no liquidity"})
 
     json.dump(out, open("experiments/hit_pnl.json", "w"), indent=1)
-    print(f"\n{'='*78}\n  written to experiments/hit_pnl.json")
+
+    # Add as you go: the ledger merges field-wise, so re-running this
+    # updates the priced markets and leaves everything else alone.
+    L.add([L.MarketRecord(
+        condition_id=r.get("condition_id", ""), question=r["market"],
+        entry_price=r.get("entry"), direction=r.get("direction"),
+        ladder=r.get("ladder", []) or [],
+        signal_handle=r.get("handle", ""),
+        signal_followers=r.get("followers"),
+        verdict=r.get("verdict", L.UNTESTED), sources=["hit_pnl"],
+    ) for r in out])
+    print(f"\n{'='*78}\n  written to experiments/hit_pnl.json and the ledger")
 
 
 if __name__ == "__main__":
