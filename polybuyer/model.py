@@ -140,14 +140,23 @@ class Resolution:
     #: market has not resolved or the winner could not be determined.
     ref_terminal: float | None
     neg_risk: bool = False
-    #: A scheduled match with a kickoff time -- i.e. an in-play market.
+    #: A scheduled match: the market has a kickoff time.
     #:
-    #: These need separating from news markets.  In a live match the price
-    #: moves continuously as the game unfolds, so "positioned before the
-    #: repricing" is satisfied by anyone watching a faster stream than the
-    #: market.  That is a real edge, but it is a *latency* edge on a public
-    #: broadcast, not information, and the tape cannot tell the two apart.
+    #: **This says the market is about a scheduled event, not that any given
+    #: trade happened during it.** The two were conflated once, and it
+    #: mislabelled a copy strategy as a latency race against television:
+    #: 95% of the cluster's entries turned out to be *before* kickoff, at a
+    #: median of 30 minutes ahead. Compare an entry against
+    #: :attr:`game_start_ts` to tell pre-match from in-play.
+    #:
+    #: For *market selection* the flag is used correctly as-is: the news
+    #: desk excludes match markets whatever the entry timing, because a
+    #: score is not an announcement.
     in_play: bool = False
+
+    #: Kickoff, unix seconds, when the market has one. This is what makes
+    #: the pre-match / in-play distinction measurable.
+    game_start_ts: int | None = None
 
     @property
     def is_terminal(self) -> bool:
@@ -188,4 +197,19 @@ def resolution_from_clob(condition_id: str, payload: dict) -> Resolution:
         ref_terminal=ref_terminal,
         neg_risk=bool(payload.get("neg_risk", False)),
         in_play=bool(payload.get("game_start_time")),
+        game_start_ts=_game_start(payload.get("game_start_time")),
     )
+
+
+def _game_start(raw: Any) -> int | None:
+    """Kickoff as unix seconds. Accepts ISO strings and epoch numbers."""
+    if raw in (None, "", 0):
+        return None
+    if isinstance(raw, (int, float)):
+        return int(raw)
+    try:
+        import datetime as _dt
+        return int(_dt.datetime.fromisoformat(
+            str(raw).replace("Z", "+00:00")).timestamp())
+    except (TypeError, ValueError):
+        return None

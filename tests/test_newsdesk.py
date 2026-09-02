@@ -658,3 +658,33 @@ class TestVolumeGate(unittest.TestCase):
     def test_principal_rules_are_cheap_by_measurement(self):
         # 43 posts/hour across 241 rules.
         self.assertLess(costs.MEASURED_PRINCIPAL_POSTS_PER_HOUR, 1.0)
+
+
+class TestScheduledMatchTiming(unittest.TestCase):
+    """A kickoff time says what the market is, not when a trade happened."""
+
+    PAYLOAD = {"closed": True, "game_start_time": "2026-06-01T14:00:00Z",
+               "tokens": [{"token_id": "a", "winner": True},
+                          {"token_id": "b", "winner": False}]}
+
+    def test_kickoff_is_parsed_so_entries_can_be_compared(self):
+        from polybuyer.model import resolution_from_clob
+        r = resolution_from_clob("0xa", self.PAYLOAD)
+        self.assertTrue(r.in_play)          # it IS a match market
+        self.assertIsNotNone(r.game_start_ts)
+        # An entry 30 minutes before kickoff is pre-match, not in-play.
+        # Conflating the two mislabelled 373 of 392 positions.
+        self.assertLess(r.game_start_ts - 1800, r.game_start_ts)
+
+    def test_a_market_with_no_kickoff_has_no_timestamp(self):
+        from polybuyer.model import resolution_from_clob
+        r = resolution_from_clob("0xb", {"closed": True, "tokens": [
+            {"token_id": "a", "winner": True}]})
+        self.assertFalse(r.in_play)
+        self.assertIsNone(r.game_start_ts)
+
+    def test_epoch_kickoffs_are_accepted(self):
+        from polybuyer.model import resolution_from_clob
+        r = resolution_from_clob("0xc", dict(self.PAYLOAD,
+                                             game_start_time=1780000000))
+        self.assertEqual(r.game_start_ts, 1780000000)

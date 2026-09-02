@@ -119,16 +119,63 @@ The single-wallet study found capacity decaying ($15k at 16.7%, $86k at
 evidence the ceiling is above $40k of peak exposure rather than below it,
 but three points is a trend and not a curve.
 
-### The caveat that decides what this is
+### It is pre-match, not in-play
 
-**392 of the 396 positions are in-play match markets.** Following the
-cluster fixes the sign; it does not change what the cluster trades. Four
-positions are news markets and they lose money on every ladder, on n = 4.
+An earlier version of this section called it 392-of-396 in-play and
+dismissed it as a latency race against television. That was wrong. The flag
+came from `game_start_time` being *present*, which only says the market is
+**about** a scheduled match.
 
-So this is a **live-sport copy strategy that works**, not the news-trading
-strategy the rest of the project is about. The edge is latency on a
-broadcast, not information — which is exactly the population
-`discover.screen()` excludes by design everywhere else in this repo.
+Comparing each entry against kickoff:
+
+| when the cluster entered | positions |
+|---|---|
+| 0–2h before kickoff | **301** |
+| 2–24h before | 70 |
+| >24h before | 2 |
+| **after kickoff (in-play)** | **19** |
+
+**373 of 392 (95%) entered before kickoff**, median 30 minutes ahead.
+Official team lineups land about an hour before kickoff, which is the
+window most of these sit in — consistent with trading team news, though
+nothing here establishes that.
+
+| segment | positions | deployed | PnL | return |
+|---|---|---|---|---|
+| **pre-match** | **373** | $86,648 | +$10,338 | **+11.9%** |
+| in-play | 19 | $5,747 | +$1,533 | +26.7% |
+| non-match | 4 | $627 | −$115 | −18.4% |
+
+*(at the $50 → $1,000 ladder; pre-match is +12.4% and +14.4% on the larger
+two.)*
+
+So this is a **pre-match sports copy strategy**, and the returns are not
+explained by watching a faster video feed. It is still not the news-trading
+strategy the rest of the project is about.
+
+### Are the fills real?
+
+Yes, within a stated bound. `simulate_fill` consumes only prints that
+actually executed on our side after the signal, inside a 2c cap and a
+10-minute window, with all four cluster wallets excluded.
+
+Measured against the same-side executed volume in each window:
+
+| ladder | median share of flow | p90 | took 100% |
+|---|---|---|---|
+| $50 → $1,000 | **0%** | 7% | 0% |
+| $250 → $5,000 | **1%** | 26% | 1% |
+| $500 → $10,000 | **2%** | 39% | 1% |
+
+Median 68 counterparty prints per window. So the order is a small slice of
+demonstrated flow in the typical case, which is what makes the fills
+credible rather than theoretical.
+
+Two limits remain: **no market impact is modelled**, which matters at the
+p90 end of the largest ladder; and the prints consumed were taken by
+someone else, so in reality we would have been competing for them rather
+than adding to the queue. Both point the same way — the largest ladder is
+the least trustworthy of the three.
 
 ### Method
 

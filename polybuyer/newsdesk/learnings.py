@@ -185,6 +185,22 @@ REGISTER: tuple[Learning, ...] = (
         ("TestRules.test_the_follower_floor_applies_to_keyword_only",),
     ),
     Learning(
+        "a-kickoff-time-is-not-an-entry-time",
+        "The cluster copy strategy was reported as 392-of-396 in-play, and "
+        "dismissed as a latency race against television. The flag came from "
+        "game_start_time being *present*, which only says the market is "
+        "about a scheduled match. Comparing each entry against kickoff: 373 "
+        "of 392 entries (95%) are BEFORE it, at a median of 30 minutes "
+        "ahead, with only 19 genuinely in-play. Pre-match returns +11.9% to "
+        "+14.4% across the ladders.",
+        "Resolution carries game_start_ts, so pre-match and in-play are "
+        "distinguishable. Market *selection* still excludes match markets "
+        "on the flag -- a score is not an announcement whatever the entry "
+        "timing -- but no claim about when a trade happened may rest on it.",
+        ("TestScheduledMatchTiming", "model.Resolution.game_start_ts"),
+        cost="mischaracterised a working strategy as an unusable one",
+    ),
+    Learning(
         "price-every-rule-before-arming-it",
         "The armed watchlist was projected at $1,925/month from blind-test "
         "density. Measured against seven days of real traffic across 491 "
