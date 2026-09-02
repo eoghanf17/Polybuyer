@@ -41,6 +41,45 @@ PRICES = {
 }
 
 
+def complete(prompt: str, api_key: str, model: str = "gpt-4.1",
+             timeout: float = 8.0) -> tuple[dict, str]:
+    """One JSON-mode completion. Returns ``(payload, error)``.
+
+    Factored out of :func:`ask` so other callers -- rule generation, market
+    triage -- share one client, one temperature and one failure convention
+    rather than each growing their own. ``temperature=0`` throughout: these
+    are classifications and constructions that must be reproducible, not
+    compositions.
+
+    Never raises. An empty payload with a populated error string is the
+    only failure mode, so a caller cannot mistake a network problem for a
+    permissive answer.
+    """
+    body = json.dumps({
+        "model": model,
+        "temperature": 0,
+        "response_format": {"type": "json_object"},
+        "messages": [{"role": "user", "content": prompt}],
+    }).encode()
+    req = urllib.request.Request(
+        OPENAI_URL, data=body,
+        headers={"Authorization": f"Bearer {api_key}",
+                 "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read().decode()), ""
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
+        return {}, f"{type(e).__name__}: {e}"
+
+
+def text_of(payload: dict) -> str:
+    """The message content, or "" if the response shape is unexpected."""
+    try:
+        return payload["choices"][0]["message"]["content"]
+    except (KeyError, IndexError, TypeError):
+        return ""
+
+
 def ask(market: dict, tweet_text: str, handle: str, api_key: str,
         model: str = "gpt-4.1", timeout: float = 8.0) -> GateCall:
     """Score one post against one market.
@@ -59,27 +98,12 @@ def ask(market: dict, tweet_text: str, handle: str, api_key: str,
     month, at which point the difference is $0.05 against $0.62 and accuracy
     is the only thing left to optimise.
     """
-    body = json.dumps({
-        "model": model,
-        "temperature": 0,
-        "response_format": {"type": "json_object"},
-        "messages": [{"role": "user",
-                      "content": build_prompt(market, tweet_text, handle)}],
-    }).encode()
-
-    req = urllib.request.Request(
-        OPENAI_URL, data=body,
-        headers={"Authorization": f"Bearer {api_key}",
-                 "Content-Type": "application/json"})
-
     t0 = time.time()
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            payload = json.loads(r.read().decode())
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
+    payload, err = complete(build_prompt(market, tweet_text, handle),
+                            api_key, model, timeout)
+    if err:
         # Any failure is a refusal. Never a fire.
-        g = GateResult(error=f"{type(e).__name__}: {e}")
-        return GateCall(g, int((time.time() - t0) * 1000))
+        return GateCall(GateResult(error=err), int((time.time() - t0) * 1000))
 
     ms = int((time.time() - t0) * 1000)
     try:
