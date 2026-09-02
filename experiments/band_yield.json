@@ -1,0 +1,46 @@
+[
+ {
+  "lo": 250000,
+  "hi": 500000,
+  "total": 3078,
+  "screened": 740,
+  "sampled": 55,
+  "tradeable": 2,
+  "yield": 0.03636363636363636,
+  "screen_rate": 0.24041585445094216,
+  "median_pnl": 1240.4099999999999
+ },
+ {
+  "lo": 500000,
+  "hi": 1000000,
+  "total": 8084,
+  "screened": 1704,
+  "sampled": 55,
+  "tradeable": 12,
+  "yield": 0.21818181818181817,
+  "screen_rate": 0.21078673923800098,
+  "median_pnl": 243.4931149991572
+ },
+ {
+  "lo": 1000000,
+  "hi": 3000000,
+  "total": 4960,
+  "screened": 1138,
+  "sampled": 55,
+  "tradeable": 11,
+  "yield": 0.2,
+  "screen_rate": 0.22943548387096774,
+  "median_pnl": 490.2324590007971
+ },
+ {
+  "lo": 3000000,
+  "hi": 1000000000000,
+  "total": 2019,
+  "screened": 662,
+  "sampled": 55,
+  "tradeable": 8,
+  "yield": 0.14545454545454545,
+  "screen_rate": 0.32788509162951956,
+  "median_pnl": 2174.110227931545
+ }
+]
