@@ -9,7 +9,8 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from polybuyer.newsdesk import corpus, gate, guards, ledger, rules
+from polybuyer.newsdesk import corpus, costs, gate, guards, ledger, rules
+from polybuyer.newsdesk import learnings
 from polybuyer.newsdesk.store import Market, Store
 
 YES = '{"relevant":true,"asserted":true,"resolves":true,"novel":true,' \
@@ -577,3 +578,50 @@ class TestLatencyRaceScreens(unittest.TestCase):
                   "US-Iran Final Nuclear Deal by December 31, 2026?",
                   "Will Victor Ponta be the next Prime Minister of Romania?"):
             self.assertFalse(self._hit(q), q)
+
+
+class TestCostModel(unittest.TestCase):
+    """The armed-market count is a budget decision before a research one."""
+
+    def test_cost_scales_with_markets_watched(self):
+        a = costs.cost_model(10)
+        b = costs.cost_model(20)
+        self.assertAlmostEqual(b.x_usd_month, a.x_usd_month * 2, places=4)
+
+    def test_a_quieter_market_costs_less(self):
+        loud = costs.cost_model(100, quiet_factor=1.0)
+        quiet = costs.cost_model(100, quiet_factor=10.0)
+        self.assertLess(quiet.total_usd_month, loud.total_usd_month / 5)
+
+    def test_the_current_watchlist_is_expensive(self):
+        # 252 armed markets. This is the number that reframed the project.
+        e = costs.cost_model(252)
+        self.assertGreater(e.total_usd_month, 500)
+
+    def test_budget_rounds_down(self):
+        n = costs.markets_for_budget(100.0)
+        self.assertGreater(n, 0)
+        self.assertLessEqual(costs.cost_model(n).total_usd_month, 100.0)
+
+    def test_a_tiny_budget_buys_almost_nothing(self):
+        self.assertLessEqual(costs.markets_for_budget(10.0), 3)
+
+
+class TestLearningRegister(unittest.TestCase):
+    """The mechanism that stops a finding being rediscovered."""
+
+    def test_every_learning_names_its_enforcement(self):
+        bad = learnings.unenforced()
+        self.assertEqual(
+            bad, [],
+            "these learnings have nothing preventing them recurring: "
+            + ", ".join(l.id for l in bad))
+
+    def test_learnings_are_concrete(self):
+        for l in learnings.REGISTER:
+            self.assertGreater(len(l.incident), 60, l.id)
+            self.assertGreater(len(l.change), 30, l.id)
+
+    def test_ids_are_unique(self):
+        ids = [l.id for l in learnings.REGISTER]
+        self.assertEqual(len(ids), len(set(ids)))
