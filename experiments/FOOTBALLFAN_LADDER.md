@@ -1,12 +1,10 @@
 # FootballFan98 cluster: copy strategies against recorded liquidity
 
-> **The replication used one wallet and was wrong twice over.** The cluster
-> is four wallets (now pinned in `polybuyer/targets.py`), and FootballFan98
-> is the loss-making leg — **−$1.07M** against the cluster's **+$4.76M**.
-> Simulating it alone returns −11.9%/−16.0%; that measures the worst member,
-> not the strategy. It also included in-play matches, which the original
-> study excluded. Both are fixed before any number here is trusted; see
-> "Replication attempt" below.
+> **Replicated against the full four-wallet cluster.** Every ladder is
+> positive: **+12.6% / +13.5% / +15.7%**. An earlier attempt used
+> FootballFan98 alone and returned −11.9%, because FootballFan98 is the
+> loss-making leg — **−$1.07M** against the cluster's **+$4.76M**. See
+> "Cluster replication" below for the numbers and the caveat that matters.
 
 
 Study run at commits `a96ba1e` (recorded-liquidity evaluation) and
@@ -95,72 +93,48 @@ spend. On the evidence here it is the more practical of the two
 strategies, with the multiple-testing caveat above unresolved.
 
 
-## Replication attempt (`experiments/ff_timeline.py`)
 
-Re-run to answer "how much capital would actually have been deployed at any
-given time, and what was PnL over time" — which totals cannot answer, since
-cumulative deployment counts a dollar again each time it is recycled.
 
-Target resolved to `0xc31d0a0d63d760d72a1236d16beaa6a71c854ebe` via gamma's
-profile search. **The address was in no file in this repo** — it existed
-only in the original session's HANDOFF.
+## Cluster replication (`experiments/ff_timeline.py`)
 
-**This run used that wallet alone, which is the central error.** The cluster
-is four wallets, verified 2026-09-02 as a closed network — all six pairs
-show direct on-chain transfers, every member has degree 3, five of six
-edges carry USDC:
+All four wallets, the cluster's **combined** position per market as the
+signal, all four excluded from follower liquidity. 6 Sep 2025 – 20 Jul 2026.
 
-| handle | address | volume | rank | PnL |
-|---|---|---|---|---|
-| FootballFan98 | `0xc31d…4ebe` | $45.4M | #519 | **−$1.07M** |
-| (unnamed) | `0x006cc834…16ea` | $64.9M | #324 | **+$4.72M** |
-| Airpods123 | `0xb90494d9…c255` | $40.0M | #583 | +$1.02M |
-| RBax | `0x4366ab8b…c73e` | $2.8M | #7,882 | +$91K |
-| **combined** | | | | **+$4.76M** |
+Intake: 41,728 prints worth **$69.4M** across **1,533 markets**.
 
-FootballFan98 is the leg that loses money. A simulation of it alone was
-always going to return a loss, and did. Signals must come from the
-cluster's combined position per market, with all four excluded from the
-liquidity a follower consumes.
+| ladder | positions | cumulative deployed | peak exposure | PnL | return |
+|---|---|---|---|---|---|
+| $50 → $1,000 | 396 | $93,022 | **$4,561** | +$11,755 | **+12.6%** |
+| $250 → $5,000 | 396 | $393,315 | **$21,614** | +$53,193 | **+13.5%** |
+| $500 → $10,000 | 396 | $698,923 | **$40,477** | +$109,993 | **+15.7%** |
 
-### What it found
+Peak exposure is roughly a twentieth of cumulative deployment on every
+ladder — positions are short and capital recycles. Exposure is live on 181
+of 318 days.
 
-| | $50→$1,000 | $500→$5,000 |
-|---|---|---|
-| positions | 96 | 96 |
-| peak concurrent exposure | **$1,933** | **$8,699** |
-| cumulative deployed | $24,651 | $110,249 |
-| PnL | **−$2,931 (−11.9%)** | **−$17,592 (−16.0%)** |
+### Returns rise with size here
 
-Peak exposure is an eighth of cumulative deployment, because median hold is
-**0.2 days** and capital recycles constantly. Exposure is zero on 177 of
-228 days.
+The single-wallet study found capacity decaying ($15k at 16.7%, $86k at
+9.1%). Across the cluster they *increase* with ladder size. On this
+evidence the ceiling is above $40k of peak exposure rather than below it,
+but three points is a trend and not a curve.
 
-### Why it disagrees with +16.7%
+### The caveat that decides what this is
 
-| segment | positions | deployed | PnL | return |
-|---|---|---|---|---|
-| in-play matches ($50→$1,000) | 94 | $24,241 | −$2,980 | −12.3% |
-| in-play matches ($500→$5,000) | 94 | $107,786 | −$17,897 | −16.6% |
-| news markets ($50→$1,000) | 2 | $410 | +$49 | +12.0% |
-| news markets ($500→$5,000) | 2 | $2,463 | +$304 | +12.4% |
+**392 of the 396 positions are in-play match markets.** Following the
+cluster fixes the sign; it does not change what the cluster trades. Four
+positions are news markets and they lose money on every ladder, on n = 4.
 
-**The wallet name is literal.** In this window the target trades live
-football, and copying them there loses money. The original study ran
-against the `discover` market universe, which excludes in-play by default —
-so it measured this wallet's *news* trading, which is two positions here.
+So this is a **live-sport copy strategy that works**, not the news-trading
+strategy the rest of the project is about. The edge is latency on a
+broadcast, not information — which is exactly the population
+`discover.screen()` excludes by design everywhere else in this repo.
 
-Either the original covered a period when the wallet traded news markets in
-volume, or its universe selection captured a different slice. Unresolved.
+### Method
 
-### Two methodology notes on the replication
-
-Signals come from the wallet's own history, not the market tape:
-`market_tape` is capped and newest-first, so building signals from it
-mistakes their fifth trade for their first. That bug was present in the
-first pass of this script and cost about 10 points. 19 signals whose tape
-does not reach back are dropped as unmeasurable, matching `evaluate()`.
-
-Cluster detection returned **one** wallet. If siblings exist and were
-missed, this run filled against orders it should have excluded — which
-flatters the fills, so the losses are if anything understated.
+Signals come from each wallet's own trade history, not the market tape:
+`market_tape` is capped and newest-first, so the cluster's fifth trade
+would read as its first. 25 signals were dropped as unmeasurable because
+the tape did not reach back; 1,041 markets produced no qualifying signal.
+Fills consume only prints that actually executed, inside a 2c cap and a
+10-minute window — a lower bound, since no historical order books exist.
