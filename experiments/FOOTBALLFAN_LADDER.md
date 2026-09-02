@@ -1,11 +1,12 @@
 # FootballFan98 cluster: copy strategies against recorded liquidity
 
-> **Does not replicate over the last year.** See "Replication attempt"
-> below. Re-running the ladder over 26 Nov 2025 – 11 Jul 2026 returns
-> **−11.9%** and **−16.0%**, not +16.7%, because 94 of the 96 positions in
-> that window are in-play football matches. The figures in the body of this
-> document are the original study's and are left as recorded; treat them as
-> unconfirmed until the split below is resolved.
+> **The replication used one wallet and was wrong twice over.** The cluster
+> is four wallets (now pinned in `polybuyer/targets.py`), and FootballFan98
+> is the loss-making leg — **−$1.07M** against the cluster's **+$4.76M**.
+> Simulating it alone returns −11.9%/−16.0%; that measures the worst member,
+> not the strategy. It also included in-play matches, which the original
+> study excluded. Both are fixed before any number here is trusted; see
+> "Replication attempt" below.
 
 
 Study run at commits `a96ba1e` (recorded-liquidity evaluation) and
@@ -102,8 +103,25 @@ cumulative deployment counts a dollar again each time it is recycled.
 
 Target resolved to `0xc31d0a0d63d760d72a1236d16beaa6a71c854ebe` via gamma's
 profile search. **The address was in no file in this repo** — it existed
-only in the original session's HANDOFF — so it is now pinned as a constant
-in the script.
+only in the original session's HANDOFF.
+
+**This run used that wallet alone, which is the central error.** The cluster
+is four wallets, verified 2026-09-02 as a closed network — all six pairs
+show direct on-chain transfers, every member has degree 3, five of six
+edges carry USDC:
+
+| handle | address | volume | rank | PnL |
+|---|---|---|---|---|
+| FootballFan98 | `0xc31d…4ebe` | $45.4M | #519 | **−$1.07M** |
+| (unnamed) | `0x006cc834…16ea` | $64.9M | #324 | **+$4.72M** |
+| Airpods123 | `0xb90494d9…c255` | $40.0M | #583 | +$1.02M |
+| RBax | `0x4366ab8b…c73e` | $2.8M | #7,882 | +$91K |
+| **combined** | | | | **+$4.76M** |
+
+FootballFan98 is the leg that loses money. A simulation of it alone was
+always going to return a loss, and did. Signals must come from the
+cluster's combined position per market, with all four excluded from the
+liquidity a follower consumes.
 
 ### What it found
 
