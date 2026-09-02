@@ -1,0 +1,27 @@
+[Unit]
+Description=Polybuyer news desk
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=newsdesk
+WorkingDirectory=/opt/polybuyer/src
+EnvironmentFile=/opt/polybuyer/.env
+ExecStart=/opt/polybuyer/.venv/bin/python -m polybuyer.newsdesk.engine
+Restart=always
+RestartSec=10
+# A crash loop must not turn into an X rate-limit ban.
+StartLimitIntervalSec=300
+StartLimitBurst=5
+StandardOutput=journal
+StandardError=journal
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/polybuyer/data
+
+[Install]
+WantedBy=multi-user.target

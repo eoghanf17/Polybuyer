@@ -23,15 +23,11 @@ own machine, offline if you like:
 
 ```bash
 pip install py-clob-client eth-account
-python - <<'PY'
-from eth_account import Account
-Account.enable_unaudited_hdwallet_features()
-acct, mnemonic = Account.create_with_mnemonic()
-print("EOA address :", acct.address)
-print("PRIVATE KEY :", acct.key.hex())
-print("MNEMONIC    :", mnemonic)
-PY
+python scripts/setup_wallet.py
 ```
+
+It prints the EOA, the private key, the mnemonic, and — separately and
+clearly labelled — the **proxy address you fund**.
 
 Write the mnemonic down on paper. Put the private key in `.env` on the
 server only, `chmod 600`, never in the repo.
@@ -52,6 +48,23 @@ print(creds.api_key, creds.api_secret, creds.api_passphrase)
 `signature_type` decides which proxy is derived, so **confirm the printed
 address matches what Polymarket shows for your account before sending
 anything**.
+
+### Withdrawing — test this BEFORE you fund
+
+**Prove the exit works before the entrance matters.** Send $5 in, get $5
+out, and only then fund properly. This is the one instruction in this
+document worth following literally.
+
+Funds live in the proxy, and the EOA controls the proxy. Withdrawal means
+the EOA instructing the proxy to send USDC to an address you name — your
+Coinbase deposit address, or any wallet you control. It is a transfer
+executed *through* the proxy rather than a plain send from the EOA, because
+the EOA never holds the funds.
+
+**I am not certain of the exact call for your proxy type, and you should
+not take my word for it with money on the line.** Verify it end to end with
+$5 while the downside is $5. If you cannot get the $5 out, do not send the
+rest — that is the entire reason for doing it in this order.
 
 ### Funding from Coinbase
 
@@ -182,16 +195,34 @@ which is irrelevant here: the earlier out-of-sample work found 2-second and
 
 ### Minimum setup
 
+Launch one `t4g.small` on Ubuntu 24.04 arm64 in `eu-west-1`, and paste
+`deploy/user-data.sh` into **Advanced details → User data**. It installs
+everything, creates the service account, enables the unit, and leaves it
+**stopped** — because secrets are not in user-data and must not be: the
+instance metadata endpoint is readable by anything running on the box.
+
+Then, once:
+
 ```bash
-sudo adduser --system --group newsdesk
-sudo mkdir -p /opt/polybuyer/data && sudo chown -R newsdesk: /opt/polybuyer
-git clone <repo> /opt/polybuyer && cd /opt/polybuyer
-python3 -m venv .venv && .venv/bin/pip install py-clob-client
-sudo install -m 600 -o newsdesk .env /opt/polybuyer/.env
+sudo nano /opt/polybuyer/.env      # fill in the four secrets
+sudo systemctl start newsdesk
+journalctl -u newsdesk -f
 ```
 
 `.env` needs `X_BEARER_TOKEN`, `OPENAI_API_KEY`, `POLY_PRIVATE_KEY`,
 `NEWSDESK_DB=/opt/polybuyer/data/newsdesk.db`, and `NEWSDESK_PAPER=1`.
+
+Security group: **no inbound rules at all**. The desk makes outbound
+connections only, and you reach the box through SSM Session Manager rather
+than SSH, so nothing needs to be open to the internet.
+
+### Why you should not hand AWS credentials to an agent
+
+Not to me, and not to any agent session. Credentials pasted into a chat are
+written to that session's transcript, and this container is wiped when the
+session ends — so I could not keep the desk running afterwards even if the
+keys were there. The provisioning above is the alternative: everything I
+would type is in `deploy/`, and you run it once.
 
 **Leave `NEWSDESK_PAPER=1` until the fire log looks right.** In paper mode
 the engine does everything except send the order, and `fires` records what
