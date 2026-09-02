@@ -1,0 +1,1749 @@
+{
+ "target": "0xc31d0a0d63d760d72a1236d16beaa6a71c854ebe",
+ "cluster": [
+  "0xc31d0a0d63d760d72a1236d16beaa6a71c854ebe"
+ ],
+ "strategy": "first-10k",
+ "days": 365,
+ "skipped": {
+  "unresolved": 4,
+  "thin": 1,
+  "no_signal": 84,
+  "no_fill": 6,
+  "uncovered": 19
+ },
+ "positions": {
+  "$50 -> $1,000": [
+   {
+    "cid": "0x7b281363227e98a8177e1e5e81dc3bd1e48e8594383258ebb807a62f57770742",
+    "in_play": true,
+    "entry_ts": 1769023658,
+    "exit_ts": 1769044980,
+    "capital": 897.06,
+    "pnl": -897.06,
+    "target_notional": 313158.43
+   },
+   {
+    "cid": "0x7b6629cca58b0a3be21a2e448f8d92c930e78d26d5f6d6dd58ab18a62f659ad9",
+    "in_play": true,
+    "entry_ts": 1768660250,
+    "exit_ts": 1768682792,
+    "capital": 559.34,
+    "pnl": -559.34,
+    "target_notional": 184875.71
+   },
+   {
+    "cid": "0x6e937a4f6bf71a13a8bb08be32b1a9de516cc1a76fcbef61a7ca3567f5558165",
+    "in_play": true,
+    "entry_ts": 1768763026,
+    "exit_ts": 1768785986,
+    "capital": 874.63,
+    "pnl": -874.63,
+    "target_notional": 300000.0
+   },
+   {
+    "cid": "0xf88c526dff24f89c10e18064e869261dc1c22898874857ed2b9985e135e1ccdd",
+    "in_play": true,
+    "entry_ts": 1768065040,
+    "exit_ts": 1768083388,
+    "capital": 1.08,
+    "pnl": 0.96,
+    "target_notional": 229500.0
+   },
+   {
+    "cid": "0xae49ff8ee40dfefc7fe5ce031a88c11243aa1f0fb75ff7b1a365dda725bb7696",
+    "in_play": true,
+    "entry_ts": 1765663795,
+    "exit_ts": 1765681845,
+    "capital": 372.58,
+    "pnl": 215.49,
+    "target_notional": 124699.64
+   },
+   {
+    "cid": "0x0b7e6ab4e3b6a3f17721f3e920c4077f8bb69c3a24a17705c6328b0ac7542de9",
+    "in_play": true,
+    "entry_ts": 1769112026,
+    "exit_ts": 1769132048,
+    "capital": 262.52,
+    "pnl": -262.52,
+    "target_notional": 84000.0
+   },
+   {
+    "cid": "0x99a26b3017380612fc38523562fc49d7c51fa64124188e5cd3f6703dd467b20e",
+    "in_play": true,
+    "entry_ts": 1768659732,
+    "exit_ts": 1768681358,
+    "capital": 866.87,
+    "pnl": -866.87,
+    "target_notional": 295000.0
+   },
+   {
+    "cid": "0x040bdc28edda1cde58b2a13122fd21dee958e2d3901e6ac4f13618b1c01d0b9f",
+    "in_play": true,
+    "entry_ts": 1768259281,
+    "exit_ts": 1768271735,
+    "capital": 614.41,
+    "pnl": -614.41,
+    "target_notional": 212000.0
+   },
+   {
+    "cid": "0x70bb4f2d7614c8679d606671e2b4c07462d6c4c625956bf23a78d33209f9f843",
+    "in_play": true,
+    "entry_ts": 1767120557,
+    "exit_ts": 1767133311,
+    "capital": 491.87,
+    "pnl": -491.87,
+    "target_notional": 165000.0
+   },
+   {
+    "cid": "0x3abf976afa3a4f2e0fdefae5011bf0f4d1fba4caa50e4eaff54f8812ab7701a6",
+    "in_play": true,
+    "entry_ts": 1769278086,
+    "exit_ts": 1769289708,
+    "capital": 244.99,
+    "pnl": 264.99,
+    "target_notional": 134400.0
+   },
+   {
+    "cid": "0xfed00dec279879ea01aac99c0f0261d9f48ca49219cce842f7b85342fdd2825d",
+    "in_play": true,
+    "entry_ts": 1766879073,
+    "exit_ts": 1766897175,
+    "capital": 704.19,
+    "pnl": -704.19,
+    "target_notional": 240000.0
+   },
+   {
+    "cid": "0x5cee8159785744a73e4d196ef9f3bef95b5a7735caa4b7ef3e867c8870093d90",
+    "in_play": true,
+    "entry_ts": 1768504302,
+    "exit_ts": 1768519692,
+    "capital": 676.92,
+    "pnl": -676.92,
+    "target_notional": 234359.2
+   },
+   {
+    "cid": "0xb14ebe7c069cff4e1ec7e7ce916a7ae8552b813bf6fa6365dafa61c2396c6295",
+    "in_play": true,
+    "entry_ts": 1767212089,
+    "exit_ts": 1767228643,
+    "capital": 296.82,
+    "pnl": -296.82,
+    "target_notional": 94000.0
+   },
+   {
+    "cid": "0x365eee5f424708fd861ea3f0d4d03d515e34b513303a30d097f2b35867f11dcd",
+    "in_play": false,
+    "entry_ts": 1766175577,
+    "exit_ts": 1766219640,
+    "capital": 240.4,
+    "pnl": 27.52,
+    "target_notional": 77445.33
+   },
+   {
+    "cid": "0x5d8eeda943d192d1e9fed9ab7e1107712c5aa4b7d666aad3d3776973dad8b27a",
+    "in_play": true,
+    "entry_ts": 1768516598,
+    "exit_ts": 1768536228,
+    "capital": 435.7,
+    "pnl": -435.7,
+    "target_notional": 230000.0
+   },
+   {
+    "cid": "0x415485383347d25b79e19d918779a1ae4df6452cdbbcf2ef8de1eb2a8e8c496f",
+    "in_play": true,
+    "entry_ts": 1767438511,
+    "exit_ts": 1767453493,
+    "capital": 637.93,
+    "pnl": 520.56,
+    "target_notional": 216000.0
+   },
+   {
+    "cid": "0xa27c3f7113e4b70d69273abe70091440ad7d3467284c64165491b8e04490666f",
+    "in_play": true,
+    "entry_ts": 1768764452,
+    "exit_ts": 1768785996,
+    "capital": 68.89,
+    "pnl": 275.54,
+    "target_notional": 19831.57
+   },
+   {
+    "cid": "0xd56d908199204b0d2e48c7b13644cd418a6fc47ac3f57309266150eb8509f930",
+    "in_play": true,
+    "entry_ts": 1768091552,
+    "exit_ts": 1768107906,
+    "capital": 596.48,
+    "pnl": 559.86,
+    "target_notional": 204000.0
+   },
+   {
+    "cid": "0x3ad03de35b8820f8b897ef064e127a6214a61fa45f1f57b7e3eb764bac37008b",
+    "in_play": true,
+    "entry_ts": 1768152522,
+    "exit_ts": 1768168834,
+    "capital": 603.67,
+    "pnl": 557.23,
+    "target_notional": 204000.0
+   },
+   {
+    "cid": "0x39d950f925d4b6f0596926cf1320d7b89b191fd15286b76b468eed45726a9bc7",
+    "in_play": true,
+    "entry_ts": 1768257161,
+    "exit_ts": 1768278823,
+    "capital": 275.52,
+    "pnl": -275.52,
+    "target_notional": 90311.51
+   },
+   {
+    "cid": "0x621d921a8cbdf60f268e982fefbd1ed8a01010e499c9328587618b8a634402b2",
+    "in_play": true,
+    "entry_ts": 1769282510,
+    "exit_ts": 1769300334,
+    "capital": 232.98,
+    "pnl": -232.98,
+    "target_notional": 73283.13
+   },
+   {
+    "cid": "0x355b65886662e6e21752737c5bc877827bdf05cbdfe3fdb5bbaa9201798ecaf5",
+    "in_play": true,
+    "entry_ts": 1765057693,
+    "exit_ts": 1765074109,
+    "capital": 349.55,
+    "pnl": -349.55,
+    "target_notional": 114000.0
+   },
+   {
+    "cid": "0x869f35fc24178fa7635f62f7e241b8386c03b4db415f73c94687c4278a1c230f",
+    "in_play": true,
+    "entry_ts": 1768087562,
+    "exit_ts": 1768103606,
+    "capital": 570.01,
+    "pnl": 592.66,
+    "target_notional": 196000.0
+   },
+   {
+    "cid": "0x82f2498ebce9cab4841428279222d72ed52b1ba6727100216c8c9a97e32aa07c",
+    "in_play": true,
+    "entry_ts": 1769869596,
+    "exit_ts": 1769900900,
+    "capital": 77.33,
+    "pnl": 45.41,
+    "target_notional": 19779.98
+   },
+   {
+    "cid": "0x1b0ccb1570442e3e0561f2665519e24535a601ddf9d778031e58e3064d4f4c64",
+    "in_play": true,
+    "entry_ts": 1768586002,
+    "exit_ts": 1768605426,
+    "capital": 302.04,
+    "pnl": 453.05,
+    "target_notional": 97500.0
+   },
+   {
+    "cid": "0xe1ea363c221070b5d50d5b0ade71e4ac59c2139ca41b36ff419576cb856c4707",
+    "in_play": true,
+    "entry_ts": 1768174056,
+    "exit_ts": 1768197534,
+    "capital": 445.4,
+    "pnl": 437.85,
+    "target_notional": 147000.0
+   },
+   {
+    "cid": "0xedb27df0266b10bcd3d43f6a61fc1660f46f8c1078370bf4c18ba30908faccb2",
+    "in_play": true,
+    "entry_ts": 1768261683,
+    "exit_ts": 1768273511,
+    "capital": 295.52,
+    "pnl": 310.24,
+    "target_notional": 94000.0
+   },
+   {
+    "cid": "0xfcee59fe269cc903807e9f7c8634129e3fcbb5e247ba5248b4308ae888e46377",
+    "in_play": true,
+    "entry_ts": 1767210509,
+    "exit_ts": 1767234321,
+    "capital": 64.65,
+    "pnl": 36.36,
+    "target_notional": 14518.77
+   },
+   {
+    "cid": "0x7ad37bb016994defcc2fe8e3d23b680de042f77fb15c51e7b9901882edae9b3e",
+    "in_play": true,
+    "entry_ts": 1768158438,
+    "exit_ts": 1768194438,
+    "capital": 7.0,
+    "pnl": -7.0,
+    "target_notional": 14656.65
+   },
+   {
+    "cid": "0xf864be59770c524d834101dee02d8a6a47cbb4e3d7cfa77e5bdccc851cf30d53",
+    "in_play": true,
+    "entry_ts": 1769278706,
+    "exit_ts": 1769294148,
+    "capital": 5.84,
+    "pnl": 5.84,
+    "target_notional": 116162.5
+   },
+   {
+    "cid": "0x801789fd001f72517a0ae1be88b015b239b2ba5846ce73e5d11426d4e17d0514",
+    "in_play": true,
+    "entry_ts": 1782801100,
+    "exit_ts": 1782860815,
+    "capital": 24.5,
+    "pnl": -24.5,
+    "target_notional": 81771.3
+   },
+   {
+    "cid": "0x39fa48e751889f22960a20fd508b6dad43d42ec2e6dd7335a204ead5b4099bc9",
+    "in_play": true,
+    "entry_ts": 1768150854,
+    "exit_ts": 1768200228,
+    "capital": 114.21,
+    "pnl": 106.71,
+    "target_notional": 153000.0
+   },
+   {
+    "cid": "0xd2dc14cbe79a86e6d908683e081f43cd524cd5e3b25724634fe23bd15d0c2260",
+    "in_play": true,
+    "entry_ts": 1768166598,
+    "exit_ts": 1768183032,
+    "capital": 441.18,
+    "pnl": 440.26,
+    "target_notional": 152990.31
+   },
+   {
+    "cid": "0x6420e6b28debd80b59d9bf220e5dddd0808f8f20acde1495f7e1ab3c84cdcdd8",
+    "in_play": true,
+    "entry_ts": 1768752814,
+    "exit_ts": 1768773918,
+    "capital": 458.52,
+    "pnl": 717.17,
+    "target_notional": 152000.0
+   },
+   {
+    "cid": "0xf54d4c4299b7383fa948b227cda02c9a817dc06f7d7ac648230133c5d79e8ff7",
+    "in_play": true,
+    "entry_ts": 1768417046,
+    "exit_ts": 1768462118,
+    "capital": 441.18,
+    "pnl": 441.18,
+    "target_notional": 150000.0
+   },
+   {
+    "cid": "0x3b29c57acff79f3c7a29a08b837053579a7ea0a2628db663b2063cdbf1c42ef0",
+    "in_play": true,
+    "entry_ts": 1768084676,
+    "exit_ts": 1768099992,
+    "capital": 306.36,
+    "pnl": -306.36,
+    "target_notional": 97920.13
+   },
+   {
+    "cid": "0xfef3f1a41b3cc884c3b14cfe9487efa79939d7d56a8834f611d7d915cc35c15c",
+    "in_play": true,
+    "entry_ts": 1768147756,
+    "exit_ts": 1768159104,
+    "capital": 434.31,
+    "pnl": -434.31,
+    "target_notional": 141500.48
+   },
+   {
+    "cid": "0x156d85ead48dee4db525cd9efeaefb8751d88eda5093e1a1d5e842063ef6c70e",
+    "in_play": true,
+    "entry_ts": 1768255627,
+    "exit_ts": 1768273849,
+    "capital": 434.1,
+    "pnl": -434.1,
+    "target_notional": 144000.0
+   },
+   {
+    "cid": "0x404409605d0199989de119433518f5d023eb0cd8283aaf23897e33ce23c240fb",
+    "in_play": true,
+    "entry_ts": 1767460147,
+    "exit_ts": 1767482659,
+    "capital": 420.61,
+    "pnl": -420.61,
+    "target_notional": 140000.0
+   },
+   {
+    "cid": "0x4af4cae89c851eba83682be95531ff90a6edb52e7208a80aef0143ffe9f1fcf0",
+    "in_play": true,
+    "entry_ts": 1767707121,
+    "exit_ts": 1767722431,
+    "capital": 196.55,
+    "pnl": -196.55,
+    "target_notional": 61172.12
+   },
+   {
+    "cid": "0x6867e899ef14f3e3dadd84f5be6f4bc51550e2278747e64dd954e7f597ff1329",
+    "in_play": true,
+    "entry_ts": 1767020403,
+    "exit_ts": 1767052947,
+    "capital": 411.24,
+    "pnl": -411.24,
+    "target_notional": 138000.0
+   },
+   {
+    "cid": "0x556b2042ebc85221bb402de322a8724f149b8c95b520831bade2316565e3ca84",
+    "in_play": true,
+    "entry_ts": 1782373385,
+    "exit_ts": 1782425386,
+    "capital": 91.67,
+    "pnl": 66.38,
+    "target_notional": 24346.93
+   },
+   {
+    "cid": "0xf0cfec0ec4bc48a2633eba330eaf121fa5c0ac49f005fa6f0e6d96e48f26686e",
+    "in_play": true,
+    "entry_ts": 1768413950,
+    "exit_ts": 1768466072,
+    "capital": 416.42,
+    "pnl": 469.77,
+    "target_notional": 138000.0
+   },
+   {
+    "cid": "0xbb15d13e998e2370e8dde27bfca317941dba23aac539cfef1b04c998c2f8bae7",
+    "in_play": true,
+    "entry_ts": 1766963477,
+    "exit_ts": 1766979047,
+    "capital": 410.99,
+    "pnl": 523.08,
+    "target_notional": 135852.88
+   },
+   {
+    "cid": "0xa68625a3cc14c3e08757001ff4499dd31aaa7548b3a4c428eee4ba9edc5575bd",
+    "in_play": true,
+    "entry_ts": 1768156080,
+    "exit_ts": 1768169084,
+    "capital": 29.61,
+    "pnl": -29.61,
+    "target_notional": 91802.96
+   },
+   {
+    "cid": "0xb99a8109cc6fcfe62578aa061e106243371b62d7cde777017ba50f701854363f",
+    "in_play": true,
+    "entry_ts": 1767460229,
+    "exit_ts": 1767478067,
+    "capital": 115.81,
+    "pnl": -115.81,
+    "target_notional": 32771.45
+   },
+   {
+    "cid": "0xfe573df2d6a3b001ef65da841b5fbd13e647e8f2f2304731e09d4633c3aa1d39",
+    "in_play": true,
+    "entry_ts": 1767813871,
+    "exit_ts": 1767831045,
+    "capital": 385.73,
+    "pnl": 356.06,
+    "target_notional": 127500.0
+   },
+   {
+    "cid": "0xed6fe1051827a92cd88bcda75cb18a0c1c6432a534b1175fa722f72329431df1",
+    "in_play": true,
+    "entry_ts": 1768419758,
+    "exit_ts": 1768439594,
+    "capital": 226.27,
+    "pnl": -226.27,
+    "target_notional": 71433.04
+   },
+   {
+    "cid": "0x91f12f84b673c1d40c2a54b443f488671db98fd8309a05f9947f552a36c31d6a",
+    "in_play": true,
+    "entry_ts": 1770884115,
+    "exit_ts": 1770953951,
+    "capital": 59.08,
+    "pnl": -59.08,
+    "target_notional": 13250.0
+   },
+   {
+    "cid": "0x59933afdcf29a0143fbc5d401adf82cff5c7ee69a9f69c6a143876253bcb30d3",
+    "in_play": true,
+    "entry_ts": 1769283314,
+    "exit_ts": 1769300256,
+    "capital": 370.42,
+    "pnl": 374.07,
+    "target_notional": 120000.0
+   },
+   {
+    "cid": "0x1c6a65bd7e4c1dab316616017811f8530d510d546c6ecf181c45d5bfcf16c297",
+    "in_play": true,
+    "entry_ts": 1768849156,
+    "exit_ts": 1768861642,
+    "capital": 349.91,
+    "pnl": -349.91,
+    "target_notional": 120000.0
+   },
+   {
+    "cid": "0x0b3f206297d7a674bbe739e5e2435f28d64cc5e44418bb388258f8980c4cc790",
+    "in_play": true,
+    "entry_ts": 1766953545,
+    "exit_ts": 1766970945,
+    "capital": 372.24,
+    "pnl": 372.24,
+    "target_notional": 120000.0
+   },
+   {
+    "cid": "0x56f0caa02868ea576fa994aa1bf3dd4e7b90c1b06cb940ea67cf21b13aa4525b",
+    "in_play": true,
+    "entry_ts": 1768515260,
+    "exit_ts": 1768532520,
+    "capital": 82.76,
+    "pnl": 86.14,
+    "target_notional": 21120.0
+   },
+   {
+    "cid": "0x6eb457047a409f6c84c864f636015dd560ac6b49eb7a393d42ed8e38d701ab10",
+    "in_play": true,
+    "entry_ts": 1768851104,
+    "exit_ts": 1768889492,
+    "capital": 79.1,
+    "pnl": -79.1,
+    "target_notional": 19811.33
+   },
+   {
+    "cid": "0x0258c78d46c16013d3578d88c4442649d54d4a2ef3168878f3438b36f8858829",
+    "in_play": true,
+    "entry_ts": 1769281688,
+    "exit_ts": 1769294078,
+    "capital": 33.8,
+    "pnl": 36.62,
+    "target_notional": 117500.0
+   },
+   {
+    "cid": "0xec096d3e9718441b39e6ffbd4148ebea742f39e91acd6cfaa8638c5c0fd0bbc4",
+    "in_play": true,
+    "entry_ts": 1768584458,
+    "exit_ts": 1768634556,
+    "capital": 351.85,
+    "pnl": 394.63,
+    "target_notional": 115000.0
+   },
+   {
+    "cid": "0x78df8ab4123c9a543863b136a498291340896cd8596decfcb379d73a9953f3dc",
+    "in_play": true,
+    "entry_ts": 1767539407,
+    "exit_ts": 1767554893,
+    "capital": 340.59,
+    "pnl": -340.59,
+    "target_notional": 114000.0
+   },
+   {
+    "cid": "0xf7d0efd75ef72f0aaf3080cb8319604160014ef7cd40fe988a0f27b831dcf04a",
+    "in_play": true,
+    "entry_ts": 1767539533,
+    "exit_ts": 1767558581,
+    "capital": 57.67,
+    "pnl": -57.67,
+    "target_notional": 11590.26
+   },
+   {
+    "cid": "0x5a6fa21846015a70202d71281949a5ab18243822108d5b384dfa50b2dd0c75b7",
+    "in_play": true,
+    "entry_ts": 1769888570,
+    "exit_ts": 1769907942,
+    "capital": 200.99,
+    "pnl": -200.99,
+    "target_notional": 62752.51
+   },
+   {
+    "cid": "0x57bfdc5ed2b0a4f05440c44502d9023028294e06557817f4cab3efd2989ab4cf",
+    "in_play": true,
+    "entry_ts": 1769347024,
+    "exit_ts": 1769370108,
+    "capital": 67.9,
+    "pnl": -67.9,
+    "target_notional": 16404.75
+   },
+   {
+    "cid": "0xbd7f192b4bfd6884dce742fa579938df40f886bc061195ef2855c68ab73dcfc2",
+    "in_play": true,
+    "entry_ts": 1768165748,
+    "exit_ts": 1768177090,
+    "capital": 182.31,
+    "pnl": -182.31,
+    "target_notional": 56100.0
+   },
+   {
+    "cid": "0x34622cb7edd15af19d05cddfac8c5047cd13599469c1fe282dea125891f0e68e",
+    "in_play": true,
+    "entry_ts": 1768848048,
+    "exit_ts": 1768864766,
+    "capital": 312.99,
+    "pnl": -312.99,
+    "target_notional": 100000.0
+   },
+   {
+    "cid": "0xf4bcc12d6f3866878411ea560b3babad04f8da2fd0aeed0ab5758db58eaaaa5d",
+    "in_play": true,
+    "entry_ts": 1768747234,
+    "exit_ts": 1768768820,
+    "capital": 50.75,
+    "pnl": 17.83,
+    "target_notional": 10022.9
+   },
+   {
+    "cid": "0x1897b91eeb755c0d117aecb840cda9b6e878240cdae7a84f0ea3458cef9b295b",
+    "in_play": true,
+    "entry_ts": 1766882563,
+    "exit_ts": 1766899893,
+    "capital": 282.58,
+    "pnl": 345.38,
+    "target_notional": 90992.73
+   },
+   {
+    "cid": "0xb7dd583abff48e738900a1da4edf31e31d7d7834afe6f460345c597d50ad2497",
+    "in_play": true,
+    "entry_ts": 1782403690,
+    "exit_ts": 1782435938,
+    "capital": 77.67,
+    "pnl": 71.69,
+    "target_notional": 19367.4
+   },
+   {
+    "cid": "0x863a3a95ecb7ed790cb07b12a4af1cf58d1fbc81f624acd95a9ef9b715f9d6a3",
+    "in_play": true,
+    "entry_ts": 1766949669,
+    "exit_ts": 1766964763,
+    "capital": 115.09,
+    "pnl": 135.11,
+    "target_notional": 32400.0
+   },
+   {
+    "cid": "0x5f51a3895d904ae5b67a1e3c16920a9cb16d712434dbabc9c1cabe34bfa43714",
+    "in_play": true,
+    "entry_ts": 1765016349,
+    "exit_ts": 1765062345,
+    "capital": 217.13,
+    "pnl": -217.13,
+    "target_notional": 80003.15
+   },
+   {
+    "cid": "0x9b60c877ba2ec08c6fc392380b17daab5fcb2b3852b21d7e795f965043aa9562",
+    "in_play": true,
+    "entry_ts": 1768099642,
+    "exit_ts": 1768115046,
+    "capital": 244.62,
+    "pnl": -244.62,
+    "target_notional": 78000.0
+   },
+   {
+    "cid": "0xdc9f202fe96fde6659a5009f88a6cbf3360c384f1297d777028267f583d6daca",
+    "in_play": true,
+    "entry_ts": 1768660594,
+    "exit_ts": 1768675152,
+    "capital": 167.87,
+    "pnl": -167.87,
+    "target_notional": 51148.41
+   },
+   {
+    "cid": "0xab4fab2240e0ff00691add26fa2c5d56d715dbbc12262ec0349b2587d8ffae9f",
+    "in_play": true,
+    "entry_ts": 1769023206,
+    "exit_ts": 1769044868,
+    "capital": 94.05,
+    "pnl": 88.91,
+    "target_notional": 25500.0
+   },
+   {
+    "cid": "0x12b0760a7d66211fb8878cee4b9d7f8dff7fb4796fa2075ef8bb5a56130c48e1",
+    "in_play": true,
+    "entry_ts": 1768064820,
+    "exit_ts": 1768076144,
+    "capital": 167.75,
+    "pnl": -167.75,
+    "target_notional": 49878.0
+   },
+   {
+    "cid": "0xaa11bf96f62e3012c131152d3007acab6d3a61d725ec9db8d4cdd5891616b790",
+    "in_play": true,
+    "entry_ts": 1770236523,
+    "exit_ts": 1770267641,
+    "capital": 150.79,
+    "pnl": 144.88,
+    "target_notional": 45014.0
+   },
+   {
+    "cid": "0xf5d6f827f883e7f84ef6c965f926905506ffebb2a0a5522114dc331849366b67",
+    "in_play": true,
+    "entry_ts": 1768159398,
+    "exit_ts": 1768195228,
+    "capital": 228.12,
+    "pnl": 236.02,
+    "target_notional": 73500.0
+   },
+   {
+    "cid": "0x75d91cd268cec8d688b8a7e543b149700bf45d9f62e9fffa479b18f19a60a63e",
+    "in_play": true,
+    "entry_ts": 1782403760,
+    "exit_ts": 1782446954,
+    "capital": 54.99,
+    "pnl": -54.99,
+    "target_notional": 11255.58
+   },
+   {
+    "cid": "0x793d549cc48d6d5e41ac121751e49a2458b9db45007e61fcc83ba50acf4ba70b",
+    "in_play": true,
+    "entry_ts": 1766882377,
+    "exit_ts": 1766898683,
+    "capital": 102.09,
+    "pnl": 77.01,
+    "target_notional": 28000.0
+   },
+   {
+    "cid": "0x234e27fe9e99a60fbe4d5a935fa4fee4031ce4a250c3a293cebc6abf5f191b54",
+    "in_play": true,
+    "entry_ts": 1766879793,
+    "exit_ts": 1766894395,
+    "capital": 159.01,
+    "pnl": -159.01,
+    "target_notional": 49000.0
+   },
+   {
+    "cid": "0x74da675b5e1363b2215f24f29a13c067ff00220e2ac884a0fac7a94a51aa016e",
+    "in_play": false,
+    "entry_ts": 1766148400,
+    "exit_ts": 1766219408,
+    "capital": 169.53,
+    "pnl": 21.6,
+    "target_notional": 52712.34
+   },
+   {
+    "cid": "0xfdf2b7bcf11ab3a1efbcdbb627e606a646ff3fb1975a98c40aed13aba264ad48",
+    "in_play": true,
+    "entry_ts": 1774542079,
+    "exit_ts": 1774568439,
+    "capital": 51.73,
+    "pnl": -51.73,
+    "target_notional": 10620.14
+   },
+   {
+    "cid": "0xc74885be6d4d23b1c791420a861bafe3734f35a3a0c323a655332f9c661fd887",
+    "in_play": true,
+    "entry_ts": 1768156314,
+    "exit_ts": 1768177604,
+    "capital": 120.55,
+    "pnl": 135.94,
+    "target_notional": 35250.0
+   },
+   {
+    "cid": "0xd25f87a9f3055a77d2e1589ef870ea10a06c774448656aebf8556420f706ea6c",
+    "in_play": true,
+    "entry_ts": 1768063496,
+    "exit_ts": 1768080562,
+    "capital": 170.64,
+    "pnl": -170.64,
+    "target_notional": 50399.0
+   },
+   {
+    "cid": "0x4b224af24dd17e9ff22e33aa3ddd671eb56c936c27e36c19cc8dc8ff96ff9517",
+    "in_play": true,
+    "entry_ts": 1768762084,
+    "exit_ts": 1768779022,
+    "capital": 173.31,
+    "pnl": -173.31,
+    "target_notional": 52653.96
+   },
+   {
+    "cid": "0xef766f20e93a4a6fcb1ee3fe4dfc7fb2dae370797e5e2f92fcfd740ca5626797",
+    "in_play": true,
+    "entry_ts": 1768157148,
+    "exit_ts": 1768170124,
+    "capital": 80.06,
+    "pnl": 76.92,
+    "target_notional": 19635.77
+   },
+   {
+    "cid": "0xf22a03a76935d39c206b619905c7604b0337ff73c5741bee742ef8fcabfc4345",
+    "in_play": true,
+    "entry_ts": 1768154944,
+    "exit_ts": 1768165440,
+    "capital": 178.5,
+    "pnl": -178.5,
+    "target_notional": 53483.05
+   },
+   {
+    "cid": "0x3d9487e954e7256a0ed8aa5e9a17d18cc0bdfce3cde5f30cec7be2dad2a622ae",
+    "in_play": true,
+    "entry_ts": 1768092290,
+    "exit_ts": 1768106728,
+    "capital": 161.54,
+    "pnl": 149.11,
+    "target_notional": 47695.19
+   },
+   {
+    "cid": "0xc35afdd644eca15c11872008a99529d079f52e47d2fa44850e0b2def69ec35c6",
+    "in_play": true,
+    "entry_ts": 1769284002,
+    "exit_ts": 1769301012,
+    "capital": 164.56,
+    "pnl": -164.56,
+    "target_notional": 51000.0
+   },
+   {
+    "cid": "0xeffdb342fc7714a453a0e70999c145d4e69843a262386d9077c323fa07149414",
+    "in_play": true,
+    "entry_ts": 1764199187,
+    "exit_ts": 1764223805,
+    "capital": 166.76,
+    "pnl": 221.05,
+    "target_notional": 50400.0
+   },
+   {
+    "cid": "0xb6fc6da065fc1e342e62f1643809cfdc2d18fa3256d53bf76b142e5b07b932fd",
+    "in_play": true,
+    "entry_ts": 1770236041,
+    "exit_ts": 1770271121,
+    "capital": 161.83,
+    "pnl": 161.7,
+    "target_notional": 50000.0
+   },
+   {
+    "cid": "0x93f5c5db604300d2729b3cb3954f5b4514fc2522a4b8f8e8ff4601602ed9c80e",
+    "in_play": true,
+    "entry_ts": 1764361715,
+    "exit_ts": 1764381929,
+    "capital": 87.0,
+    "pnl": 90.55,
+    "target_notional": 47890.12
+   },
+   {
+    "cid": "0x62c4d37c2e1115bb343fe532498991b98b88627fe287873c477f7bec18212f08",
+    "in_play": true,
+    "entry_ts": 1766666685,
+    "exit_ts": 1766696185,
+    "capital": 31.2,
+    "pnl": 36.63,
+    "target_notional": 36288.58
+   },
+   {
+    "cid": "0x7078bb91184b7352d9cc3171a15768e6ce26b1dc0714febe5c4116e7b4858306",
+    "in_play": true,
+    "entry_ts": 1768155108,
+    "exit_ts": 1768170978,
+    "capital": 126.3,
+    "pnl": 116.59,
+    "target_notional": 35568.99
+   },
+   {
+    "cid": "0x96a887f61da60a6d3817095e6d8f6663b15e280ec786bd66634074bc909c55e0",
+    "in_play": true,
+    "entry_ts": 1768326869,
+    "exit_ts": 1768367282,
+    "capital": 75.83,
+    "pnl": -75.83,
+    "target_notional": 18723.0
+   },
+   {
+    "cid": "0x38ad1408695bd94eab17d4ba186e5812f44356876f9e02afdfc082b56a20930f",
+    "in_play": true,
+    "entry_ts": 1781993587,
+    "exit_ts": 1782007657,
+    "capital": 73.37,
+    "pnl": 44.97,
+    "target_notional": 17941.17
+   },
+   {
+    "cid": "0xa8cba47d91defd12fb572ddc04715ed8a3a8acc37c2606716a17ed46f798db93",
+    "in_play": true,
+    "entry_ts": 1774547463,
+    "exit_ts": 1774567063,
+    "capital": 56.61,
+    "pnl": -56.61,
+    "target_notional": 12020.88
+   },
+   {
+    "cid": "0x744df2cb98d5dd869623f254c6bdfb167c9caf1e5dd16732106cb61b2d4bc577",
+    "in_play": true,
+    "entry_ts": 1783708054,
+    "exit_ts": 1783717940,
+    "capital": 54.81,
+    "pnl": 27.92,
+    "target_notional": 11647.06
+   },
+   {
+    "cid": "0xbb5e05fc039703d66844d815476468d14618472f9e86ad58cc3c715942d17039",
+    "in_play": true,
+    "entry_ts": 1768773494,
+    "exit_ts": 1768787952,
+    "capital": 85.86,
+    "pnl": -85.86,
+    "target_notional": 21604.08
+   },
+   {
+    "cid": "0x77e8038b11cce0af4810ddaef2f14a867c182bbf0c0642a725d837b41a4ea2ee",
+    "in_play": true,
+    "entry_ts": 1766929391,
+    "exit_ts": 1766945697,
+    "capital": 55.22,
+    "pnl": -55.22,
+    "target_notional": 10911.07
+   }
+  ],
+  "$500 -> $5,000": [
+   {
+    "cid": "0x7b281363227e98a8177e1e5e81dc3bd1e48e8594383258ebb807a62f57770742",
+    "in_play": true,
+    "entry_ts": 1769023658,
+    "exit_ts": 1769044980,
+    "capital": 4571.43,
+    "pnl": -4571.43,
+    "target_notional": 313158.43
+   },
+   {
+    "cid": "0x7b6629cca58b0a3be21a2e448f8d92c930e78d26d5f6d6dd58ab18a62f659ad9",
+    "in_play": true,
+    "entry_ts": 1768660250,
+    "exit_ts": 1768682792,
+    "capital": 2922.78,
+    "pnl": -2922.78,
+    "target_notional": 184875.71
+   },
+   {
+    "cid": "0x6e937a4f6bf71a13a8bb08be32b1a9de516cc1a76fcbef61a7ca3567f5558165",
+    "in_play": true,
+    "entry_ts": 1768763026,
+    "exit_ts": 1768785986,
+    "capital": 4410.54,
+    "pnl": -4410.54,
+    "target_notional": 300000.0
+   },
+   {
+    "cid": "0xf88c526dff24f89c10e18064e869261dc1c22898874857ed2b9985e135e1ccdd",
+    "in_play": true,
+    "entry_ts": 1768065040,
+    "exit_ts": 1768083388,
+    "capital": 1.08,
+    "pnl": 0.96,
+    "target_notional": 229500.0
+   },
+   {
+    "cid": "0xae49ff8ee40dfefc7fe5ce031a88c11243aa1f0fb75ff7b1a365dda725bb7696",
+    "in_play": true,
+    "entry_ts": 1765663795,
+    "exit_ts": 1765681845,
+    "capital": 2020.18,
+    "pnl": 1183.13,
+    "target_notional": 124699.64
+   },
+   {
+    "cid": "0x0b7e6ab4e3b6a3f17721f3e920c4077f8bb69c3a24a17705c6328b0ac7542de9",
+    "in_play": true,
+    "entry_ts": 1769112026,
+    "exit_ts": 1769132048,
+    "capital": 1507.0,
+    "pnl": -1507.0,
+    "target_notional": 84000.0
+   },
+   {
+    "cid": "0x99a26b3017380612fc38523562fc49d7c51fa64124188e5cd3f6703dd467b20e",
+    "in_play": true,
+    "entry_ts": 1768659732,
+    "exit_ts": 1768681358,
+    "capital": 4350.67,
+    "pnl": -4350.67,
+    "target_notional": 295000.0
+   },
+   {
+    "cid": "0x040bdc28edda1cde58b2a13122fd21dee958e2d3901e6ac4f13618b1c01d0b9f",
+    "in_play": true,
+    "entry_ts": 1768259281,
+    "exit_ts": 1768271735,
+    "capital": 1416.92,
+    "pnl": -1416.92,
+    "target_notional": 212000.0
+   },
+   {
+    "cid": "0x70bb4f2d7614c8679d606671e2b4c07462d6c4c625956bf23a78d33209f9f843",
+    "in_play": true,
+    "entry_ts": 1767120557,
+    "exit_ts": 1767133311,
+    "capital": 2597.86,
+    "pnl": -2597.86,
+    "target_notional": 165000.0
+   },
+   {
+    "cid": "0x3abf976afa3a4f2e0fdefae5011bf0f4d1fba4caa50e4eaff54f8812ab7701a6",
+    "in_play": true,
+    "entry_ts": 1769278086,
+    "exit_ts": 1769289708,
+    "capital": 244.99,
+    "pnl": 264.99,
+    "target_notional": 134400.0
+   },
+   {
+    "cid": "0xfed00dec279879ea01aac99c0f0261d9f48ca49219cce842f7b85342fdd2825d",
+    "in_play": true,
+    "entry_ts": 1766879073,
+    "exit_ts": 1766897175,
+    "capital": 3603.19,
+    "pnl": -3603.19,
+    "target_notional": 240000.0
+   },
+   {
+    "cid": "0x5cee8159785744a73e4d196ef9f3bef95b5a7735caa4b7ef3e867c8870093d90",
+    "in_play": true,
+    "entry_ts": 1768504302,
+    "exit_ts": 1768519692,
+    "capital": 1303.27,
+    "pnl": -1303.27,
+    "target_notional": 234359.2
+   },
+   {
+    "cid": "0xb14ebe7c069cff4e1ec7e7ce916a7ae8552b813bf6fa6365dafa61c2396c6295",
+    "in_play": true,
+    "entry_ts": 1767212089,
+    "exit_ts": 1767228643,
+    "capital": 1680.35,
+    "pnl": -1680.35,
+    "target_notional": 94000.0
+   },
+   {
+    "cid": "0x365eee5f424708fd861ea3f0d4d03d515e34b513303a30d097f2b35867f11dcd",
+    "in_play": false,
+    "entry_ts": 1766175577,
+    "exit_ts": 1766219640,
+    "capital": 1396.37,
+    "pnl": 168.41,
+    "target_notional": 77445.33
+   },
+   {
+    "cid": "0x5d8eeda943d192d1e9fed9ab7e1107712c5aa4b7d666aad3d3776973dad8b27a",
+    "in_play": true,
+    "entry_ts": 1768516598,
+    "exit_ts": 1768536228,
+    "capital": 435.7,
+    "pnl": -435.7,
+    "target_notional": 230000.0
+   },
+   {
+    "cid": "0x415485383347d25b79e19d918779a1ae4df6452cdbbcf2ef8de1eb2a8e8c496f",
+    "in_play": true,
+    "entry_ts": 1767438511,
+    "exit_ts": 1767453493,
+    "capital": 1715.36,
+    "pnl": 1401.34,
+    "target_notional": 216000.0
+   },
+   {
+    "cid": "0xa27c3f7113e4b70d69273abe70091440ad7d3467284c64165491b8e04490666f",
+    "in_play": true,
+    "entry_ts": 1768764452,
+    "exit_ts": 1768785996,
+    "capital": 68.89,
+    "pnl": 275.54,
+    "target_notional": 19831.57
+   },
+   {
+    "cid": "0xd56d908199204b0d2e48c7b13644cd418a6fc47ac3f57309266150eb8509f930",
+    "in_play": true,
+    "entry_ts": 1768091552,
+    "exit_ts": 1768107906,
+    "capital": 596.48,
+    "pnl": 559.86,
+    "target_notional": 204000.0
+   },
+   {
+    "cid": "0x3ad03de35b8820f8b897ef064e127a6214a61fa45f1f57b7e3eb764bac37008b",
+    "in_play": true,
+    "entry_ts": 1768152522,
+    "exit_ts": 1768168834,
+    "capital": 2326.08,
+    "pnl": 2133.41,
+    "target_notional": 204000.0
+   },
+   {
+    "cid": "0x39d950f925d4b6f0596926cf1320d7b89b191fd15286b76b468eed45726a9bc7",
+    "in_play": true,
+    "entry_ts": 1768257161,
+    "exit_ts": 1768278823,
+    "capital": 911.0,
+    "pnl": -911.0,
+    "target_notional": 90311.51
+   },
+   {
+    "cid": "0x621d921a8cbdf60f268e982fefbd1ed8a01010e499c9328587618b8a634402b2",
+    "in_play": true,
+    "entry_ts": 1769282510,
+    "exit_ts": 1769300334,
+    "capital": 1363.22,
+    "pnl": -1363.22,
+    "target_notional": 73283.13
+   },
+   {
+    "cid": "0x355b65886662e6e21752737c5bc877827bdf05cbdfe3fdb5bbaa9201798ecaf5",
+    "in_play": true,
+    "entry_ts": 1765057693,
+    "exit_ts": 1765074109,
+    "capital": 1939.2,
+    "pnl": -1939.2,
+    "target_notional": 114000.0
+   },
+   {
+    "cid": "0x869f35fc24178fa7635f62f7e241b8386c03b4db415f73c94687c4278a1c230f",
+    "in_play": true,
+    "entry_ts": 1768087562,
+    "exit_ts": 1768103606,
+    "capital": 3011.04,
+    "pnl": 3033.38,
+    "target_notional": 196000.0
+   },
+   {
+    "cid": "0x82f2498ebce9cab4841428279222d72ed52b1ba6727100216c8c9a97e32aa07c",
+    "in_play": true,
+    "entry_ts": 1769869596,
+    "exit_ts": 1769900900,
+    "capital": 635.14,
+    "pnl": 363.97,
+    "target_notional": 19779.98
+   },
+   {
+    "cid": "0x1b0ccb1570442e3e0561f2665519e24535a601ddf9d778031e58e3064d4f4c64",
+    "in_play": true,
+    "entry_ts": 1768586002,
+    "exit_ts": 1768605426,
+    "capital": 1700.6,
+    "pnl": 2550.9,
+    "target_notional": 97500.0
+   },
+   {
+    "cid": "0xe1ea363c221070b5d50d5b0ade71e4ac59c2139ca41b36ff419576cb856c4707",
+    "in_play": true,
+    "entry_ts": 1768174056,
+    "exit_ts": 1768197534,
+    "capital": 2386.21,
+    "pnl": 2334.68,
+    "target_notional": 147000.0
+   },
+   {
+    "cid": "0xedb27df0266b10bcd3d43f6a61fc1660f46f8c1078370bf4c18ba30908faccb2",
+    "in_play": true,
+    "entry_ts": 1768261683,
+    "exit_ts": 1768273511,
+    "capital": 465.77,
+    "pnl": 487.5,
+    "target_notional": 94000.0
+   },
+   {
+    "cid": "0xfcee59fe269cc903807e9f7c8634129e3fcbb5e247ba5248b4308ae888e46377",
+    "in_play": true,
+    "entry_ts": 1767210509,
+    "exit_ts": 1767234321,
+    "capital": 514.28,
+    "pnl": 297.96,
+    "target_notional": 14518.77
+   },
+   {
+    "cid": "0x7ad37bb016994defcc2fe8e3d23b680de042f77fb15c51e7b9901882edae9b3e",
+    "in_play": true,
+    "entry_ts": 1768158438,
+    "exit_ts": 1768194438,
+    "capital": 7.0,
+    "pnl": -7.0,
+    "target_notional": 14656.65
+   },
+   {
+    "cid": "0xf864be59770c524d834101dee02d8a6a47cbb4e3d7cfa77e5bdccc851cf30d53",
+    "in_play": true,
+    "entry_ts": 1769278706,
+    "exit_ts": 1769294148,
+    "capital": 5.84,
+    "pnl": 5.84,
+    "target_notional": 116162.5
+   },
+   {
+    "cid": "0x801789fd001f72517a0ae1be88b015b239b2ba5846ce73e5d11426d4e17d0514",
+    "in_play": true,
+    "entry_ts": 1782801100,
+    "exit_ts": 1782860815,
+    "capital": 24.5,
+    "pnl": -24.5,
+    "target_notional": 81771.3
+   },
+   {
+    "cid": "0x39fa48e751889f22960a20fd508b6dad43d42ec2e6dd7335a204ead5b4099bc9",
+    "in_play": true,
+    "entry_ts": 1768150854,
+    "exit_ts": 1768200228,
+    "capital": 114.21,
+    "pnl": 106.71,
+    "target_notional": 153000.0
+   },
+   {
+    "cid": "0xd2dc14cbe79a86e6d908683e081f43cd524cd5e3b25724634fe23bd15d0c2260",
+    "in_play": true,
+    "entry_ts": 1768166598,
+    "exit_ts": 1768183032,
+    "capital": 526.87,
+    "pnl": 526.35,
+    "target_notional": 152990.31
+   },
+   {
+    "cid": "0x6420e6b28debd80b59d9bf220e5dddd0808f8f20acde1495f7e1ab3c84cdcdd8",
+    "in_play": true,
+    "entry_ts": 1768752814,
+    "exit_ts": 1768773918,
+    "capital": 2442.03,
+    "pnl": 3819.58,
+    "target_notional": 152000.0
+   },
+   {
+    "cid": "0xf54d4c4299b7383fa948b227cda02c9a817dc06f7d7ac648230133c5d79e8ff7",
+    "in_play": true,
+    "entry_ts": 1768417046,
+    "exit_ts": 1768462118,
+    "capital": 2352.94,
+    "pnl": 2352.94,
+    "target_notional": 150000.0
+   },
+   {
+    "cid": "0x3b29c57acff79f3c7a29a08b837053579a7ea0a2628db663b2063cdbf1c42ef0",
+    "in_play": true,
+    "entry_ts": 1768084676,
+    "exit_ts": 1768099992,
+    "capital": 428.46,
+    "pnl": -428.46,
+    "target_notional": 97920.13
+   },
+   {
+    "cid": "0xfef3f1a41b3cc884c3b14cfe9487efa79939d7d56a8834f611d7d915cc35c15c",
+    "in_play": true,
+    "entry_ts": 1768147756,
+    "exit_ts": 1768159104,
+    "capital": 1955.03,
+    "pnl": -1955.03,
+    "target_notional": 141500.48
+   },
+   {
+    "cid": "0x156d85ead48dee4db525cd9efeaefb8751d88eda5093e1a1d5e842063ef6c70e",
+    "in_play": true,
+    "entry_ts": 1768255627,
+    "exit_ts": 1768273849,
+    "capital": 438.06,
+    "pnl": -438.06,
+    "target_notional": 144000.0
+   },
+   {
+    "cid": "0x404409605d0199989de119433518f5d023eb0cd8283aaf23897e33ce23c240fb",
+    "in_play": true,
+    "entry_ts": 1767460147,
+    "exit_ts": 1767482659,
+    "capital": 2260.24,
+    "pnl": -2260.24,
+    "target_notional": 140000.0
+   },
+   {
+    "cid": "0x4af4cae89c851eba83682be95531ff90a6edb52e7208a80aef0143ffe9f1fcf0",
+    "in_play": true,
+    "entry_ts": 1767707121,
+    "exit_ts": 1767722431,
+    "capital": 1199.08,
+    "pnl": -1199.08,
+    "target_notional": 61172.12
+   },
+   {
+    "cid": "0x6867e899ef14f3e3dadd84f5be6f4bc51550e2278747e64dd954e7f597ff1329",
+    "in_play": true,
+    "entry_ts": 1767020403,
+    "exit_ts": 1767052947,
+    "capital": 2213.48,
+    "pnl": -2213.48,
+    "target_notional": 138000.0
+   },
+   {
+    "cid": "0x556b2042ebc85221bb402de322a8724f149b8c95b520831bade2316565e3ca84",
+    "in_play": true,
+    "entry_ts": 1782373385,
+    "exit_ts": 1782425386,
+    "capital": 100.0,
+    "pnl": 72.41,
+    "target_notional": 24346.93
+   },
+   {
+    "cid": "0xf0cfec0ec4bc48a2633eba330eaf121fa5c0ac49f005fa6f0e6d96e48f26686e",
+    "in_play": true,
+    "entry_ts": 1768413950,
+    "exit_ts": 1768466072,
+    "capital": 2241.73,
+    "pnl": 2528.09,
+    "target_notional": 138000.0
+   },
+   {
+    "cid": "0xbb15d13e998e2370e8dde27bfca317941dba23aac539cfef1b04c998c2f8bae7",
+    "in_play": true,
+    "entry_ts": 1766963477,
+    "exit_ts": 1766979047,
+    "capital": 513.0,
+    "pnl": 652.35,
+    "target_notional": 135852.88
+   },
+   {
+    "cid": "0xa68625a3cc14c3e08757001ff4499dd31aaa7548b3a4c428eee4ba9edc5575bd",
+    "in_play": true,
+    "entry_ts": 1768156080,
+    "exit_ts": 1768169084,
+    "capital": 29.61,
+    "pnl": -29.61,
+    "target_notional": 91802.96
+   },
+   {
+    "cid": "0xb99a8109cc6fcfe62578aa061e106243371b62d7cde777017ba50f701854363f",
+    "in_play": true,
+    "entry_ts": 1767460229,
+    "exit_ts": 1767478067,
+    "capital": 816.8,
+    "pnl": -816.8,
+    "target_notional": 32771.45
+   },
+   {
+    "cid": "0xfe573df2d6a3b001ef65da841b5fbd13e647e8f2f2304731e09d4633c3aa1d39",
+    "in_play": true,
+    "entry_ts": 1767813871,
+    "exit_ts": 1767831045,
+    "capital": 2094.16,
+    "pnl": 1935.54,
+    "target_notional": 127500.0
+   },
+   {
+    "cid": "0xed6fe1051827a92cd88bcda75cb18a0c1c6432a534b1175fa722f72329431df1",
+    "in_play": true,
+    "entry_ts": 1768419758,
+    "exit_ts": 1768439594,
+    "capital": 1340.44,
+    "pnl": -1340.44,
+    "target_notional": 71433.04
+   },
+   {
+    "cid": "0x91f12f84b673c1d40c2a54b443f488671db98fd8309a05f9947f552a36c31d6a",
+    "in_play": true,
+    "entry_ts": 1770884115,
+    "exit_ts": 1770953951,
+    "capital": 543.01,
+    "pnl": -543.01,
+    "target_notional": 13250.0
+   },
+   {
+    "cid": "0x59933afdcf29a0143fbc5d401adf82cff5c7ee69a9f69c6a143876253bcb30d3",
+    "in_play": true,
+    "entry_ts": 1769283314,
+    "exit_ts": 1769300256,
+    "capital": 2035.09,
+    "pnl": 2039.67,
+    "target_notional": 120000.0
+   },
+   {
+    "cid": "0x1c6a65bd7e4c1dab316616017811f8530d510d546c6ecf181c45d5bfcf16c297",
+    "in_play": true,
+    "entry_ts": 1768849156,
+    "exit_ts": 1768861642,
+    "capital": 1915.13,
+    "pnl": -1915.13,
+    "target_notional": 120000.0
+   },
+   {
+    "cid": "0x0b3f206297d7a674bbe739e5e2435f28d64cc5e44418bb388258f8980c4cc790",
+    "in_play": true,
+    "entry_ts": 1766953545,
+    "exit_ts": 1766970945,
+    "capital": 2037.38,
+    "pnl": 2037.38,
+    "target_notional": 120000.0
+   },
+   {
+    "cid": "0x56f0caa02868ea576fa994aa1bf3dd4e7b90c1b06cb940ea67cf21b13aa4525b",
+    "in_play": true,
+    "entry_ts": 1768515260,
+    "exit_ts": 1768532520,
+    "capital": 672.14,
+    "pnl": 676.14,
+    "target_notional": 21120.0
+   },
+   {
+    "cid": "0x6eb457047a409f6c84c864f636015dd560ac6b49eb7a393d42ed8e38d701ab10",
+    "in_play": true,
+    "entry_ts": 1768851104,
+    "exit_ts": 1768889492,
+    "capital": 643.55,
+    "pnl": -643.55,
+    "target_notional": 19811.33
+   },
+   {
+    "cid": "0x0258c78d46c16013d3578d88c4442649d54d4a2ef3168878f3438b36f8858829",
+    "in_play": true,
+    "entry_ts": 1769281688,
+    "exit_ts": 1769294078,
+    "capital": 33.8,
+    "pnl": 36.62,
+    "target_notional": 117500.0
+   },
+   {
+    "cid": "0xec096d3e9718441b39e6ffbd4148ebea742f39e91acd6cfaa8638c5c0fd0bbc4",
+    "in_play": true,
+    "entry_ts": 1768584458,
+    "exit_ts": 1768634556,
+    "capital": 1931.79,
+    "pnl": 2176.27,
+    "target_notional": 115000.0
+   },
+   {
+    "cid": "0x78df8ab4123c9a543863b136a498291340896cd8596decfcb379d73a9953f3dc",
+    "in_play": true,
+    "entry_ts": 1767539407,
+    "exit_ts": 1767554893,
+    "capital": 1247.53,
+    "pnl": -1247.53,
+    "target_notional": 114000.0
+   },
+   {
+    "cid": "0xf7d0efd75ef72f0aaf3080cb8319604160014ef7cd40fe988a0f27b831dcf04a",
+    "in_play": true,
+    "entry_ts": 1767539533,
+    "exit_ts": 1767558581,
+    "capital": 546.6,
+    "pnl": -546.6,
+    "target_notional": 11590.26
+   },
+   {
+    "cid": "0x5a6fa21846015a70202d71281949a5ab18243822108d5b384dfa50b2dd0c75b7",
+    "in_play": true,
+    "entry_ts": 1769888570,
+    "exit_ts": 1769907942,
+    "capital": 1219.98,
+    "pnl": -1219.98,
+    "target_notional": 62752.51
+   },
+   {
+    "cid": "0x57bfdc5ed2b0a4f05440c44502d9023028294e06557817f4cab3efd2989ab4cf",
+    "in_play": true,
+    "entry_ts": 1769347024,
+    "exit_ts": 1769370108,
+    "capital": 584.77,
+    "pnl": -584.77,
+    "target_notional": 16404.75
+   },
+   {
+    "cid": "0xbd7f192b4bfd6884dce742fa579938df40f886bc061195ef2855c68ab73dcfc2",
+    "in_play": true,
+    "entry_ts": 1768165748,
+    "exit_ts": 1768177090,
+    "capital": 1116.46,
+    "pnl": -1116.46,
+    "target_notional": 56100.0
+   },
+   {
+    "cid": "0x34622cb7edd15af19d05cddfac8c5047cd13599469c1fe282dea125891f0e68e",
+    "in_play": true,
+    "entry_ts": 1768848048,
+    "exit_ts": 1768864766,
+    "capital": 900.59,
+    "pnl": -900.59,
+    "target_notional": 100000.0
+   },
+   {
+    "cid": "0xf4bcc12d6f3866878411ea560b3babad04f8da2fd0aeed0ab5758db58eaaaa5d",
+    "in_play": true,
+    "entry_ts": 1768747234,
+    "exit_ts": 1768768820,
+    "capital": 507.16,
+    "pnl": 178.19,
+    "target_notional": 10022.9
+   },
+   {
+    "cid": "0x1897b91eeb755c0d117aecb840cda9b6e878240cdae7a84f0ea3458cef9b295b",
+    "in_play": true,
+    "entry_ts": 1766882563,
+    "exit_ts": 1766899893,
+    "capital": 1607.69,
+    "pnl": 1964.95,
+    "target_notional": 90992.73
+   },
+   {
+    "cid": "0xb7dd583abff48e738900a1da4edf31e31d7d7834afe6f460345c597d50ad2497",
+    "in_play": true,
+    "entry_ts": 1782403690,
+    "exit_ts": 1782435938,
+    "capital": 123.3,
+    "pnl": 113.82,
+    "target_notional": 19367.4
+   },
+   {
+    "cid": "0x863a3a95ecb7ed790cb07b12a4af1cf58d1fbc81f624acd95a9ef9b715f9d6a3",
+    "in_play": true,
+    "entry_ts": 1766949669,
+    "exit_ts": 1766964763,
+    "capital": 197.1,
+    "pnl": 231.38,
+    "target_notional": 32400.0
+   },
+   {
+    "cid": "0x5f51a3895d904ae5b67a1e3c16920a9cb16d712434dbabc9c1cabe34bfa43714",
+    "in_play": true,
+    "entry_ts": 1765016349,
+    "exit_ts": 1765062345,
+    "capital": 217.13,
+    "pnl": -217.13,
+    "target_notional": 80003.15
+   },
+   {
+    "cid": "0x9b60c877ba2ec08c6fc392380b17daab5fcb2b3852b21d7e795f965043aa9562",
+    "in_play": true,
+    "entry_ts": 1768099642,
+    "exit_ts": 1768115046,
+    "capital": 901.65,
+    "pnl": -901.65,
+    "target_notional": 78000.0
+   },
+   {
+    "cid": "0xdc9f202fe96fde6659a5009f88a6cbf3360c384f1297d777028267f583d6daca",
+    "in_play": true,
+    "entry_ts": 1768660594,
+    "exit_ts": 1768675152,
+    "capital": 1062.94,
+    "pnl": -1062.94,
+    "target_notional": 51148.41
+   },
+   {
+    "cid": "0xab4fab2240e0ff00691add26fa2c5d56d715dbbc12262ec0349b2587d8ffae9f",
+    "in_play": true,
+    "entry_ts": 1769023206,
+    "exit_ts": 1769044868,
+    "capital": 716.86,
+    "pnl": 665.79,
+    "target_notional": 25500.0
+   },
+   {
+    "cid": "0x12b0760a7d66211fb8878cee4b9d7f8dff7fb4796fa2075ef8bb5a56130c48e1",
+    "in_play": true,
+    "entry_ts": 1768064820,
+    "exit_ts": 1768076144,
+    "capital": 1051.26,
+    "pnl": -1051.26,
+    "target_notional": 49878.0
+   },
+   {
+    "cid": "0xaa11bf96f62e3012c131152d3007acab6d3a61d725ec9db8d4cdd5891616b790",
+    "in_play": true,
+    "entry_ts": 1770236523,
+    "exit_ts": 1770267641,
+    "capital": 566.61,
+    "pnl": 544.39,
+    "target_notional": 45014.0
+   },
+   {
+    "cid": "0xf5d6f827f883e7f84ef6c965f926905506ffebb2a0a5522114dc331849366b67",
+    "in_play": true,
+    "entry_ts": 1768159398,
+    "exit_ts": 1768195228,
+    "capital": 1252.58,
+    "pnl": 1297.8,
+    "target_notional": 73500.0
+   },
+   {
+    "cid": "0x75d91cd268cec8d688b8a7e543b149700bf45d9f62e9fffa479b18f19a60a63e",
+    "in_play": true,
+    "entry_ts": 1782403760,
+    "exit_ts": 1782446954,
+    "capital": 530.97,
+    "pnl": -530.97,
+    "target_notional": 11255.58
+   },
+   {
+    "cid": "0x793d549cc48d6d5e41ac121751e49a2458b9db45007e61fcc83ba50acf4ba70b",
+    "in_play": true,
+    "entry_ts": 1766882377,
+    "exit_ts": 1766898683,
+    "capital": 741.12,
+    "pnl": 577.16,
+    "target_notional": 28000.0
+   },
+   {
+    "cid": "0x234e27fe9e99a60fbe4d5a935fa4fee4031ce4a250c3a293cebc6abf5f191b54",
+    "in_play": true,
+    "entry_ts": 1766879793,
+    "exit_ts": 1766894395,
+    "capital": 1016.22,
+    "pnl": -1016.22,
+    "target_notional": 49000.0
+   },
+   {
+    "cid": "0x74da675b5e1363b2215f24f29a13c067ff00220e2ac884a0fac7a94a51aa016e",
+    "in_play": false,
+    "entry_ts": 1766148400,
+    "exit_ts": 1766219408,
+    "capital": 1066.51,
+    "pnl": 135.87,
+    "target_notional": 52712.34
+   },
+   {
+    "cid": "0xfdf2b7bcf11ab3a1efbcdbb627e606a646ff3fb1975a98c40aed13aba264ad48",
+    "in_play": true,
+    "entry_ts": 1774542079,
+    "exit_ts": 1774568439,
+    "capital": 108.5,
+    "pnl": -108.5,
+    "target_notional": 10620.14
+   },
+   {
+    "cid": "0xc74885be6d4d23b1c791420a861bafe3734f35a3a0c323a655332f9c661fd887",
+    "in_play": true,
+    "entry_ts": 1768156314,
+    "exit_ts": 1768177604,
+    "capital": 834.19,
+    "pnl": 940.68,
+    "target_notional": 35250.0
+   },
+   {
+    "cid": "0xd25f87a9f3055a77d2e1589ef870ea10a06c774448656aebf8556420f706ea6c",
+    "in_play": true,
+    "entry_ts": 1768063496,
+    "exit_ts": 1768080562,
+    "capital": 668.15,
+    "pnl": -668.15,
+    "target_notional": 50399.0
+   },
+   {
+    "cid": "0x4b224af24dd17e9ff22e33aa3ddd671eb56c936c27e36c19cc8dc8ff96ff9517",
+    "in_play": true,
+    "entry_ts": 1768762084,
+    "exit_ts": 1768779022,
+    "capital": 1096.32,
+    "pnl": -1096.32,
+    "target_notional": 52653.96
+   },
+   {
+    "cid": "0xef766f20e93a4a6fcb1ee3fe4dfc7fb2dae370797e5e2f92fcfd740ca5626797",
+    "in_play": true,
+    "entry_ts": 1768157148,
+    "exit_ts": 1768170124,
+    "capital": 653.15,
+    "pnl": 627.53,
+    "target_notional": 19635.77
+   },
+   {
+    "cid": "0xf22a03a76935d39c206b619905c7604b0337ff73c5741bee742ef8fcabfc4345",
+    "in_play": true,
+    "entry_ts": 1768154944,
+    "exit_ts": 1768165440,
+    "capital": 711.77,
+    "pnl": -711.77,
+    "target_notional": 53483.05
+   },
+   {
+    "cid": "0x3d9487e954e7256a0ed8aa5e9a17d18cc0bdfce3cde5f30cec7be2dad2a622ae",
+    "in_play": true,
+    "entry_ts": 1768092290,
+    "exit_ts": 1768106728,
+    "capital": 1033.12,
+    "pnl": 964.7,
+    "target_notional": 47695.19
+   },
+   {
+    "cid": "0xc35afdd644eca15c11872008a99529d079f52e47d2fa44850e0b2def69ec35c6",
+    "in_play": true,
+    "entry_ts": 1769284002,
+    "exit_ts": 1769301012,
+    "capital": 1042.65,
+    "pnl": -1042.65,
+    "target_notional": 51000.0
+   },
+   {
+    "cid": "0xeffdb342fc7714a453a0e70999c145d4e69843a262386d9077c323fa07149414",
+    "in_play": true,
+    "entry_ts": 1764199187,
+    "exit_ts": 1764223805,
+    "capital": 1059.34,
+    "pnl": 1404.24,
+    "target_notional": 50400.0
+   },
+   {
+    "cid": "0xb6fc6da065fc1e342e62f1643809cfdc2d18fa3256d53bf76b142e5b07b932fd",
+    "in_play": true,
+    "entry_ts": 1770236041,
+    "exit_ts": 1770271121,
+    "capital": 1029.47,
+    "pnl": 1029.35,
+    "target_notional": 50000.0
+   },
+   {
+    "cid": "0x93f5c5db604300d2729b3cb3954f5b4514fc2522a4b8f8e8ff4601602ed9c80e",
+    "in_play": true,
+    "entry_ts": 1764361715,
+    "exit_ts": 1764381929,
+    "capital": 87.0,
+    "pnl": 90.55,
+    "target_notional": 47890.12
+   },
+   {
+    "cid": "0x62c4d37c2e1115bb343fe532498991b98b88627fe287873c477f7bec18212f08",
+    "in_play": true,
+    "entry_ts": 1766666685,
+    "exit_ts": 1766696185,
+    "capital": 31.2,
+    "pnl": 36.63,
+    "target_notional": 36288.58
+   },
+   {
+    "cid": "0x7078bb91184b7352d9cc3171a15768e6ce26b1dc0714febe5c4116e7b4858306",
+    "in_play": true,
+    "entry_ts": 1768155108,
+    "exit_ts": 1768170978,
+    "capital": 186.6,
+    "pnl": 172.25,
+    "target_notional": 35568.99
+   },
+   {
+    "cid": "0x96a887f61da60a6d3817095e6d8f6663b15e280ec786bd66634074bc909c55e0",
+    "in_play": true,
+    "entry_ts": 1768326869,
+    "exit_ts": 1768367282,
+    "capital": 627.52,
+    "pnl": -627.52,
+    "target_notional": 18723.0
+   },
+   {
+    "cid": "0x38ad1408695bd94eab17d4ba186e5812f44356876f9e02afdfc082b56a20930f",
+    "in_play": true,
+    "entry_ts": 1781993587,
+    "exit_ts": 1782007657,
+    "capital": 615.02,
+    "pnl": 376.95,
+    "target_notional": 17941.17
+   },
+   {
+    "cid": "0xa8cba47d91defd12fb572ddc04715ed8a3a8acc37c2606716a17ed46f798db93",
+    "in_play": true,
+    "entry_ts": 1774547463,
+    "exit_ts": 1774567063,
+    "capital": 535.83,
+    "pnl": -535.83,
+    "target_notional": 12020.88
+   },
+   {
+    "cid": "0x744df2cb98d5dd869623f254c6bdfb167c9caf1e5dd16732106cb61b2d4bc577",
+    "in_play": true,
+    "entry_ts": 1783708054,
+    "exit_ts": 1783717940,
+    "capital": 523.78,
+    "pnl": 266.83,
+    "target_notional": 11647.06
+   },
+   {
+    "cid": "0xbb5e05fc039703d66844d815476468d14618472f9e86ad58cc3c715942d17039",
+    "in_play": true,
+    "entry_ts": 1768773494,
+    "exit_ts": 1768787952,
+    "capital": 680.82,
+    "pnl": -680.82,
+    "target_notional": 21604.08
+   },
+   {
+    "cid": "0x77e8038b11cce0af4810ddaef2f14a867c182bbf0c0642a725d837b41a4ea2ee",
+    "in_play": true,
+    "entry_ts": 1766929391,
+    "exit_ts": 1766945697,
+    "capital": 538.08,
+    "pnl": -538.08,
+    "target_notional": 10911.07
+   }
+  ]
+ }
+}

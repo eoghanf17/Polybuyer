@@ -1,5 +1,13 @@
 # FootballFan98 cluster: copy strategies against recorded liquidity
 
+> **Does not replicate over the last year.** See "Replication attempt"
+> below. Re-running the ladder over 26 Nov 2025 – 11 Jul 2026 returns
+> **−11.9%** and **−16.0%**, not +16.7%, because 94 of the 96 positions in
+> that window are in-play football matches. The figures in the body of this
+> document are the original study's and are left as recorded; treat them as
+> unconfirmed until the split below is resolved.
+
+
 Study run at commits `a96ba1e` (recorded-liquidity evaluation) and
 `fb4c1c1` (ladder sizing). Written up here because the results existed
 only in commit messages — the ledger covers news-desk markets, and this
@@ -84,3 +92,57 @@ searched market-windows over nine months: **one per six weeks**.
 Built, tested, never run live. Needs no X subscription and no OpenAI
 spend. On the evidence here it is the more practical of the two
 strategies, with the multiple-testing caveat above unresolved.
+
+
+## Replication attempt (`experiments/ff_timeline.py`)
+
+Re-run to answer "how much capital would actually have been deployed at any
+given time, and what was PnL over time" — which totals cannot answer, since
+cumulative deployment counts a dollar again each time it is recycled.
+
+Target resolved to `0xc31d0a0d63d760d72a1236d16beaa6a71c854ebe` via gamma's
+profile search. **The address was in no file in this repo** — it existed
+only in the original session's HANDOFF — so it is now pinned as a constant
+in the script.
+
+### What it found
+
+| | $50→$1,000 | $500→$5,000 |
+|---|---|---|
+| positions | 96 | 96 |
+| peak concurrent exposure | **$1,933** | **$8,699** |
+| cumulative deployed | $24,651 | $110,249 |
+| PnL | **−$2,931 (−11.9%)** | **−$17,592 (−16.0%)** |
+
+Peak exposure is an eighth of cumulative deployment, because median hold is
+**0.2 days** and capital recycles constantly. Exposure is zero on 177 of
+228 days.
+
+### Why it disagrees with +16.7%
+
+| segment | positions | deployed | PnL | return |
+|---|---|---|---|---|
+| in-play matches ($50→$1,000) | 94 | $24,241 | −$2,980 | −12.3% |
+| in-play matches ($500→$5,000) | 94 | $107,786 | −$17,897 | −16.6% |
+| news markets ($50→$1,000) | 2 | $410 | +$49 | +12.0% |
+| news markets ($500→$5,000) | 2 | $2,463 | +$304 | +12.4% |
+
+**The wallet name is literal.** In this window the target trades live
+football, and copying them there loses money. The original study ran
+against the `discover` market universe, which excludes in-play by default —
+so it measured this wallet's *news* trading, which is two positions here.
+
+Either the original covered a period when the wallet traded news markets in
+volume, or its universe selection captured a different slice. Unresolved.
+
+### Two methodology notes on the replication
+
+Signals come from the wallet's own history, not the market tape:
+`market_tape` is capped and newest-first, so building signals from it
+mistakes their fifth trade for their first. That bug was present in the
+first pass of this script and cost about 10 points. 19 signals whose tape
+does not reach back are dropped as unmeasurable, matching `evaluate()`.
+
+Cluster detection returned **one** wallet. If siblings exist and were
+missed, this run filled against orders it should have excluded — which
+flatters the fills, so the losses are if anything understated.
