@@ -42,6 +42,32 @@ KNOWN_INSTANT_PAT = re.compile(
 #: Principals who announce somewhere other than X. A market that turns on
 #: one of these is unreachable from an X feed however good the signal is:
 #: Trump posts to Truth Social first and the X repost, when it comes, is
+
+#: Named competitions whose outcome is decided by a game on live television.
+#: A principal does announce these -- the league, the club, the governing
+#: body -- but the tweet follows the broadcast, so trading it is a latency
+#: race against TV rather than an information edge. Same reasoning as the
+#: in-play exclusion; the triage pass lets them through because "MLB" is a
+#: perfectly plausible announcer.
+#:
+#: Deliberately narrow. A first attempt used `win the \d{4}` and `final`,
+#: which swallowed the French and Brazilian presidential elections and a
+#: US-Iran nuclear deal market -- 35 false positives out of 83. Only named
+#: competitions and leagues appear here.
+SPORT_RESULT_PAT = re.compile(
+    r"\b(world series|super bowl|stanley cup|nba finals|champions league|"
+    r"europa league|premier league|la liga|serie a|bundesliga|ligue 1|"
+    r"fifa world cup|copa (america|libertadores)|\bmlb\b|\bnba\b|\bnfl\b|"
+    r"\bnhl\b|\bufc\b|\bmls\b|formula 1|grand prix|golden boot|"
+    r"top scorer|relegated|ballon)\b", re.I)
+
+#: Award ceremonies: announced on stage at a time everyone knows, so the
+#: post follows the broadcast. Same latency problem.
+CEREMONY_PAT = re.compile(
+    r"\b(ballon d'?or|person of the year|nobel|oscar|academy award|grammy|"
+    r"emmy|golden globe|time100|hall of fame|eurovision|miss universe)\b",
+    re.I)
+
 #: already late. Dropped rather than flagged, since no account list fixes it.
 OFF_PLATFORM_PAT = re.compile(
     r"\b(trump|truth social|white house|potus)\b", re.I)

@@ -547,3 +547,33 @@ class TestHeadroomGuard(unittest.TestCase):
         # Demanding 50% left turns the same case back into a block.
         self.assertFalse(guards.evaluate(0.583, h, 1, self.T,
                                          min_headroom=0.50).passed)
+
+
+class TestLatencyRaceScreens(unittest.TestCase):
+    """Markets a principal announces, but on a broadcast everyone watches."""
+
+    def _hit(self, q):
+        from polybuyer.newsdesk import discover
+        return bool(discover.SPORT_RESULT_PAT.search(q)
+                    or discover.CEREMONY_PAT.search(q))
+
+    def test_named_competitions_are_caught(self):
+        for q in ("Will the Toronto Blue Jays win the 2026 World Series?",
+                  "Will Arsenal win the Champions League?",
+                  "Who wins the 2026 Super Bowl?"):
+            self.assertTrue(self._hit(q), q)
+
+    def test_ceremonies_are_caught(self):
+        for q in ("Will Mohamed Salah win the 2026 Ballon d'Or?",
+                  "TIME Person of the Year 2026?",
+                  "Nobel Peace Prize winner 2026?"):
+            self.assertTrue(self._hit(q), q)
+
+    def test_elections_and_deals_are_not(self):
+        # The first cut used `win the \d{4}` and `final`, which swallowed
+        # these -- 35 false positives out of 83 disarmed markets.
+        for q in ("Will Jean-Luc Melenchon win the 2027 French presidential election?",
+                  "Will Flavio Bolsonaro win the 2026 Brazilian presidential election?",
+                  "US-Iran Final Nuclear Deal by December 31, 2026?",
+                  "Will Victor Ponta be the next Prime Minister of Romania?"):
+            self.assertFalse(self._hit(q), q)
