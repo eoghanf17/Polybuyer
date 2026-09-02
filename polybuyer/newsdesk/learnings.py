@@ -185,6 +185,27 @@ REGISTER: tuple[Learning, ...] = (
         ("TestRules.test_the_follower_floor_applies_to_keyword_only",),
     ),
     Learning(
+        "price-every-rule-before-arming-it",
+        "The armed watchlist was projected at $1,925/month from blind-test "
+        "density. Measured against seven days of real traffic across 491 "
+        "live rules it was $223,936/month -- wrong by 117x. The error sat "
+        "entirely in the open keyword tier: 241 principal rules billed 43 "
+        "posts/hour total ($156/month), while 250 keyword rules billed "
+        "62,161 posts/hour, because generated topic groups contained bare "
+        "country names. `(Cuba OR Israel OR ...)` alone billed 14,159 posts "
+        "an hour, $50,973/month for one market.",
+        "Every rule is priced before it is armed. /2/tweets/counts/recent "
+        "returns volume without consuming post quota -- project_usage held "
+        "flat at 1,982 across a control run -- so this is free. A keyword "
+        "rule over MAX_RULE_POSTS_PER_HOUR loses its open tier and keeps "
+        "its principal rules; an unmeasurable rule is refused, never "
+        "treated as quiet. Applied to the live watchlist: $223,936 -> $410 "
+        "a month, all 252 markets still armed.",
+        ("costs.rule_posts_per_hour", "costs.affordable",
+         "costs.MAX_RULE_POSTS_PER_HOUR", "TestVolumeGate"),
+        cost="$223,526/month, and it would have been found by invoice",
+    ),
+    Learning(
         "x-stream-cost-scales-with-markets-watched",
         "Observed post density in the blind tests was 5-10 posts per market "
         "per hour during news windows, and both runs hit their max_results "

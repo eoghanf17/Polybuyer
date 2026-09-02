@@ -30,6 +30,24 @@ PEAK_POSTS_PER_MARKET_HOUR = 7.8
 #: single largest source of error in any figure this module produces.
 DEFAULT_QUIET_FACTOR = 5.0
 
+#: **Measured**, 2026-09-02, over 491 live rules and seven days of hourly
+#: counts. The estimate above was wrong by a factor of 117, and the error
+#: was entirely in one tier:
+#:
+#:     principal (from: + keyword)   241 rules      43 posts/h    $156/mo
+#:     keyword   (topic + keyword)   250 rules  62,161 posts/h  $223,780/mo
+#:
+#: Following accounts we chose is nearly free. The open tier is not, because
+#: a generated topic group containing a bare country name matches the whole
+#: platform: `(Cuba OR Israel OR ...)` billed 14,159 posts an hour by itself.
+MEASURED_PRINCIPAL_POSTS_PER_HOUR = 43.0 / 241
+MEASURED_KEYWORD_MEDIAN_POSTS_PER_HOUR = 31.9
+
+#: A keyword rule above this is refused. At 5/h the measured watchlist keeps
+#: 78 of 250 open-tier rules for $255/month instead of $223,780; the rules
+#: it drops are the ones matching general chatter rather than the market.
+MAX_RULE_POSTS_PER_HOUR = 5.0
+
 #: OpenAI cost per gate call at gpt-4.1, from the observed prompt size.
 GATE_CALL_USD = 0.0018
 
@@ -69,3 +87,42 @@ def markets_for_budget(usd_month: float,
     if one <= 0:
         return 0
     return max(0, int(usd_month / one))
+
+
+def rule_posts_per_hour(bearer: str, rule: str, timeout: float = 30.0
+                        ) -> float | None:
+    """Measured hourly volume for one stream rule, over the last 7 days.
+
+    Uses ``/2/tweets/counts/recent``, which returns counts rather than
+    posts and **does not consume post quota** -- verified by holding
+    ``project_usage`` constant across a control run. So every rule can be
+    priced before it is armed, for nothing.
+
+    Returns ``None`` when X rejects the query, which must be treated as
+    "do not arm" rather than as zero: an unparseable rule is not a quiet
+    one.
+    """
+    import json as _json
+    import urllib.parse as _p
+    import urllib.request as _u
+
+    q = _p.urlencode({"query": rule, "granularity": "hour"})
+    req = _u.Request(f"https://api.x.com/2/tweets/counts/recent?{q}",
+                     headers={"Authorization": f"Bearer {bearer}"})
+    try:
+        with _u.urlopen(req, timeout=timeout) as h:
+            d = _json.loads(h.read().decode())
+        return int(d.get("meta", {}).get("total_tweet_count", 0)) / 168.0
+    except Exception:
+        return None
+
+
+def affordable(posts_per_hour: float | None,
+               cap: float = MAX_RULE_POSTS_PER_HOUR) -> tuple[bool, str]:
+    """Should this rule be armed? Returns (ok, reason)."""
+    if posts_per_hour is None:
+        return False, "volume could not be measured; X rejected the query"
+    if posts_per_hour > cap:
+        return False, (f"{posts_per_hour:,.1f} posts/hour exceeds the {cap:g}/h "
+                       f"cap (${posts_per_hour*24*30*POST_USD:,.0f}/month)")
+    return True, f"{posts_per_hour:.2f} posts/hour (${posts_per_hour*24*30*POST_USD:.2f}/month)"

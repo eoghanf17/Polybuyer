@@ -74,6 +74,34 @@ keyword groups over principal feeds.
 
 *Output:* 252 armed, 372 handles, 504 stream rules (X allows 1,000).
 
+## 5b. Price every rule — free, and non-negotiable
+
+```python
+from polybuyer.newsdesk.costs import rule_posts_per_hour, affordable
+affordable(rule_posts_per_hour(bearer, rule))
+```
+
+`/2/tweets/counts/recent` returns volume without consuming post quota
+(`project_usage` held flat at 1,982 across a control run), so this costs
+nothing and must run before anything is armed.
+
+Measured on the first real watchlist, the projection was wrong by **117×**:
+$1,925/month estimated, **$223,936/month actual**. The error was entirely
+in the open tier —
+
+| tier | rules | posts/hour | $/month |
+|---|---|---|---|
+| principal | 241 | 43 | **$156** |
+| keyword | 250 | 62,161 | **$223,780** |
+
+— because generated topic groups contained bare country names. One market's
+`(Cuba OR Israel OR …)` billed 14,159 posts/hour, $50,973/month by itself.
+
+A keyword rule over `MAX_RULE_POSTS_PER_HOUR` (5/h) loses its open tier and
+keeps its principal rules. An **unmeasurable** rule is refused, never
+assumed quiet. Applied: $223,936 → **$410/month**, all 252 markets still
+armed, 78 keeping the keyword tier.
+
 ## 6. Verify handles — **not yet done, needs X credit**
 
 Every handle is model-generated. Some will not exist. Check each against

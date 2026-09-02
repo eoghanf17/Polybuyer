@@ -625,3 +625,36 @@ class TestLearningRegister(unittest.TestCase):
     def test_ids_are_unique(self):
         ids = [l.id for l in learnings.REGISTER]
         self.assertEqual(len(ids), len(set(ids)))
+
+
+class TestVolumeGate(unittest.TestCase):
+    """A rule is priced before it is armed. Measured, not estimated."""
+
+    def test_a_quiet_rule_is_armed(self):
+        ok, why = costs.affordable(0.07)
+        self.assertTrue(ok)
+        self.assertIn("0.07", why)
+
+    def test_a_loud_rule_is_refused(self):
+        # (Cuba OR Israel OR ...) measured 14,159 posts/hour: $50,973/month
+        # for one market.
+        ok, why = costs.affordable(14_159.1)
+        self.assertFalse(ok)
+        self.assertIn("50,973", why)
+
+    def test_an_unmeasurable_rule_is_refused_not_assumed_quiet(self):
+        # X rejecting a query says nothing about its volume. Treating that
+        # as zero arms exactly the rules we could not price.
+        ok, why = costs.affordable(None)
+        self.assertFalse(ok)
+        self.assertIn("could not be measured", why)
+
+    def test_the_cap_sits_below_the_measured_keyword_median(self):
+        # Median open-tier rule was 31.9 posts/hour, so a cap above that
+        # would let the typical offender through.
+        self.assertLess(costs.MAX_RULE_POSTS_PER_HOUR,
+                        costs.MEASURED_KEYWORD_MEDIAN_POSTS_PER_HOUR)
+
+    def test_principal_rules_are_cheap_by_measurement(self):
+        # 43 posts/hour across 241 rules.
+        self.assertLess(costs.MEASURED_PRINCIPAL_POSTS_PER_HOUR, 1.0)
