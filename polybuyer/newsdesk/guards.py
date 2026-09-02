@@ -29,11 +29,18 @@ class GuardResult:
     reason: str = ""
 
 
+#: A move only counts as "the news is already in the price" if there is
+#: little left to win. Below this much remaining upside, a large move
+#: means we are late; above it, the market is still paying.
+DEFAULT_MIN_HEADROOM = 0.15
+
+
 def evaluate(
     mid_now: float,
     history: dict[str, float | None],
     direction: int,
     thresholds: dict[str, float],
+    min_headroom: float = DEFAULT_MIN_HEADROOM,
 ) -> GuardResult:
     """Compare the move over each window against its threshold.
 
@@ -42,6 +49,22 @@ def evaluate(
     passing that window rather than failing: a market too new to have an
     hour of data has not run away from us, and blocking on absent data would
     silently disarm every fresh market.
+
+    A breach requires **both** a large move and little headroom left, and
+    the second condition was added after it cost the largest trade in the
+    dataset. "Iran closes its airspace by June 8" had drifted up all day on
+    a developing story -- +47% over two hours, +56% over one day -- when
+    @financialjuice posted "Western Iran airspace closed until further
+    notice: official news agency" and the market went 0.54 to 0.93. On
+    movement alone the guards blocked it. But entry was 0.583, so 42 cents
+    of upside remained, and the trade was worth $140,858 at a 5c cap for
+    87% ROI.
+
+    That is the flaw the headroom term fixes: how far a price has *moved*
+    says nothing about how much is *left*. A market that has run from 0.10
+    to 0.55 on developing news is not a market we are late to. A market
+    sitting at 0.97 is, whatever it did to get there -- and that case still
+    breaches, because the headroom test catches it directly.
     """
     moves: dict[str, float] = {}
     breached: list[str] = []
@@ -57,11 +80,20 @@ def evaluate(
         if limit is not None and move > limit:
             breached.append(label)
 
-    if breached:
+    # What is still on the table. We buy at ``mid_now`` on the side we
+    # want and each share pays at most 1.0, so this is known without
+    # knowing the outcome.
+    headroom = (1.0 - mid_now) if direction > 0 else mid_now
+
+    if breached and headroom < min_headroom:
         detail = ", ".join(f"{w} moved {moves[w]:+.0%} (limit {thresholds[w]:.0%})"
                            for w in breached)
         return GuardResult(False, moves, breached, mid_now,
-                           f"already repriced: {detail}")
+                           f"already repriced with {headroom:.0%} left: {detail}")
+    if breached:
+        detail = ", ".join(f"{w} {moves[w]:+.0%}" for w in breached)
+        return GuardResult(True, moves, breached, mid_now,
+                           f"moved ({detail}) but {headroom:.0%} headroom remains")
     return GuardResult(True, moves, [], mid_now, "within limits")
 
 

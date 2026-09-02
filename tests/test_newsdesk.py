@@ -235,11 +235,18 @@ class TestGuards(unittest.TestCase):
                             1, self.TH)
         self.assertTrue(r.passed)
 
-    def test_move_our_way_blocks(self):
-        r = guards.evaluate(0.55, {"5m": 0.30, "1h": 0.53, "2h": 0.52, "1d": 0.50},
+    def test_move_our_way_blocks_when_little_is_left(self):
+        # Prices sit high so the headroom test agrees: this is a chase.
+        r = guards.evaluate(0.95, {"5m": 0.70, "1h": 0.93, "2h": 0.92, "1d": 0.90},
                             1, self.TH)
         self.assertFalse(r.passed)
         self.assertEqual(r.breached, ["5m"])
+
+    def test_the_same_move_is_reported_but_allowed_with_upside_left(self):
+        r = guards.evaluate(0.55, {"5m": 0.30, "1h": 0.53, "2h": 0.52, "1d": 0.50},
+                            1, self.TH)
+        self.assertTrue(r.passed)
+        self.assertEqual(r.breached, ["5m"])   # detected, not acted on
 
     def test_move_against_us_does_not_block(self):
         """Only moves in our own direction mean we are late."""
@@ -248,9 +255,12 @@ class TestGuards(unittest.TestCase):
         self.assertTrue(r.passed)
 
     def test_short_direction_is_mirrored(self):
-        r = guards.evaluate(0.30, {"5m": 0.55, "1h": 0.55, "2h": 0.55, "1d": 0.55},
+        # Short at 0.06: the price fell our way and only 6c is left.
+        r = guards.evaluate(0.06, {"5m": 0.31, "1h": 0.31, "2h": 0.31, "1d": 0.31},
                             -1, self.TH)
         self.assertFalse(r.passed, "price fell 25c, which is our way when short")
+        # 25c clears the 20c windows but not the looser 30c day.
+        self.assertEqual(r.breached, ["5m", "1h", "2h"])
 
     def test_missing_history_does_not_block(self):
         r = guards.evaluate(0.55, {"5m": None, "1h": None, "2h": None, "1d": None},
@@ -258,10 +268,11 @@ class TestGuards(unittest.TestCase):
         self.assertTrue(r.passed)
 
     def test_day_threshold_is_looser(self):
-        h = {"5m": 0.54, "1h": 0.53, "2h": 0.52, "1d": 0.30}
-        self.assertTrue(guards.evaluate(0.55, h, 1, self.TH).passed)
-        h["1d"] = 0.20
-        self.assertFalse(guards.evaluate(0.55, h, 1, self.TH).passed)
+        # Held at 0.90 so headroom is not what decides these.
+        h = {"5m": 0.89, "1h": 0.88, "2h": 0.87, "1d": 0.65}
+        self.assertEqual(guards.evaluate(0.90, h, 1, self.TH).breached, [])
+        h["1d"] = 0.55
+        self.assertEqual(guards.evaluate(0.90, h, 1, self.TH).breached, ["1d"])
 
     def test_limit_price_sides(self):
         self.assertAlmostEqual(guards.limit_price(0.55, 1, 0.05), 0.60, places=6)
@@ -487,3 +498,52 @@ class TestLedger(unittest.TestCase):
         self.assertEqual(s["markets"], 2)
         self.assertEqual(s["priced"], 2)
         self.assertAlmostEqual(s["best_pnl_total_usd"], 90.0)
+
+
+class TestHeadroomGuard(unittest.TestCase):
+    """A large move only blocks when little is left to win."""
+
+    T = {"5m": 0.20, "1h": 0.20, "2h": 0.20, "1d": 0.30}
+
+    def test_a_big_move_with_headroom_left_does_not_block(self):
+        # "Iran closes its airspace by June 8": +47% over 2h and +56% over
+        # 1d on a developing story, entry 0.583, and the confirming post
+        # was still worth $140,858 at a 5c cap. Movement alone blocked it.
+        r = guards.evaluate(0.583, {"5m": 0.58, "1h": 0.50, "2h": 0.11,
+                                    "1d": 0.02}, 1, self.T)
+        self.assertTrue(r.passed)
+        self.assertTrue(r.breached)          # the move is still reported
+        self.assertIn("headroom", r.reason)
+
+    def test_a_big_move_with_nothing_left_blocks(self):
+        r = guards.evaluate(0.97, {"5m": 0.96, "1h": 0.90, "2h": 0.55,
+                                   "1d": 0.40}, 1, self.T)
+        self.assertFalse(r.passed)
+        self.assertIn("already repriced", r.reason)
+
+    def test_headroom_is_measured_on_the_side_being_bought(self):
+        # Short: we buy the other token, so headroom is the mid itself.
+        quiet = {"5m": None, "1h": None, "2h": None, "1d": None}
+        self.assertAlmostEqual(
+            1.0 - 0.90, 0.10)                      # long at 0.90 -> 10% left
+        r = guards.evaluate(0.03, {"5m": 0.04, "1h": 0.30, "2h": 0.60,
+                                   "1d": 0.70}, -1, self.T)
+        self.assertFalse(r.passed)                 # short at 0.03 -> 3% left
+        r2 = guards.evaluate(0.42, {"5m": 0.43, "1h": 0.70, "2h": 0.95,
+                                    "1d": 0.98}, -1, self.T)
+        self.assertTrue(r2.passed)                 # short at 0.42 -> 42% left
+        self.assertTrue(guards.evaluate(0.5, quiet, 1, self.T).passed)
+
+    def test_a_quiet_market_still_passes_cleanly(self):
+        r = guards.evaluate(0.60, {"5m": 0.59, "1h": 0.58, "2h": 0.57,
+                                   "1d": 0.55}, 1, self.T)
+        self.assertTrue(r.passed)
+        self.assertEqual(r.breached, [])
+        self.assertEqual(r.reason, "within limits")
+
+    def test_the_headroom_floor_is_tunable(self):
+        h = {"5m": 0.58, "1h": 0.50, "2h": 0.11, "1d": 0.02}
+        self.assertTrue(guards.evaluate(0.583, h, 1, self.T).passed)
+        # Demanding 50% left turns the same case back into a block.
+        self.assertFalse(guards.evaluate(0.583, h, 1, self.T,
+                                         min_headroom=0.50).passed)
