@@ -1,0 +1,84 @@
+{
+ "membership": {
+  "wallets": {
+   "(unnamed)": "0x006cc834cc092684f1b56626e23bedb3835c16ea",
+   "RBax": "0x4366ab8b8b27e4139d94a532e3cec94a83d1c73e",
+   "Airpods123": "0xb90494d9a5d8f71f1930b2aa4b599f95c344c255",
+   "FootballFan98": "0xc31d0a0d63d760d72a1236d16beaa6a71c854ebe"
+  },
+  "transfers_seen": {
+   "(unnamed)": 6813,
+   "RBax": 5927,
+   "Airpods123": 5605,
+   "FootballFan98": 10000
+  },
+  "pairs_connected": 6,
+  "pairs_possible": 6,
+  "edges": [
+   {
+    "a": "(unnamed)",
+    "b": "RBax",
+    "transfers": 70,
+    "usdc_transfers": 12
+   },
+   {
+    "a": "(unnamed)",
+    "b": "FootballFan98",
+    "transfers": 65,
+    "usdc_transfers": 55
+   },
+   {
+    "a": "(unnamed)",
+    "b": "Airpods123",
+    "transfers": 36,
+    "usdc_transfers": 36
+   },
+   {
+    "a": "RBax",
+    "b": "Airpods123",
+    "transfers": 16,
+    "usdc_transfers": 12
+   },
+   {
+    "a": "RBax",
+    "b": "FootballFan98",
+    "transfers": 14,
+    "usdc_transfers": 0
+   },
+   {
+    "a": "Airpods123",
+    "b": "FootballFan98",
+    "transfers": 13,
+    "usdc_transfers": 8
+   }
+  ],
+  "degree": {
+   "(unnamed)": 3,
+   "RBax": 3,
+   "Airpods123": 3,
+   "FootballFan98": 3
+  },
+  "closed_network": true
+ },
+ "timing": {
+  "markets_with_kickoff": 392,
+  "buckets": {
+   "0-2h before": 301,
+   "2-24h before": 70,
+   "after kickoff (in-play)": 19,
+   ">24h before kickoff": 2,
+   "no kickoff time": 4
+  },
+  "median_lead_h": 0.48291666666666666,
+  "p10_lead_h": 0.0575,
+  "p90_lead_h": 6.381388888888889,
+  "pre_kickoff_share": 0.951530612244898
+ },
+ "fills": {
+  "sampled": 250,
+  "median_share_of_flow": 0.003358536922561865,
+  "p90_share_of_flow": 0.07073331520354174,
+  "took_everything_share": 0.004,
+  "median_counterparty_prints": 68.5
+ }
+}

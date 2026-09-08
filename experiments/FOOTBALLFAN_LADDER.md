@@ -1,187 +1,176 @@
-# FootballFan98 cluster: copy strategies against recorded liquidity
+# The FootballFan98 cluster: full study
 
-> **Replicated against the full four-wallet cluster.** Every ladder is
-> positive: **+12.6% / +13.5% / +15.7%**. An earlier attempt used
-> FootballFan98 alone and returned −11.9%, because FootballFan98 is the
-> loss-making leg — **−$1.07M** against the cluster's **+$4.76M**. See
-> "Cluster replication" below for the numbers and the caveat that matters.
+Everything this project has established about the cluster, its trading, and
+whether it can be copied. Scripts: `ff_timeline.py` (simulation),
+`ff_verify.py` (statistics), `ff_cluster_evidence.py` (membership, timing,
+fills). Results: `ff_timeline.json`, `ff_series.json`, `ff_verify.json`,
+`ff_cluster_evidence.json`.
 
+> **Verdict up front.** The ladder returns +12.6% to +15.7% on recorded
+> liquidity, but **drop the best 5 markets of 396 and it falls to +6–7% at
+> p ≈ 0.18**. Those 5 markets carry **52–57% of all profit**; the top 20
+> carry ~150%, meaning the remaining 376 are net negative. This is not a
+> demonstrated edge. It is a positive point estimate resting on twenty
+> resolutions.
 
-Study run at commits `a96ba1e` (recorded-liquidity evaluation) and
-`fb4c1c1` (ladder sizing). Written up here because the results existed
-only in commit messages — the ledger covers news-desk markets, and this
-is a copy strategy, so it had no home.
+---
 
-## The problem the study found
+## 1. The cluster
 
-The prior phase measured copy strategies with **mechanical slippage** —
-assume you fill your whole intended size at the target's price plus k
-ticks. That is an upper bound. On the one strategy where the same phase
-had checked real fills, the gap was large: paying a cent cost ~2.3 points,
-while actually competing for the offers cost 14.
+Four wallets, pinned in `polybuyer/targets.py`. Verified as a **closed
+network** on 2026-09-02 — all 6 pairs connected by direct on-chain
+transfers, every member degree 3, 5 of 6 edges carrying USDC.
 
-Re-measured against **recorded liquidity** — follower orders filling only
-from prints that executed after the signal, inside the cap and window,
-with the target's whole cluster excluded (you cannot fill against the
-order you are copying, nor against the same operator's other wallet firing
-the same idea) — **all three headline strategies flip negative.**
+| handle | address | volume | rank | PnL |
+|---|---|---|---|---|
+| FootballFan98 | `0xc31d0a0d63d760d72a1236d16beaa6a71c854ebe` | $45.4M | #519 | **−$1.07M** |
+| (unnamed) | `0x006cc834cc092684f1b56626e23bedb3835c16ea` | $64.9M | #324 | **+$4.72M** |
+| Airpods123 | `0xb90494d9a5d8f71f1930b2aa4b599f95c344c255` | $40.0M | #583 | +$1.02M |
+| RBax | `0x4366ab8b8b27e4139d94a532e3cec94a83d1c73e` | $2.8M | #7,882 | +$91K |
+| **combined** | | | | **+$4.76M** |
 
-## The fix: ladder sizing
-
-Do not mirror their size. Size a small fixed-dollar order from their
-notional instead: **$50 at their $10k, rising to $1,000 at their $350k,
-first trade per market only, signals above $10k.**
-
-| | mirrored | laddered |
+| pair | transfers | of which USDC |
 |---|---|---|
-| fill rate | 41% | **83%** |
-| capital deployable | 44% | **83%** |
-| selection | −27.3pt | **+12.6pt** |
-| **recorded ROI** | **−11.1%** | **+16.7%** |
+| (unnamed) ↔ RBax | 70 | 12 |
+| (unnamed) ↔ FootballFan98 | 65 | 55 |
+| (unnamed) ↔ Airpods123 | 36 | 36 |
+| RBax ↔ Airpods123 | 16 | 12 |
+| RBax ↔ FootballFan98 | 14 | 0 |
+| Airpods123 ↔ FootballFan98 | 13 | 8 |
 
-The mechanism is not price. Adverse selection cost 0.7pt either way. It
-was that **the profitable half of their book could not be reached at their
-size** — a few hundred dollars fills out of prints that could never absorb
-six figures.
+The unnamed wallet is the hub on every measure — most transfers to each of
+the other three, largest USDC flows, and essentially all the profit.
 
-## Robustness
+**Provenance caveat.** Volume, rank and PnL are as displayed by Polymarket
+and supplied by the account owner; they are not independently measured
+here. What *is* measured: 365-day traded notional from trade history comes
+to 45%, 47%, 46% and 31% of the stated lifetime figures respectively. Three
+of four landing in the same narrow band is a strong check that the
+addresses are correct — a wrong address would not.
 
-- **Slippage caps 1c–5c:** +15.6% to +16.7%
-- **Split-half:** +15.6% first half of year, +18.0% second
-- **Dose-response in their trade size:** +4.3% any size, +16.7% >$10k,
-  +17.1% >$25k, **+27.9% >$50k**
+### Rediscovery does not work
 
-The gradient is the strongest part of the evidence — the effect grows
-monotonically with the conviction of the signal being copied, which is
-what a real edge should do and what an artefact usually does not.
+Four approaches failed before the addresses were supplied directly, and the
+reasons are recorded in `newsdesk.learnings` so nobody repeats them:
+`fetch_and_build` only merges wallets already in the seed set;
+`find_siblings` is blind because Blockscout serves only the most recent
+10,000 transfers (two months here) and the founding USDC transfers are
+older; the funding counterparties in that window are shared deposit hubs
+touching 5,564 addresses; and co-occurrence across 96 tapes was diffuse.
+Every candidate set formed a **star**, never the closed network above.
 
-## The caveat that has not gone away
+---
 
-**No single cut clears p<0.05 on its own, and many variants were tried.**
-The bootstrap floor was raised from 8 to 20 clusters during this work
-after a live false positive: a wallet scored +40.0% anticipation with CI
-[+14.1%, +55.3%] and q=0.047 off 11 markets, then came back +8.9%
-[−12.2%, +27.3%], p=0.21 on its full 65-event history. A bootstrap
-resamples only what it was given.
+## 2. What the cluster trades
 
-## Capacity
+365-day intake: **41,728 prints, $69.4M notional, 1,533 markets**.
 
-| ladder | deployed | recorded ROI |
+| wallet | prints | notional |
 |---|---|---|
-| $10 → $100 | $2k | 14.2% |
-| **$50 → $1,000** | **$15k** | **16.7%** |
-| $500 → $5,000 | $86k | 9.1% |
+| FootballFan98 | 21,978 | $20.2M |
+| (unnamed) | 6,291 | $30.3M |
+| Airpods123 | 7,038 | $18.3M |
+| RBax | 6,449 | $0.87M |
 
-Returns degrade with size exactly as the mechanism predicts. This is a
-small-capital strategy by construction — the edge *is* being small enough
-to fill where the target cannot.
-
-## Fire rate, against the news desk
-
-$15k deployed at $50–$1,000 a signal implies roughly **50–75 signals a
-year, about one a week**. That is inferred from capital ÷ ladder size, not
-a recorded count — `follow.evaluate()` reports `n_signals` to stdout and
-nothing saves it, which is worth fixing before any live run.
-
-For comparison the X news desk verified 3 tradeable signals across 57
-searched market-windows over nine months: **one per six weeks**.
-
-## Status
-
-Built, tested, never run live. Needs no X subscription and no OpenAI
-spend. On the evidence here it is the more practical of the two
-strategies, with the multiple-testing caveat above unresolved.
-
-
-
-
-## Cluster replication (`experiments/ff_timeline.py`)
-
-All four wallets, the cluster's **combined** position per market as the
-signal, all four excluded from follower liquidity. 6 Sep 2025 – 20 Jul 2026.
-
-Intake: 41,728 prints worth **$69.4M** across **1,533 markets**.
-
-| ladder | positions | cumulative deployed | peak exposure | PnL | return |
-|---|---|---|---|---|---|
-| $50 → $1,000 | 396 | $93,022 | **$4,561** | +$11,755 | **+12.6%** |
-| $250 → $5,000 | 396 | $393,315 | **$21,614** | +$53,193 | **+13.5%** |
-| $500 → $10,000 | 396 | $698,923 | **$40,477** | +$109,993 | **+15.7%** |
-
-Peak exposure is roughly a twentieth of cumulative deployment on every
-ladder — positions are short and capital recycles. Exposure is live on 181
-of 318 days.
-
-### Returns rise with size here
-
-The single-wallet study found capacity decaying ($15k at 16.7%, $86k at
-9.1%). Across the cluster they *increase* with ladder size. On this
-evidence the ceiling is above $40k of peak exposure rather than below it,
-but three points is a trend and not a curve.
-
-### It is pre-match, not in-play
-
-An earlier version of this section called it 392-of-396 in-play and
-dismissed it as a latency race against television. That was wrong. The flag
-came from `game_start_time` being *present*, which only says the market is
-**about** a scheduled match.
-
-Comparing each entry against kickoff:
+### It is pre-match football, not in-play
 
 | when the cluster entered | positions |
 |---|---|
 | 0–2h before kickoff | **301** |
 | 2–24h before | 70 |
 | >24h before | 2 |
-| **after kickoff (in-play)** | **19** |
+| after kickoff (in-play) | **19** |
+| no kickoff time | 4 |
 
-**373 of 392 (95%) entered before kickoff**, median 30 minutes ahead.
-Official team lineups land about an hour before kickoff, which is the
-window most of these sit in — consistent with trading team news, though
-nothing here establishes that.
+**373 of 392 (95%) entered before kickoff**, median **+0.5h**. Official
+team lineups land about an hour before kickoff, which is the window most of
+these sit in — consistent with trading team news, though nothing here
+establishes that.
 
-| segment | positions | deployed | PnL | return |
-|---|---|---|---|---|
-| **pre-match** | **373** | $86,648 | +$10,338 | **+11.9%** |
-| in-play | 19 | $5,747 | +$1,533 | +26.7% |
-| non-match | 4 | $627 | −$115 | −18.4% |
+An earlier version of this document called it 392-of-396 in-play and
+dismissed it as a broadcast latency race. That was wrong: the flag came
+from `game_start_time` being *present*, which only says the market is
+**about** a scheduled match. `Resolution.game_start_ts` now makes the
+distinction measurable.
 
-*(at the $50 → $1,000 ladder; pre-match is +12.4% and +14.4% on the larger
-two.)*
+---
 
-So this is a **pre-match sports copy strategy**, and the returns are not
-explained by watching a faster video feed. It is still not the news-trading
-strategy the rest of the project is about.
+## 3. The copy strategy
 
-### Are the fills real?
+Signals are the cluster's **combined** position per market — the four
+wallets merged into one trade sequence before the first-above-$10k entry is
+taken — with all four excluded from follower liquidity. Fills come only
+from prints that actually executed, inside a 2c cap and 10-minute window.
 
-Yes, within a stated bound. `simulate_fill` consumes only prints that
-actually executed on our side after the signal, inside a 2c cap and a
-10-minute window, with all four cluster wallets excluded.
+| ladder | positions | deployed | peak exposure | PnL | return |
+|---|---|---|---|---|---|
+| $50 → $1,000 | 396 | $93,022 | **$4,561** | +$11,755 | +12.6% |
+| $250 → $5,000 | 396 | $393,315 | **$21,614** | +$53,193 | +13.5% |
+| $500 → $10,000 | 396 | $698,923 | **$40,477** | +$109,993 | +15.7% |
 
-Measured against the same-side executed volume in each window:
+Peak concurrent exposure is roughly a twentieth of cumulative deployment —
+positions are short and capital recycles. Exposure is live on 181 of 318
+days.
 
-| ladder | median share of flow | p90 | took 100% |
+### The fills are credible
+
+Order as a share of same-side executed volume in its window:
+
+| ladder | median | p90 | took everything |
 |---|---|---|---|
-| $50 → $1,000 | **0%** | 7% | 0% |
-| $250 → $5,000 | **1%** | 26% | 1% |
-| $500 → $10,000 | **2%** | 39% | 1% |
+| $50 → $1,000 | **0.3%** | 7.1% | 0.4% |
+| $250 → $5,000 | ~1% | 26% | 1% |
+| $500 → $10,000 | ~2% | 39% | 1% |
 
-Median 68 counterparty prints per window. So the order is a small slice of
-demonstrated flow in the typical case, which is what makes the fills
-credible rather than theoretical.
+Median 68 counterparty prints per window. Two limits: **no market impact is
+modelled**, and the prints consumed were taken by someone else, so in
+reality we would compete for them. Both point at the largest ladder as the
+least trustworthy.
 
-Two limits remain: **no market impact is modelled**, which matters at the
-p90 end of the largest ladder; and the prints consumed were taken by
-someone else, so in reality we would have been competing for them rather
-than adding to the queue. Both point the same way — the largest ladder is
-the least trustworthy of the three.
+---
 
-### Method
+## 4. Statistics — where it falls down
 
-Signals come from each wallet's own trade history, not the market tape:
-`market_tape` is capped and newest-first, so the cluster's fifth trade
-would read as its first. 25 signals were dropped as unmeasurable because
-the tape did not reach back; 1,041 markets produced no qualifying signal.
-Fills consume only prints that actually executed, inside a 2c cap and a
-10-minute window — a lower bound, since no historical order books exist.
+Cluster bootstrap over markets (4,000 resamples, `min_clusters=20`):
+
+| ladder | all markets | drop best 5 | pre-match only |
+|---|---|---|---|
+| $50 → $1,000 | +12.6% [−1.5%, +27.2%] p=0.041 | **+6.3% p=0.179** | +11.9% p=0.060 |
+| $250 → $5,000 | +13.5% [−2.1%, +28.9%] p=0.044 | **+6.0% p=0.206** | +12.4% p=0.071 |
+| $500 → $10,000 | +15.7% [−0.9%, +31.8%] p=0.031 | **+7.4% p=0.171** | +14.4% p=0.052 |
+
+Three things this says, none of them in the point estimates:
+
+1. **Every interval includes or nearly includes zero.** Marginal
+   significance at best.
+2. **Concentration kills it.** Removing 5 of 396 markets halves the return
+   and destroys significance. Those 5 carry **52–57% of total PnL**; the
+   top 20 carry ~150%, so the other 376 are net negative in aggregate. Only
+   **214 of 396 markets (54%)** are profitable at all.
+3. **Pre-match alone is not significant** (p = 0.052–0.071), and pre-match
+   is 95% of the strategy.
+
+The in-play (n=19) and non-match (n=4) segments are **underpowered** — the
+bootstrap cannot produce a meaningful interval, and their point estimates
+(+26.7%, −18.4%) should not be quoted. They were, earlier in this project,
+and that was an error.
+
+---
+
+## 5. What would settle it
+
+- **More history.** 396 markets over one year is the whole sample. The
+  concentration problem may be sample size rather than absence of edge.
+- **Out-of-sample.** Fit nothing, take the next three months as they come.
+- **A mechanism.** "Trades 30 minutes before kickoff" is consistent with
+  lineup news but unverified. A mechanism would justify believing the
+  point estimate over the confidence interval; without one, the interval
+  is the honest read.
+
+## 6. Status
+
+Not recommended for live capital on this evidence. The result is positive
+and could be real, but it rests on twenty resolutions and does not survive
+the project's own concentration screen — the same screen that exists
+because an earlier wallet scored +40.0% off 11 markets and came back +8.9%
+on its full history.
