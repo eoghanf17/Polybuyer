@@ -46,6 +46,14 @@ already extracts what the 396 markets contain.
 
 ## What the data does support
 
+### The concentration is two-sided
+
+Removing the best 5 markets halves the result, but removing the best *and
+worst* 5 — the unbiased version of the same check — leaves it at +13.1%
+(p=0.036) against a full-sample +13.5% (p=0.044). Best 5 = +57% of net
+PnL, worst 5 = −44%, middle 386 = 87%. The one-sided cut is a stress test,
+not an estimate.
+
 ### The concentration is about return, not sizing
 
 A reasonable hope: maybe the top 5 markets dominate because the ladder

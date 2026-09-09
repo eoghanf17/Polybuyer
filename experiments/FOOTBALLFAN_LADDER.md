@@ -7,11 +7,16 @@ fills). Results: `ff_timeline.json`, `ff_series.json`, `ff_verify.json`,
 `ff_cluster_evidence.json`.
 
 > **Verdict up front.** The ladder returns +12.6% to +15.7% on recorded
-> liquidity, but **drop the best 5 markets of 396 and it falls to +6–7% at
-> p ≈ 0.18**. Those 5 markets carry **52–57% of all profit**; the top 20
-> carry ~150%, meaning the remaining 376 are net negative. This is not a
-> demonstrated edge. It is a positive point estimate resting on twenty
-> resolutions.
+> liquidity, marginally significant (p = 0.031–0.044). Dropping the best 5
+> markets halves it to +6–7% at p ≈ 0.18 — but that cut is deliberately
+> one-sided. A **symmetric trim** of the best *and* worst 5, which is the
+> unbiased version, leaves it essentially unchanged at **+12.2% to +15.1%**
+> and *improves* significance. The tails nearly cancel: best 5 = +57% of
+> net PnL, worst 5 = −44%, and **the middle 386 markets carry 87%**.
+>
+> The real weaknesses are elsewhere: the intervals straddle zero, the
+> out-of-time halves disagree (+6.1% vs +19.8%), and the lineup mechanism
+> is refuted — the cluster trades when the book is deep, not on team news.
 
 ---
 
@@ -143,10 +148,13 @@ Three things this says, none of them in the point estimates:
 
 1. **Every interval includes or nearly includes zero.** Marginal
    significance at best.
-2. **Concentration kills it.** Removing 5 of 396 markets halves the return
-   and destroys significance. Those 5 carry **52–57% of total PnL**; the
-   top 20 carry ~150%, so the other 376 are net negative in aggregate. Only
-   **214 of 396 markets (54%)** are profitable at all.
+2. **Concentration is real but two-sided.** Removing the best 5 of 396
+   halves the return and destroys significance — but that cut removes the
+   right tail only. The left tail is nearly as large: best 5 = +57% of net
+   PnL, worst 5 = **−44%**, so the extremes net to +13% and the middle 386
+   markets carry **87%**. A symmetric trim leaves the result intact. See
+   §4b. Only 214 of 396 markets (54%) are profitable, which is normal for
+   a strategy whose winners pay more than 1:1.
 3. **Pre-match alone is not significant** (p = 0.052–0.071), and pre-match
    is 95% of the strategy.
 
@@ -154,6 +162,42 @@ The in-play (n=19) and non-match (n=4) segments are **underpowered** — the
 bootstrap cannot produce a meaningful interval, and their point estimates
 (+26.7%, −18.4%) should not be quoted. They were, earlier in this project,
 and that was an error.
+
+### 4b. Robustness cuts, with dollars
+
+$250 → $5,000 ladder:
+
+| cut | PnL | deployed | return | 95% interval | p |
+|---|---|---|---|---|---|
+| full sample | **+$53,193** | $393,315 | +13.5% | [−2.1%, +28.9%] | 0.044 |
+| drop best 5 | **+$22,632** | $375,951 | +6.0% | [−8.4%, +20.0%] | 0.206 |
+| winsorise top 5 | **+$44,742** | $393,315 | +11.4% | [−3.7%, +26.1%] | 0.064 |
+| **trim best + worst 5** | **+$46,085** | $352,498 | **+13.1%** | [−1.3%, +27.1%] | **0.036** |
+
+The same shape holds on the other two ladders; on $500 → $10,000 the
+symmetric trim gives +15.1% [+0.6%, +29.1%] at **p = 0.020**, better than
+the full sample.
+
+**Why the two cuts disagree.** "Drop the best 5" removes the five largest
+contributors by construction, so it is biased low by as much as the full
+sample is biased high by whatever luck those five contain. Winsorising —
+capping the top 5 at the sixth-largest outcome, keeping the markets and
+their capital — costs only 2 points. The symmetric trim costs almost
+nothing.
+
+**Tail decomposition ($250 → $5,000):**
+
+| | PnL | share of net |
+|---|---|---|
+| best 5 markets | +$30,561 | +57% |
+| worst 5 markets | **−$23,453** | **−44%** |
+| net of both tails | +$7,108 | +13% |
+| **middle 386 markets** | **+$46,085** | **87%** |
+
+An earlier version of this document said the top 5 carried the profit and
+the rest was net negative. That was arithmetically true of the right tail
+alone and misleading: the left tail destroys nearly as much, and the bulk
+of the return comes from the middle.
 
 ---
 
