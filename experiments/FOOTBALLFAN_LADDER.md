@@ -78,23 +78,60 @@ older; the funding counterparties in that window are shared deposit hubs
 touching 5,564 addresses; and co-occurrence across 96 tapes was diffuse.
 Every candidate set formed a **star**, never the closed network above.
 
-### Biggest wins and losses per account
+### The cluster as one book: biggest markets
 
-Single-market PnL, 365 days, mark-to-terminal.
+Treating the four wallets as a single position per market — a market where
+FootballFan98 loses and the unnamed wallet wins nets to one figure, which
+is what "follow the cluster" actually means.
 
-| account | top wins | top losses |
-|---|---|---|
-| **FootballFan98** | +$754,632 Spain to win World Cup 2026 · +$305,000 AS Monaco 16 Jan · +$275,552 Norfolk State −12.5 · +$264,000 Knicks vs Magic · +$248,000 Stade Rennais 18 Jan | −$765,000 Tottenham 17 Jan · −$445,000 Barcelona 18 Jan · −$380,023 Celta Vigo 22 Jan · −$335,998 PSG to win UCL · −$295,000 Sunderland 17 Jan |
-| **(unnamed)** | +$730,000 Villarreal 20 Jan · +$714,353 PSG 20 Jan · +$670,000 Man City 4 Jan · +$532,003 Liverpool 1 Jan · +$461,683 Stade Rennais 18 Jan | −$636,692 Man City 4 Mar · −$448,000 Olympiakos 20 Jan · −$400,000 Juventus 21 Jan · −$357,000 Bucks vs Nets · −$288,474 Clippers vs Hawks |
-| **Airpods123** | +$609,400 Liverpool 3 Mar · +$558,797 Atlético Madrid 14 Feb · +$554,022 Fenerbahçe 29 Jan · +$418,000 Real Madrid 7 Mar · +$417,207 Nottingham Forest 26 Feb | −$512,600 Barcelona 12 Feb · −$457,598 Dortmund 17 Feb · −$399,859 AC Milan 3 Feb · −$313,818 Juventus 25 Jan · −$276,211 Arsenal 14 Mar |
-| **RBax** | +$18,815 Spain to win World Cup · +$8,745 East Texas A&M vs Incarnate Word · +$7,185 Maine vs Vermont O/U · +$7,000 Messi 1+ goals · +$6,812 Maryland vs UCLA O/U | −$8,883 Queens NC vs FGCU · −$8,793 North Texas −16.5 · −$6,251 Arsenal 14 Jan · −$5,809 UTSA vs North Texas O/U · −$5,345 Columbia −3.5 |
+**1,476 settled markets, $68.8M traded, +$5,011,285.**
+691 winners (+$31.7M), 780 losers (−$26.7M) — a **47% hit rate**, so the
+book makes money by winning bigger, not more often.
 
-Two things stand out. The **two most profitable accounts trade football
-match markets almost exclusively**, while FootballFan98 — the loss-making
-leg — spreads into NBA and college basketball spreads, and RBax operates at
-1/50th the size on college sports and totals. And the wins and losses are
-**the same size**: roughly ±$300–700k per market on all three large
-accounts, which is why the follow strategy's tails nearly cancel (§4b).
+| # | top wins | PnL | volume | wallets |
+|---|---|---|---|---|
+| 1 | Spain to win 2026 FIFA World Cup | **+$773,447** | $722,731 | 2 |
+| 2 | Villarreal CF win 20 Jan | +$733,285 | $271,215 | 2 |
+| 3 | Paris Saint-Germain win 20 Jan | +$718,988 | $512,035 | 2 |
+| 4 | Stade Rennais win 18 Jan | +$714,658 | $482,136 | 3 |
+| 5 | Manchester City win 4 Jan | +$675,034 | $333,534 | 2 |
+| 6 | Liverpool win 3 Mar | +$609,400 | $270,605 | 1 |
+| 7 | Atlético Madrid win 14 Feb | +$558,797 | $431,203 | 1 |
+| 8 | Fenerbahçe win 29 Jan | +$554,022 | $325,978 | 1 |
+| 9 | Liverpool win 1 Jan | +$532,003 | $268,002 | 1 |
+| 10 | Chelsea win 31 Jan | +$470,367 | $716,030 | 2 |
+| 11 | Paris Saint-Germain win 28 Jan | +$435,468 | $234,483 | 1 |
+| 12 | Real Madrid win 7 Mar | +$418,000 | $411,955 | 1 |
+| 13 | Nottingham Forest win 26 Feb | +$417,207 | $288,801 | 1 |
+| 14 | Alabama vs Oklahoma | +$389,934 | $306,466 | 2 |
+| 15 | USA vs Belgium: team to advance | +$340,330 | $304,847 | 3 |
+
+| # | top losses | PnL | volume | wallets |
+|---|---|---|---|---|
+| 1 | Tottenham Hotspur win 17 Jan | **−$770,117** | $770,122 | 3 |
+| 2 | Manchester City win 4 Mar | −$636,692 | $636,692 | 1 |
+| 3 | FC Barcelona win 12 Feb | −$512,574 | $514,074 | 2 |
+| 4 | Borussia Dortmund win 17 Feb | −$457,598 | $457,598 | 1 |
+| 5 | Olympiakós win 20 Jan | −$452,480 | $452,480 | 2 |
+| 6 | FC Barcelona win 18 Jan | −$446,770 | $746,770 | 2 |
+| 7 | Juventus win 21 Jan | −$400,000 | $400,000 | 1 |
+| 8 | AC Milan win 3 Feb | −$399,859 | $399,869 | 1 |
+| 9 | RC Celta de Vigo win 22 Jan | −$379,808 | $423,046 | 2 |
+| 10 | Bucks vs Nets | −$357,113 | $357,113 | 2 |
+| 11 | PSG to win 2025–26 Champions League | −$335,998 | $335,998 | 1 |
+| 12 | Juventus win 25 Jan | −$313,818 | $334,801 | 1 |
+| 13 | Sunderland win 17 Jan | −$297,360 | $297,360 | 2 |
+| 14 | Delaware State vs Howard: O/U 131.5 | −$291,501 | $291,501 | 2 |
+| 15 | Clippers vs Hawks | −$288,474 | $288,474 | 1 |
+
+Top 5 = +$3,615,412 (+72% of net). Bottom 5 = −$2,829,462 (−56%). **Net of
+both tails +$785,950, 16% of the total** — the same near-cancellation the
+follow strategy shows (§4b), here in the cluster's own book.
+
+The largest positions on both sides are single-match football markets at
+$270k–$770k of volume, won or lost outright. Only three of the thirty
+entries are not football, and the single biggest win is the one outright
+market in the list (Spain for the World Cup).
 
 ---
 
