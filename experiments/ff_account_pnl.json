@@ -1,0 +1,278 @@
+{
+ "FootballFan98": {
+  "markets_scored": 207,
+  "total_pnl_365d": -846280.3696651763,
+  "volume_365d": 20511849.44518691,
+  "wins": [
+   {
+    "cid": "0x7976b8dbacf9077eb1453a62bcefd6ab2df199acd28aad276ff0d920d6992892",
+    "q": "Will Spain win the 2026 FIFA World Cup?",
+    "pnl": 754631.7462493796,
+    "volume": 683816.0542206613
+   },
+   {
+    "cid": "0x1b0ccb1570442e3e0561f2665519e24535a601ddf9d778031e58e3064d4f4c64",
+    "q": "Will AS Monaco FC win on 2026-01-16?",
+    "pnl": 305000.0,
+    "volume": 195000.0
+   },
+   {
+    "cid": "0x3abf976afa3a4f2e0fdefae5011bf0f4d1fba4caa50e4eaff54f8812ab7701a6",
+    "q": "Spread: Norfolk State Spartans (-12.5)",
+    "pnl": 275552.19200000004,
+    "volume": 254447.808
+   },
+   {
+    "cid": "0xae49ff8ee40dfefc7fe5ce031a88c11243aa1f0fb75ff7b1a365dda725bb7696",
+    "q": "Knicks vs. Magic",
+    "pnl": 263999.98999470274,
+    "volume": 435999.98346729716
+   },
+   {
+    "cid": "0x6420e6b28debd80b59d9bf220e5dddd0808f8f20acde1495f7e1ab3c84cdcdd8",
+    "q": "Will Stade Rennais FC 1901 win on 2026-01-18?",
+    "pnl": 248000.0,
+    "volume": 152000.0
+   }
+  ],
+  "losses": [
+   {
+    "cid": "0x7b6629cca58b0a3be21a2e448f8d92c930e78d26d5f6d6dd58ab18a62f659ad9",
+    "q": "Will Tottenham Hotspur FC win on 2026-01-17?",
+    "pnl": -764999.9922,
+    "volume": 764999.9922
+   },
+   {
+    "cid": "0x6e937a4f6bf71a13a8bb08be32b1a9de516cc1a76fcbef61a7ca3567f5558165",
+    "q": "Will FC Barcelona win on 2026-01-18?",
+    "pnl": -445000.0360170001,
+    "volume": 744999.9639829998
+   },
+   {
+    "cid": "0x0b7e6ab4e3b6a3f17721f3e920c4077f8bb69c3a24a17705c6328b0ac7542de9",
+    "q": "Will RC Celta de Vigo win on 2026-01-22?",
+    "pnl": -380022.93604497856,
+    "volume": 404121.32218897855
+   },
+   {
+    "cid": "0x6e9f90a6f471b52d03499a81586ca478519474eb152f1327c8c767f020d62529",
+    "q": "Will PSG win the 2025\u201326 Champions League?",
+    "pnl": -335997.78432719084,
+    "volume": 335997.78432719084
+   },
+   {
+    "cid": "0x99a26b3017380612fc38523562fc49d7c51fa64124188e5cd3f6703dd467b20e",
+    "q": "Will Sunderland AFC win on 2026-01-17?",
+    "pnl": -295000.0,
+    "volume": 295000.0
+   }
+  ]
+ },
+ "(unnamed)": {
+  "markets_scored": 459,
+  "total_pnl_365d": 4776204.402780894,
+  "volume_365d": 29418279.316199254,
+  "wins": [
+   {
+    "cid": "0xdece3c9a32a0244f9dc4622feadd31f74dec86b02399454db743cc59a5e23eb2",
+    "q": "Will Villarreal CF win on 2026-01-20?",
+    "pnl": 730000.0,
+    "volume": 270000.0
+   },
+   {
+    "cid": "0x5738020f4942e54c0124f8b3576d028e383484d26d3f35afefecae5833531771",
+    "q": "Will Paris Saint-Germain FC win on 2026-01-20?",
+    "pnl": 714353.2704,
+    "volume": 508669.6096
+   },
+   {
+    "cid": "0x44788ec11da6fbcedc95db8ccb2e08e05a763cba061dbe4e9633cd4963cb35a2",
+    "q": "Will Manchester City FC win on 2026-01-04?",
+    "pnl": 670000.0,
+    "volume": 330000.0
+   },
+   {
+    "cid": "0x82d883868400fb98efebdf57f63fd425a950682b1d51364c72a86fa268521e58",
+    "q": "Will Liverpool FC win on 2026-01-01?",
+    "pnl": 532003.2999999999,
+    "volume": 268001.7
+   },
+   {
+    "cid": "0x6420e6b28debd80b59d9bf220e5dddd0808f8f20acde1495f7e1ab3c84cdcdd8",
+    "q": "Will Stade Rennais FC 1901 win on 2026-01-18?",
+    "pnl": 461682.70540000004,
+    "volume": 325940.56539999996
+   }
+  ],
+  "losses": [
+   {
+    "cid": "0x55aaedf58a379e677f1a72150605119fcbed1c4cb90d163d1bff2445053f4a18",
+    "q": "Will Manchester City FC win on 2026-03-04?",
+    "pnl": -636692.4432,
+    "volume": 636692.4432
+   },
+   {
+    "cid": "0xea996ad78f60e2406a354aaa32aa78ca8642dc496f61c9afca6402acd972b16a",
+    "q": "Will Olympiak\u00f3s SFP win on 2026-01-20?",
+    "pnl": -447999.99898080004,
+    "volume": 447999.99898080004
+   },
+   {
+    "cid": "0x70aff10dd1a977e91f4bde3ea531562e92eeda83c6346e95619ceadb59679de7",
+    "q": "Will Juventus FC win on 2026-01-21?",
+    "pnl": -400000.0,
+    "volume": 400000.0
+   },
+   {
+    "cid": "0xa0dc554ae17c2bd807cca427d172bd17e741c9b219355a5ab97c411931e4a48e",
+    "q": "Bucks vs. Nets",
+    "pnl": -357000.0,
+    "volume": 357000.0
+   },
+   {
+    "cid": "0xf455e3ea565b9544bb793cdf291ffd8e9dc5958f11483dc89ce54abb34a236fe",
+    "q": "Clippers vs. Hawks",
+    "pnl": -288473.5672,
+    "volume": 288473.5672
+   }
+  ]
+ },
+ "Airpods123": {
+  "markets_scored": 463,
+  "total_pnl_365d": 991259.8801445132,
+  "volume_365d": 18017609.91376121,
+  "wins": [
+   {
+    "cid": "0xefab7efad1b23fb4b43b422c3206d576d2250a132a4c0d1f6433edff31b6c594",
+    "q": "Will Liverpool FC win on 2026-03-03?",
+    "pnl": 609399.7999999999,
+    "volume": 270605.2
+   },
+   {
+    "cid": "0xa606d31ce856f4b9c388465b44c2acd09ecde9fbd6a93e0c18fca759cc09ee8a",
+    "q": "Will Club Atl\u00e9tico de Madrid win on 2026-02-14?",
+    "pnl": 558797.3500000001,
+    "volume": 431202.65
+   },
+   {
+    "cid": "0xd2d4dc208b108d27aeebbae3294094ccbe853ed782f14d72e96af9052740958c",
+    "q": "Will Fenerbah\u00e7e SK win on 2026-01-29?",
+    "pnl": 554021.8032360112,
+    "volume": 325978.1967639888
+   },
+   {
+    "cid": "0x832e608427a5d6db43947262d84a06bca5630a700eac7eed50e64d00b1a016df",
+    "q": "Will Real Madrid CF win on 2026-03-07?",
+    "pnl": 418000.03952788294,
+    "volume": 411955.0289159275
+   },
+   {
+    "cid": "0x4b45b7e172a6f4a26096495f9a608ccbbcb6692bc37910da449b32f0114ddb17",
+    "q": "Will Nottingham Forest FC win on 2026-02-26?",
+    "pnl": 417206.6389229463,
+    "volume": 288800.8887609472
+   }
+  ],
+  "losses": [
+   {
+    "cid": "0x598ec9f98def655a43fc5a62bf5edb4322cbe540cd8d2d1b0644f82ce669a944",
+    "q": "Will FC Barcelona win on 2026-02-12?",
+    "pnl": -512599.94359298644,
+    "volume": 512604.94359298644
+   },
+   {
+    "cid": "0x88ecab1f936696d68893e20e688be22f9d81783f623594a9984d0a717399ea04",
+    "q": "Will BV Borussia 09 Dortmund win on 2026-02-17?",
+    "pnl": -457597.927973605,
+    "volume": 457597.927973605
+   },
+   {
+    "cid": "0x726f3425b0a7c9856da3e33f2e65025fd8ec725f7ad15dd0ea352b105ace1bc6",
+    "q": "Will AC Milan win on 2026-02-03?",
+    "pnl": -399858.9172660158,
+    "volume": 399868.9172660158
+   },
+   {
+    "cid": "0x023434c9d6b8f799eebeed555fd1897754896ac198b557d1b3bdeac94aa62ebc",
+    "q": "Will Juventus FC win on 2026-01-25?",
+    "pnl": -313818.43131100974,
+    "volume": 334801.11131100974
+   },
+   {
+    "cid": "0x25ae0b3ce0af14431a45ce7f36f7f07f5ea0fc8a0fa8051a9ed61db5ceeb79c1",
+    "q": "Will Arsenal FC win on 2026-03-14?",
+    "pnl": -276211.050179963,
+    "volume": 447210.96935240366
+   }
+  ]
+ },
+ "RBax": {
+  "markets_scored": 493,
+  "total_pnl_365d": 90100.6408901039,
+  "volume_365d": 822200.1748448429,
+  "wins": [
+   {
+    "cid": "0x7976b8dbacf9077eb1453a62bcefd6ab2df199acd28aad276ff0d920d6992892",
+    "q": "Will Spain win the 2026 FIFA World Cup?",
+    "pnl": 18815.01692303618,
+    "volume": 38914.707826036894
+   },
+   {
+    "cid": "0x9dbd9962def03e0cac18e2b03836a1686fa843e206e8612b26bfcf2d27297504",
+    "q": "East Texas A&M Lions vs. Incarnate Word Cardinals: O/U 141.5",
+    "pnl": 8745.0041779854,
+    "volume": 10796.2685989854
+   },
+   {
+    "cid": "0xc9aa4c44aa12aa5511bd932d9eb0c4331ecd29bceb039c5cd624d26a354c2dfc",
+    "q": "Maine Black Bears vs. Vermont Catamounts: O/U 130.5",
+    "pnl": 7185.001561983061,
+    "volume": 7784.998498983061
+   },
+   {
+    "cid": "0xd69eec791ee7670d2f83aac8fa50d3de901db9040eb9e2c3dbb58e418cc47a94",
+    "q": "Lionel Messi: 1+ goals",
+    "pnl": 7000.0,
+    "volume": 13000.0
+   },
+   {
+    "cid": "0xd56d908199204b0d2e48c7b13644cd418a6fc47ac3f57309266150eb8509f930",
+    "q": "Maryland Terrapins vs. UCLA Bruins: O/U 145.5",
+    "pnl": 6812.41341602951,
+    "volume": 8228.21879802951
+   }
+  ],
+  "losses": [
+   {
+    "cid": "0xeed055a118193a5d65aa45dd28aeb152e427c3b2fb05b2fef5e1124df55b3eb5",
+    "q": "Queens (NC) Royals vs. Florida Gulf Coast Eagles: O/U 167.5",
+    "pnl": -8882.610102000192,
+    "volume": 9217.389897999808
+   },
+   {
+    "cid": "0x36873d49af3377d7585a7798ec1f55e7bf14bae2a2ad6c684107b97018dce7a1",
+    "q": "Spread: North Texas Mean Green (-16.5)",
+    "pnl": -8793.400407000565,
+    "volume": 13870.621112000565
+   },
+   {
+    "cid": "0xed6fe1051827a92cd88bcda75cb18a0c1c6432a534b1175fa722f72329431df1",
+    "q": "Will Arsenal FC win on 2026-01-14?",
+    "pnl": -6250.567834923928,
+    "volume": 7681.0862309224485
+   },
+   {
+    "cid": "0x8139c726ab66fed62454721bebc68e03aa46bf1a9464e5f057bbdda8171e0d77",
+    "q": "UTSA Roadrunners vs. North Texas Mean Green: O/U 138.5",
+    "pnl": -5808.696915969332,
+    "volume": 8634.212558969331
+   },
+   {
+    "cid": "0xb42a3b656a7ecde8c219963efc2cac257397a51881c1514128c72588f79103a5",
+    "q": "Spread: Columbia Lions (-3.5)",
+    "pnl": -5345.0,
+    "volume": 7345.0
+   }
+  ]
+ }
+}

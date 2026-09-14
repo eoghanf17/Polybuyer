@@ -46,12 +46,26 @@ transfers, every member degree 3, 5 of 6 edges carrying USDC.
 The unnamed wallet is the hub on every measure — most transfers to each of
 the other three, largest USDC flows, and essentially all the profit.
 
-**Provenance caveat.** Volume, rank and PnL are as displayed by Polymarket
-and supplied by the account owner; they are not independently measured
-here. What *is* measured: 365-day traded notional from trade history comes
-to 45%, 47%, 46% and 31% of the stated lifetime figures respectively. Three
-of four landing in the same narrow band is a strong check that the
-addresses are correct — a wrong address would not.
+### PnL verified independently
+
+Volume, rank and PnL above are as displayed by Polymarket. Computing PnL
+independently from trade history — mark-to-terminal,
+`ref_signed × (terminal − ref_price)` summed per market — over the last
+**365 days only**:
+
+| account | measured, 365d | stated lifetime | markets |
+|---|---|---|---|
+| FootballFan98 | **−$846,280** | −$1,070,000 | 207 |
+| (unnamed) | **+$4,776,204** | +$4,720,000 | 459 |
+| Airpods123 | **+$991,260** | +$1,020,000 | 463 |
+| RBax | **+$90,101** | +$91,000 | 493 |
+| **cluster** | **+$5,011,285** | +$4,761,000 | |
+
+Three of four match the *lifetime* figures to within 1–3% despite covering
+only one year, which says two things: the addresses are certainly right,
+and essentially all of this cluster's lifetime PnL was earned in the last
+twelve months. FootballFan98 is the exception at 79% — its losses are
+slightly more spread out.
 
 ### Rediscovery does not work
 
@@ -63,6 +77,24 @@ reasons are recorded in `newsdesk.learnings` so nobody repeats them:
 older; the funding counterparties in that window are shared deposit hubs
 touching 5,564 addresses; and co-occurrence across 96 tapes was diffuse.
 Every candidate set formed a **star**, never the closed network above.
+
+### Biggest wins and losses per account
+
+Single-market PnL, 365 days, mark-to-terminal.
+
+| account | top wins | top losses |
+|---|---|---|
+| **FootballFan98** | +$754,632 Spain to win World Cup 2026 · +$305,000 AS Monaco 16 Jan · +$275,552 Norfolk State −12.5 · +$264,000 Knicks vs Magic · +$248,000 Stade Rennais 18 Jan | −$765,000 Tottenham 17 Jan · −$445,000 Barcelona 18 Jan · −$380,023 Celta Vigo 22 Jan · −$335,998 PSG to win UCL · −$295,000 Sunderland 17 Jan |
+| **(unnamed)** | +$730,000 Villarreal 20 Jan · +$714,353 PSG 20 Jan · +$670,000 Man City 4 Jan · +$532,003 Liverpool 1 Jan · +$461,683 Stade Rennais 18 Jan | −$636,692 Man City 4 Mar · −$448,000 Olympiakos 20 Jan · −$400,000 Juventus 21 Jan · −$357,000 Bucks vs Nets · −$288,474 Clippers vs Hawks |
+| **Airpods123** | +$609,400 Liverpool 3 Mar · +$558,797 Atlético Madrid 14 Feb · +$554,022 Fenerbahçe 29 Jan · +$418,000 Real Madrid 7 Mar · +$417,207 Nottingham Forest 26 Feb | −$512,600 Barcelona 12 Feb · −$457,598 Dortmund 17 Feb · −$399,859 AC Milan 3 Feb · −$313,818 Juventus 25 Jan · −$276,211 Arsenal 14 Mar |
+| **RBax** | +$18,815 Spain to win World Cup · +$8,745 East Texas A&M vs Incarnate Word · +$7,185 Maine vs Vermont O/U · +$7,000 Messi 1+ goals · +$6,812 Maryland vs UCLA O/U | −$8,883 Queens NC vs FGCU · −$8,793 North Texas −16.5 · −$6,251 Arsenal 14 Jan · −$5,809 UTSA vs North Texas O/U · −$5,345 Columbia −3.5 |
+
+Two things stand out. The **two most profitable accounts trade football
+match markets almost exclusively**, while FootballFan98 — the loss-making
+leg — spreads into NBA and college basketball spreads, and RBax operates at
+1/50th the size on college sports and totals. And the wins and losses are
+**the same size**: roughly ±$300–700k per market on all three large
+accounts, which is why the follow strategy's tails nearly cancel (§4b).
 
 ---
 
