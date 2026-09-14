@@ -133,6 +133,36 @@ $270k–$770k of volume, won or lost outright. Only three of the thirty
 entries are not football, and the single biggest win is the one outright
 market in the list (Spain for the World Cup).
 
+### Per account: biggest wins and losses
+
+The same markets split by wallet, which the combined view necessarily
+hides. Single-market PnL, 365 days, mark-to-terminal.
+
+| account | top 5 wins | top 5 losses |
+|---|---|---|
+| **FootballFan98** | +$754,632 Spain to win WC26 · +$305,000 AS Monaco 16 Jan · +$275,552 Norfolk State −12.5 · +$264,000 Knicks vs Magic · +$248,000 Stade Rennais 18 Jan | −$765,000 Tottenham 17 Jan · −$445,000 Barcelona 18 Jan · −$380,023 Celta Vigo 22 Jan · −$335,998 PSG to win UCL · −$295,000 Sunderland 17 Jan |
+| **(unnamed)** | +$730,000 Villarreal 20 Jan · +$714,353 PSG 20 Jan · +$670,000 Man City 4 Jan · +$532,003 Liverpool 1 Jan · +$461,683 Stade Rennais 18 Jan | −$636,692 Man City 4 Mar · −$448,000 Olympiakós 20 Jan · −$400,000 Juventus 21 Jan · −$357,000 Bucks vs Nets · −$288,474 Clippers vs Hawks |
+| **Airpods123** | +$609,400 Liverpool 3 Mar · +$558,797 Atlético Madrid 14 Feb · +$554,022 Fenerbahçe 29 Jan · +$418,000 Real Madrid 7 Mar · +$417,207 Nottingham Forest 26 Feb | −$512,600 Barcelona 12 Feb · −$457,598 Dortmund 17 Feb · −$399,859 AC Milan 3 Feb · −$313,818 Juventus 25 Jan · −$276,211 Arsenal 14 Mar |
+| **RBax** | +$18,815 Spain to win WC26 · +$8,745 East Texas A&M vs Incarnate Word · +$7,185 Maine vs Vermont O/U · +$7,000 Messi 1+ goals · +$6,812 Maryland vs UCLA O/U | −$8,883 Queens NC vs FGCU · −$8,793 North Texas −16.5 · −$6,251 Arsenal 14 Jan · −$5,809 UTSA vs North Texas O/U · −$5,345 Columbia −3.5 |
+
+Two things the combined table cannot show.
+
+**The two most profitable accounts trade football match markets almost
+exclusively.** FootballFan98 — the loss-making leg — spreads into NBA and
+college basketball spreads, and RBax operates at a fiftieth of the size on
+college sports and totals.
+
+**The wallets never trade against each other.** Checked directly across
+the 38 markets appearing in any account's top-five lists: **0 show wallets
+on opposite sides**, and the combined figures are additive rather than
+offsetting. They also mostly trade *different* markets — only two of the
+38 (Spain for the World Cup, Stade Rennais 18 Jan) involve more than one
+wallet. So the cluster divides markets between wallets rather than
+doubling into the same one, and when two do overlap they are on the same
+side. That is a stronger sign of common control than the transfer graph
+alone, since independent traders sharing a deposit service would collide
+on opposite sides eventually.
+
 ---
 
 ## 2. What the cluster trades
