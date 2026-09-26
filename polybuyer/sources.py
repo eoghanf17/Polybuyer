@@ -64,11 +64,32 @@ class MarketTape:
         return not self.truncated or ts >= self.covers_from
 
 
-def market_tape(fetch: Fetcher, condition_id: str, page: int = 2000) -> MarketTape:
-    """Full all-participants tape for one market, newest first."""
+def market_tape(fetch: Fetcher, condition_id: str, page: int = 2000,
+                taker_only: bool = True) -> MarketTape:
+    """Tape for one market, newest first.
+
+    **``/trades`` is taker-side only by default.** Passing
+    ``takerOnly=false`` returns roughly three times as many records: on the
+    Israel-Ireland 3-0 market, 64 against 204. The extra records are the
+    resting side of each match, and the two views answer different
+    questions.
+
+    That default caused a real misreading. A wallet with 71,709 lifetime
+    markets was labelled a market maker from its behaviour, when the
+    taker-only feed was in fact showing it as the dominant *taker* --
+    $28,536 taken against $32 made. It was crossing the spread to lay a
+    scoreline, not quoting it. Order role cannot be inferred from trade
+    count; it has to be read off which feed a wallet appears in.
+
+    ``taker_only=True`` keeps the historical behaviour, since every study in
+    this repo was built on it and its numbers are internally consistent.
+    Pass ``False`` to see resting liquidity and to tell maker from taker.
+    """
     rows: list[dict] = []
+    flag = "true" if taker_only else "false"
     for off in range(0, MARKET_TAPE_CAP, page):
-        url = f"{DATA_API}/trades?market={condition_id}&limit={page}&offset={off}"
+        url = (f"{DATA_API}/trades?market={condition_id}&limit={page}"
+               f"&offset={off}&takerOnly={flag}")
         batch = fetch.get(url)
         if not batch or not isinstance(batch, list):
             break

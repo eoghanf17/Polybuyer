@@ -688,3 +688,30 @@ class TestScheduledMatchTiming(unittest.TestCase):
         r = resolution_from_clob("0xc", dict(self.PAYLOAD,
                                              game_start_time=1780000000))
         self.assertEqual(r.game_start_ts, 1780000000)
+
+
+class TestTapeSides(unittest.TestCase):
+    """/trades is taker-side only unless asked otherwise."""
+
+    def test_market_tape_takes_a_taker_only_flag(self):
+        import inspect
+        from polybuyer import sources
+        sig = inspect.signature(sources.market_tape)
+        self.assertIn("taker_only", sig.parameters)
+        # Default preserves what every existing study was built on.
+        self.assertIs(sig.parameters["taker_only"].default, True)
+
+    def test_the_flag_reaches_the_query_string(self):
+        from polybuyer import sources
+        seen = []
+
+        class FakeFetch:
+            def get(self, url):
+                seen.append(url)
+                return []
+
+        sources.market_tape(FakeFetch(), "0xabc", taker_only=False)
+        self.assertTrue(seen and "takerOnly=false" in seen[0], seen[:1])
+        seen.clear()
+        sources.market_tape(FakeFetch(), "0xabc")
+        self.assertIn("takerOnly=true", seen[0])

@@ -116,6 +116,23 @@ REGISTER: tuple[Learning, ...] = (
         ("targets.FOOTBALLFAN_CLUSTER",),
     ),
     Learning(
+        "the-trades-feed-is-taker-side-only",
+        "data-api /trades returns only the taker side unless takerOnly=false "
+        "is passed: 64 records against 204 on one market, 251 against 592 on "
+        "another. Working from the default, a wallet with 71,709 lifetime "
+        "markets was called a market maker on behavioural grounds. The full "
+        "feed shows the opposite -- $28,536 taken against $32 made. It was "
+        "crossing the spread to lay a scoreline, not quoting it, and the "
+        "wallets actually providing the liquidity (22 of them) never appeared "
+        "in the default feed at all.",
+        "market_tape() takes taker_only, documents that the default is one "
+        "side, and says order role cannot be inferred from lifetime trade "
+        "count -- it is read off which feed a wallet appears in. Existing "
+        "studies keep the taker-only default they were built on.",
+        ("sources.market_tape", "TestTapeSides"),
+        cost="inverted a read of who was providing and who was demanding",
+    ),
+    Learning(
         "signals-come-from-history-not-the-tape",
         "A follow simulation built signals from market_tape, which is capped "
         "and returns newest-first. On a busy market that holds only recent "

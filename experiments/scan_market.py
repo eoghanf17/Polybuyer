@@ -15,6 +15,14 @@ market. Split into bought-versus-sold it often turns out one-sided, and a
 wallet with tens of thousands of lifetime markets is a maker providing
 quotes rather than anyone with a view.
 
+**Maker versus taker cannot be inferred from trade count.** ``/trades``
+returns only the taker side unless ``taker_only=False`` is passed, so a
+wallet dominating the default feed is dominating the *aggressive* flow --
+the opposite of quoting. The scanner reads both feeds and reports each
+wallet's notional as taker and as maker separately. A lifetime-market count
+says a wallet is automated; it says nothing about which side of the book it
+sits on.
+
 **Staleness.** ``Fetcher``'s cache has no TTL: once a URL is read it is
 served from disk forever. That is right for resolved markets and wrong for
 a live one, where it silently answers a question about the past. This
@@ -40,8 +48,9 @@ from polybuyer.sources import market_tape, markets_traded
 from polybuyer.targets import FOOTBALLFAN_CLUSTER
 
 GAMMA = "https://gamma-api.polymarket.com"
-#: A wallet above this many lifetime markets is quoting, not opining.
-MAKER_MARKETS = 5_000
+#: A wallet above this many lifetime markets is automated. It does NOT
+#: follow that it is quoting -- see the module docstring.
+AUTOMATED_MARKETS = 5_000
 
 
 def fetch(url: str):
@@ -69,6 +78,7 @@ def main() -> None:
           f"{'wallets':>8}{'last px':>9}")
 
     hits, movers = [], defaultdict(float)
+    took, made = defaultdict(float), defaultdict(float)
     newest = 0
     truncated = []
     for m in ev.get("markets") or []:
@@ -76,6 +86,21 @@ def main() -> None:
         trs = normalise_many(mt.trades)
         if not trs:
             continue
+        # Taker side first: the keys have to exist before the full feed is
+        # differenced against them, or every record reads as maker.
+        keys = set()
+        for r in mt.trades:
+            keys.add((r.get("transactionHash"), r.get("proxyWallet"),
+                      r.get("side"), r.get("price"), r.get("size")))
+            took[str(r.get("proxyWallet", "")).lower()] += (
+                float(r.get("size", 0)) * float(r.get("price", 0)))
+        # Whatever the full feed adds is the resting side.
+        for r in market_tape(f, m["conditionId"], taker_only=False).trades:
+            k = (r.get("transactionHash"), r.get("proxyWallet"), r.get("side"),
+                 r.get("price"), r.get("size"))
+            if k not in keys:
+                made[str(r.get("proxyWallet", "")).lower()] += (
+                    float(r.get("size", 0)) * float(r.get("price", 0)))
         trs.sort(key=lambda t: t.ts)
         newest = max(newest, trs[-1].ts)
         if mt.truncated:
@@ -92,13 +117,20 @@ def main() -> None:
 
     print(f"\n  largest net positions across the event "
           f"(+ = long the outcome, - = writing it)")
-    print(f"  {'wallet':<44}{'net $':>12}{'lifetime mkts':>15}  read")
+    print(f"  {'wallet':<44}{'net $':>11}{'took $':>10}{'made $':>10}"
+          f"{'lifetime':>10}  read")
     for w, v in sorted(movers.items(), key=lambda kv: -abs(kv[1]))[:8]:
         n = markets_traded(f, w)
-        read = "maker" if n >= MAKER_MARKETS else ""
+        t, mk = took.get(w, 0.0), made.get(w, 0.0)
+        read = ""
+        if t + mk > 0:
+            read = "aggressor" if t > 3 * mk else ("provider" if mk > 3 * t
+                                                  else "both sides")
+        if n >= AUTOMATED_MARKETS:
+            read += " (bot)"
         if w in cl:
             read = f"** {cl[w]} **"
-        print(f"  {w:<44}{v:>+12,.0f}{n:>15,}  {read}")
+        print(f"  {w:<44}{v:>+11,.0f}{t:>10,.0f}{mk:>10,.0f}{n:>10,}  {read}")
 
     print(f"\n  cluster wallets in this event: "
           f"{hits if hits else 'NONE of the four'}")
