@@ -14,6 +14,13 @@ entirely one desk writing the longshot.
 market. Split into bought-versus-sold it often turns out one-sided, and a
 wallet with tens of thousands of lifetime markets is a maker providing
 quotes rather than anyone with a view.
+
+**Staleness.** ``Fetcher``'s cache has no TTL: once a URL is read it is
+served from disk forever. That is right for resolved markets and wrong for
+a live one, where it silently answers a question about the past. This
+scanner therefore runs with ``use_cache=False`` and prints how far behind
+the wall clock the newest print is, so a stale answer cannot be mistaken
+for a current one.
 """
 
 from __future__ import annotations
@@ -53,7 +60,8 @@ def main() -> None:
         sys.exit(f"no event for slug {slug}")
     ev = ev[0]
     cl = {m.address.lower(): m.handle for m in FOOTBALLFAN_CLUSTER}
-    f = Fetcher(cache_dir=".polycache")
+    # Live markets: never cached. See "Staleness" above.
+    f = Fetcher(cache_dir=".polycache", use_cache=False)
 
     print(f"  {ev.get('title')}  (ends {ev.get('endDate','')[:16]})")
     print(f"  {len(ev.get('markets') or [])} markets\n")
@@ -61,11 +69,17 @@ def main() -> None:
           f"{'wallets':>8}{'last px':>9}")
 
     hits, movers = [], defaultdict(float)
+    newest = 0
+    truncated = []
     for m in ev.get("markets") or []:
-        trs = normalise_many(market_tape(f, m["conditionId"]).trades)
+        mt = market_tape(f, m["conditionId"])
+        trs = normalise_many(mt.trades)
         if not trs:
             continue
         trs.sort(key=lambda t: t.ts)
+        newest = max(newest, trs[-1].ts)
+        if mt.truncated:
+            truncated.append(m["question"][:40])
         buy = sum(t.notional for t in trs if t.ref_signed > 0)
         sell = sum(t.notional for t in trs if t.ref_signed < 0)
         q = m["question"][:33]
@@ -88,6 +102,21 @@ def main() -> None:
 
     print(f"\n  cluster wallets in this event: "
           f"{hits if hits else 'NONE of the four'}")
+
+    now = dt.datetime.now(dt.timezone.utc).timestamp()
+    lag = (now - newest) / 60 if newest else None
+    if lag is None:
+        print("  TAPE: no prints in any market")
+    else:
+        stale = "  <-- STALE, treat with care" if lag > 30 else ""
+        print(f"  TAPE: newest print "
+              f"{dt.datetime.fromtimestamp(newest, dt.timezone.utc):%d %b %H:%M:%S} UTC, "
+              f"{lag:.0f} min behind now{stale}")
+    if truncated:
+        print(f"  TAPE TRUNCATED (hit the per-market print cap, oldest trades "
+              f"missing): {truncated}")
+    else:
+        print("  tape complete: no market hit the print cap")
 
 
 if __name__ == "__main__":
